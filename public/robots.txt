@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap URL
+Sitemap: https://husnizayyin.github.io/sitemap.xml

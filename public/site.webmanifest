@@ -1,0 +1,16 @@
+{
+  "name": "Husni Zayyin Ansori — Software Engineer",
+  "short_name": "Husni Zayyin",
+  "description": "Portfolio of Husni Zayyin Ansori (Husni Zayn), Software Engineer based in Jakarta, Indonesia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4EDE2",
+  "theme_color": "#0E3B2E",
+  "icons": [
+    {
+      "src": "/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml"
+    }
+  ]
+}

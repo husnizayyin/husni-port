@@ -72,7 +72,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="hero" ref={rootRef} aria-label="Husni Zayyin Ansori, Software Engineer">
+    <section id="hero" ref={rootRef} aria-label="Husni Zayyin Ansori, Software Engineer in Jakarta">
       <div className="ring" aria-hidden="true">
         <svg viewBox="0 0 1000 480">
           <ellipse ref={ellRef} cx="500" cy="240" rx="480" ry="215" fill="none" stroke="var(--ink)" strokeWidth="1.6" />
@@ -85,11 +85,11 @@ export function Hero() {
             <span key={i} className="ch fr">{c}</span>
           ))}
         </h1>
-        <p className="hero-say">Husni Zayyin Ansori · Software Engineer</p>
+        <p className="hero-say">Husni Zayyin Ansori · Software Engineer in Jakarta</p>
       </div>
       <div className="hero-foot">
         <p>
-          <b>Results-driven Software Engineer.</b> Architecting scalable web & mobile systems bridging complex back-end logic
+          <b>Results-driven Software Engineer based in Jakarta, Indonesia.</b> Architecting scalable web & mobile systems bridging complex back-end logic
           with high-performance interfaces (Next.js, Flutter, React, Laravel, PostgreSQL).
         </p>
         <div className="scrollcue">
