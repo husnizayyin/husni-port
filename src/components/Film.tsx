@@ -4,7 +4,7 @@ import { linear, scrollToY } from '../lib/scroll';
 import { prefersReducedMotion, fmt } from '../lib/util';
 import { buildFilmTimeline, FILM_SCENES, FILM_SECONDS } from './buildFilmTimeline';
 import { CHANNELS } from '../data/channels';
-import { FEW, MIX_BAR, NODES, RAIN, STAGES, TRAVELLERS } from '../data/filmData';
+import { FEW, FUNNEL_CX, MIX_BAR, NODES, RAIN, STAGES, TRAVELLERS } from '../data/filmData';
 import { INK, ORANGE } from '../data/tokens';
 
 const svgText = { fontFamily: 'var(--g)' } as const;
@@ -177,7 +177,7 @@ export function Film() {
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <g id="funnel">
                     {STAGES.map((s, i) => (
-                      <ellipse key={s.label} cx="800" cy={250 + i * 150} rx={s.rx} ry="46" fill="none" stroke={INK} strokeWidth="2" opacity="0" />
+                      <ellipse key={s.label} cx={FUNNEL_CX} cy={230 + i * 150} rx={s.rx} ry={44} fill="none" stroke={INK} strokeWidth="2" opacity="0" />
                     ))}
                   </g>
                   <g id="rain">
@@ -187,11 +187,11 @@ export function Film() {
                   </g>
                   <g id="fLab">
                     {STAGES.map((s, i) => {
-                      const lx = 800 + s.rx + 26;
+                      const lx = FUNNEL_CX + s.rx + 28;
                       return (
                         <g key={s.label} opacity="0">
-                          <text x={lx} y={244 + i * 150} fontSize="25" fontWeight="600" fill={i === 3 ? ORANGE : INK} style={svgText}>{fmt(s.value)}</text>
-                          <text x={lx} y={272 + i * 150} fontSize="17" fill={INK} opacity=".7" style={svgText}>{s.label}</text>
+                          <text x={lx} y={224 + i * 150} fontSize="26" fontWeight="600" fill={i === 3 ? ORANGE : INK} style={svgText}>{fmt(s.value)}</text>
+                          <text x={lx} y={252 + i * 150} fontSize="17" fontWeight="500" fill={INK} opacity=".75" style={svgText}>{s.label}</text>
                         </g>
                       );
                     })}

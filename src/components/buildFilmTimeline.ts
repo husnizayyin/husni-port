@@ -1,6 +1,6 @@
 import { gsap } from '../lib/gsap';
 import { ellipsePoint, fmt, quadPoint } from '../lib/util';
-import { MIXES, MIX_BAR, NODES, RAIN, STOPS, TRAVELLERS } from '../data/filmData';
+import { FUNNEL_CX, MIXES, MIX_BAR, NODES, RAIN, STOPS, TRAVELLERS } from '../data/filmData';
 import { CHANNELS } from '../data/channels';
 import { INK, ORANGE } from '../data/tokens';
 
@@ -137,7 +137,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
     const shapes = many<SVGEllipseElement>('#funnel ellipse');
     const texts = many<SVGGElement>('#fLab > g');
     const dots = many<SVGCircleElement>('#rain circle');
-    gsap.set(shapes, { opacity: 0, scaleX: 0.5, transformOrigin: '800px 450px' });
+    gsap.set(shapes, { opacity: 0, scaleX: 0.5, transformOrigin: `${FUNNEL_CX}px 450px` });
     gsap.set(texts, { opacity: 0 });
     gsap.set(dots, { opacity: 0 });
     tl.to(shapes, { opacity: 1, scaleX: 1, duration: 0.55, ease: 'expo.out', stagger: 0.1 }, 7.8)
@@ -152,7 +152,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
           const stop = d.keep < 0.09 ? STOPS[3] : d.keep < 0.22 ? STOPS[2] : d.keep < 0.45 ? STOPS[1] : STOPS[0];
           const p = Math.min(local, stop);
           const done = stop === 1 && p >= 1;
-          el.setAttribute('cx', String(d.x + (800 - d.x) * p * p));
+          el.setAttribute('cx', String(d.x + (FUNNEL_CX - d.x) * p * p));
           el.setAttribute('cy', String(120 + p * 580));
           el.setAttribute('fill', done ? ORANGE : INK);
           el.setAttribute('r', done ? '6.5' : '4.5');

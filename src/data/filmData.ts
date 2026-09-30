@@ -21,18 +21,20 @@ export const MIXES = [
   [0.60, 0.25, 0.15],
   [0.20, 0.60, 0.20],
 ];
-export const MIX_BAR = { x: 150, w: 1300, y: 420, h: 130 };
+export const MIX_BAR = { x: 180, w: 1240, y: 410, h: 120 };
+
+export const FUNNEL_CX = 620;
 
 export const STAGES = [
-  { label: 'All-Time Total GitHub Contributions', value: 3766, rx: 540 },
-  { label: '2026 Active Code Contributions', value: 1677, rx: 410 },
-  { label: 'Production Products Delivered Worldwide', value: 15, rx: 290 },
-  { label: 'Companies & Organizations Scaled', value: 5, rx: 170 },
+  { label: 'All-Time Total GitHub Contributions', value: 3766, rx: 420 },
+  { label: '2026 Active Code Contributions', value: 1677, rx: 310 },
+  { label: 'Production Products Delivered Worldwide', value: 15, rx: 210 },
+  { label: 'Companies & Organizations Scaled', value: 5, rx: 110 },
 ];
 /** Normalised y position where a falling dot stops for each stage (1 = reaches the bottom). */
 export const STOPS = [0.224, 0.483, 0.741, 1];
 export const RAIN = Array.from({ length: 170 }, () => ({
-  x: 300 + rnd() * 1000,
+  x: 180 + rnd() * 880,
   drop: rnd(),
   keep: rnd(),
 }));
