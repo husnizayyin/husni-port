@@ -53,6 +53,17 @@ export function Contact() {
           Indonesia (UTC+7) · <span>{clock}</span> WIB<br />Open for Software Engineering Roles & Collaboration
         </div>
       </div>
+      <div className="social-links" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '13.5px', fontWeight: 600 }}>
+        <a href="https://github.com/husnizayyin" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', borderBottom: '1px solid var(--hair)', paddingBottom: '3px', color: 'var(--ink)' }}>
+          GitHub (25+ Repos) ↗
+        </a>
+        <a href="https://t.me/husnizayn" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', borderBottom: '1px solid var(--hair)', paddingBottom: '3px', color: 'var(--ink)' }}>
+          Telegram (@husnizayn) ↗
+        </a>
+        <a href="https://x.com/husnizayn" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', borderBottom: '1px solid var(--hair)', paddingBottom: '3px', color: 'var(--ink)' }}>
+          X / Twitter (@husnizayn) ↗
+        </a>
+      </div>
       <div className="legal">
         <span>Husni Zayyin Ansori · Software Engineer</span>
         <span>5 Years Experience · React, Next.js, Flutter, React Native, Laravel, Java, Kotlin, Databases</span>
