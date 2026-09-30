@@ -198,9 +198,9 @@ section { position: relative; }
 .wintro p { max-width: 30ch; color: var(--soft); font-size: 15px; line-height: 1.55; }
 .wintro .eyeline { margin-bottom: 0; }
 .wcard {
-  position: relative; flex: 0 0 auto; width: min(85vw, 520px); height: min(72svh, 570px); min-height: 480px;
+  position: relative; flex: 0 0 auto; width: min(88vw, 580px); height: min(78svh, 640px); min-height: 520px;
   background: var(--white); border-radius: clamp(14px, 1.6vw, 24px); border: 1px solid var(--hair);
-  padding: clamp(22px, 2.4vw, 32px); display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;
+  padding: clamp(20px, 2.2vw, 28px); display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;
   box-shadow: 0 20px 40px -25px rgba(14, 59, 46, 0.12);
 }
 .wcard-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
@@ -208,15 +208,26 @@ section { position: relative; }
 .wcard-company { font-size: 13.5px; font-weight: 650; color: var(--ink); letter-spacing: -0.005em; line-height: 1.25; }
 .wcard-period { font-size: 11.5px; font-weight: 500; color: var(--soft); }
 .wcard .pill { padding: 5px 12px; border-radius: 99px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0; }
-.wcard-body { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; flex: 0 0 auto; }
-.wcard h3 { font-size: clamp(20px, 2vw, 25px); line-height: 1.18; --o: 36; --s: 24; --fw: 650; letter-spacing: -0.015em; color: var(--ink); }
-.wcard-desc { font-size: clamp(13px, 1.1vw, 14px); line-height: 1.5; color: var(--soft); margin: 0; font-weight: 450; }
-.wcard figure { height: 60px; min-height: 48px; max-height: 70px; margin: 12px 0 0; display: flex; align-items: flex-end; }
+.wcard-body { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto; }
+.wcard h3 { font-size: clamp(19px, 1.8vw, 23px); line-height: 1.18; --o: 36; --s: 24; --fw: 650; letter-spacing: -0.015em; color: var(--ink); }
+.wcard-desc { font-size: clamp(12.5px, 1.05vw, 13.5px); line-height: 1.48; color: var(--soft); margin: 0; font-weight: 450; }
+.wcard-products { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
+.wcard-products-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--soft); opacity: 0.85; }
+.wcard-product-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.product-chip {
+  background: var(--veil); border: 1px solid var(--hair); border-radius: 6px;
+  padding: 3px 8px; display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; line-height: 1.2; transition: all 0.2s ease; cursor: default;
+}
+.product-chip:hover { border-color: rgba(14, 59, 46, 0.25); background: rgba(14, 59, 46, 0.05); }
+.product-chip .p-name { font-weight: 650; color: var(--ink); }
+.product-chip .p-tech { font-size: 9.5px; font-weight: 600; color: var(--soft); background: rgba(0, 0, 0, 0.05); padding: 1px 4px; border-radius: 3px; }
+.wcard figure { height: 44px; min-height: 36px; max-height: 52px; margin: 6px 0 0; display: flex; align-items: flex-end; }
 .wcard figure svg { width: 100%; height: 100%; overflow: visible; }
-.wcard .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; border-top: 1px solid var(--hair); padding-top: 14px; margin-top: auto; }
+.wcard .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border-top: 1px solid var(--hair); padding-top: 10px; margin-top: auto; }
 .wcard .stats div { min-width: 0; }
-.wcard .stats b { display: block; font-size: clamp(15px, 1.4vw, 19px); --o: 36; --s: 30; --fw: 650; line-height: 1.2; word-break: break-word; }
-.wcard .stats span { display: block; font-size: 11.5px; color: var(--soft); margin-top: 4px; line-height: 1.35; }
+.wcard .stats b { display: block; font-size: clamp(14px, 1.3vw, 17px); --o: 36; --s: 30; --fw: 650; line-height: 1.2; word-break: break-word; }
+.wcard .stats span { display: block; font-size: 11px; color: var(--soft); margin-top: 3px; line-height: 1.3; }
 .wend { flex: 0 0 auto; width: min(66vw, 330px); display: flex; align-items: center; }
 .wend p { font-size: clamp(17px, 1.9vw, 25px); line-height: 1.3; --o: 36; --s: 34; --fw: 550; }
 

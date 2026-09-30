@@ -1,5 +1,11 @@
 export type ChartKind = 'down' | 'up' | 'compound' | 'spike' | 'retain';
 
+export interface WorkProduct {
+  name: string;
+  tech: string;
+  desc?: string;
+}
+
 export interface WorkItem {
   name: string;
   color: string;
@@ -9,23 +15,32 @@ export interface WorkItem {
   period: string;
   title: string;
   desc: string;
+  products: WorkProduct[];
   stats: [value: string, label: string][];
   chart: ChartKind;
 }
 
-/** Professional experience and engineering milestones of Husni Zayyin Ansori (from official CV). */
+/** Professional experience, key products shipped, and engineering milestones of Husni Zayyin Ansori. */
 export const WORK: WorkItem[] = [
   {
     name: 'Archangel Digital Studios Singapore',
     color: '#FF5C1A',
     role: 'Software Engineer',
     period: 'Oct 2025 – Present',
-    title: 'Scalable Full-Stack & Platform Architecture',
-    desc: 'Engineering web & mobile applications with Next.js, React, PostgreSQL, and Flutter (BLOC/GetX), plus custom Shopify (Liquid) and Wix Studio (Velo) integrations.',
+    title: 'Scalable Web, Mobile & Bespoke Platforms',
+    desc: 'Architected and delivered high-impact global applications across high-traffic Next.js web portals, Flutter mobile apps, and custom Liquid/Velo headless commerce solutions.',
+    products: [
+      { name: 'Parent Guide', tech: 'Next.js', desc: 'Family media & SEO-optimized community portal' },
+      { name: 'SGAT Temple Portal', tech: 'Next.js', desc: 'Institutional web platform & events engine' },
+      { name: 'SGAT Mobile Apps', tech: 'Flutter', desc: 'Multi-lingual community member application' },
+      { name: 'Tora Tora Tora Resto', tech: 'Shopify Liquid', desc: 'Custom culinary e-commerce & reservation experience' },
+      { name: 'Delish Storefront', tech: 'Shopify Liquid', desc: 'Bespoke high-conversion storefront & checkout flow' },
+      { name: 'Jiang Education', tech: 'Wix Velo', desc: 'Interactive course booking & learning portal' },
+    ],
     stats: [
-      ['Next.js / React', 'full-stack core'],
-      ['Flutter (BLOC)', 'iOS & Android'],
-      ['Shopify / Wix', 'custom Liquid/Velo'],
+      ['6+ Products', 'deployed worldwide'],
+      ['Next.js / Flutter', 'cross-platform core'],
+      ['Shopify / Wix', 'custom Liquid & Velo'],
     ],
     chart: 'compound',
   },
@@ -34,12 +49,16 @@ export const WORK: WorkItem[] = [
     color: '#7B6CF6',
     role: 'Full Stack Developer',
     period: 'Aug 2025 – Oct 2025',
-    title: 'Mining Enterprise HRIS & Payroll Management',
-    desc: 'Developed an automated HRIS and Payroll Management platform for the mining industry (+30% efficiency), featuring facial recognition biometric tracking and REST APIs.',
+    title: 'Mining Enterprise HRIS & Automated Payroll',
+    desc: 'Architected mission-critical enterprise systems that boosted workforce efficiency by +30%, pairing automated multi-tier payroll engines with AI facial recognition biometrics.',
+    products: [
+      { name: 'Enterprise HRIS', tech: 'Laravel', desc: 'Workforce intelligence with AI facial recognition' },
+      { name: 'Payroll Management', tech: 'Laravel', desc: 'Automated tax, shift differential & payroll engine' },
+    ],
     stats: [
-      ['HRIS & Payroll', 'mining operations'],
-      ['+30%', 'efficiency gain'],
-      ['Biometrics AI', 'facial tracking'],
+      ['+30% Boost', 'operational efficiency'],
+      ['HRIS & Payroll', 'mining enterprise'],
+      ['Biometrics AI', 'facial verification'],
     ],
     chart: 'up',
   },
@@ -49,12 +68,18 @@ export const WORK: WorkItem[] = [
     pillText: '#0E3B2E',
     role: 'Mobile & Full Stack Lead',
     period: 'May 2022 – Aug 2025',
-    title: 'HRIS, Attendance Apps, Custom ERP & POS',
-    desc: 'Architected and engineered core enterprise platforms: corporate HRIS, mobile Attendance Apps (Flutter), Custom ERP systems, and Retail POS for multi-branch operations.',
+    title: 'Omnichannel Retail ERP, POS & Mobile Ecosystem',
+    desc: 'Led full-stack engineering of the enterprise digital backbone—unifying 4 core web & mobile applications powering daily multi-branch retail operations and customer loyalty.',
+    products: [
+      { name: 'Daily A Team Apps', tech: 'Flutter', desc: 'Multi-branch workforce operations & attendance' },
+      { name: 'Triwarna Member Apps', tech: 'React Native', desc: 'Customer loyalty, digital cards & rewards' },
+      { name: 'RKM Member Apps', tech: 'React Native', desc: 'High-traffic retail rewards & promo catalog' },
+      { name: 'Daily Enterprise', tech: 'React JS', desc: 'Central retail ERP & real-time POS backoffice' },
+    ],
     stats: [
-      ['HRIS & Attendance', 'Flutter & Web'],
-      ['Custom ERP', 'operations engine'],
-      ['Retail POS', 'real-time sync'],
+      ['4 Core Apps', 'web & mobile ecosystem'],
+      ['Multi-Branch', 'retail & ERP sync'],
+      ['Flutter & React', 'high-concurrency apps'],
     ],
     chart: 'retain',
   },
@@ -64,11 +89,15 @@ export const WORK: WorkItem[] = [
     pillText: '#0E3B2E',
     role: 'Full Stack Intern',
     period: 'Jul 2020 – Dec 2020',
-    title: 'Warehouse & Courier Management Logistics',
-    desc: 'Engineered Warehouse Management (WMS) & Courier Systems, integrated E-Ticketing mobile APIs, and created core Functional Specification Documents (FSD).',
+    title: 'Logistics WMS & Fleet Ticketing Systems',
+    desc: 'Engineered core logistics and transit infrastructure, delivering automated package sortation workflows and synchronized mobile ticketing APIs for regional fleet transport.',
+    products: [
+      { name: 'Warehouse Management (WMS)', tech: 'Laravel', desc: 'High-throughput courier parcel sortation & logs' },
+      { name: 'Fleet Ticketing Apps', tech: 'Kotlin', desc: 'Live mobile passenger booking & dispatch sync' },
+    ],
     stats: [
-      ['WMS & Courier', 'logistics systems'],
-      ['E-Ticketing', 'mobile API sync'],
+      ['WMS & Courier', 'logistics routing'],
+      ['Live Ticketing', 'mobile API sync'],
       ['FSD & SOP', 'technical specs'],
     ],
     chart: 'spike',
@@ -78,12 +107,15 @@ export const WORK: WorkItem[] = [
     color: '#FF5C1A',
     role: 'Mobile Intern',
     period: 'Jul 2019 – Dec 2019',
-    title: 'Native Android Mobile Applications',
-    desc: 'Built native Android mobile applications using Kotlin, crafting fluid responsive interfaces and integrating backend RESTful web services.',
+    title: 'Native Android E-Ticketing Platform',
+    desc: 'Developed high-performance native Android application features with responsive user interfaces and real-time REST API integration for online bus ticketing.',
+    products: [
+      { name: 'Bosbis Ticket Apps', tech: 'Kotlin', desc: 'Bus booking, live seat selection & e-tickets' },
+    ],
     stats: [
-      ['Kotlin Native', 'Android applications'],
-      ['REST APIs', 'service integration'],
-      ['Responsive UI', 'device optimization'],
+      ['Kotlin Native', 'Android architecture'],
+      ['RESTful APIs', 'live booking sync'],
+      ['Seat Matrix', 'real-time inventory'],
     ],
     chart: 'compound',
   },

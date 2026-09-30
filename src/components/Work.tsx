@@ -69,6 +69,19 @@ export function Work() {
               <div className="wcard-body">
                 <h3 className="fr">{w.title}</h3>
                 <p className="wcard-desc">{w.desc}</p>
+                {w.products && w.products.length > 0 && (
+                  <div className="wcard-products">
+                    <span className="wcard-products-label">Key Deliverables & Products</span>
+                    <div className="wcard-product-chips">
+                      {w.products.map((p) => (
+                        <div className="product-chip" key={p.name} title={p.desc}>
+                          <span className="p-name">{p.name}</span>
+                          <span className="p-tech">{p.tech}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               <figure><WorkChart kind={w.chart} color={w.color} /></figure>
               <div className="stats">
