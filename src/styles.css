@@ -2523,11 +2523,19 @@ section {
    RESPONSIVE MEDIA QUERIES (Desktop, Tablet, Mobile)
    ─────────────────────────────────────────────────────────────── */
 
-/* ── TABLET & DOWN (<= 1024px) ────────────────────────────────── */
+/* ── TABLET & MOBILE (<= 1024px) ────────────────────────────────── */
 @media (max-width: 1024px) {
   :root {
     --gut: clamp(16px, 3.8vw, 48px);
     --rail: clamp(20px, 3vw, 40px);
+  }
+
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-nav-toggle {
+    display: inline-flex;
   }
 
   .gh-metrics-row {
@@ -2545,15 +2553,9 @@ section {
   }
 }
 
-/* ── COMPACT TABLET & NAVIGATION BREAKPOINT (<= 860px) ──────── */
+/* ── COMPACT TABLET & MID-SIZE SCREENS (<= 860px) ──────── */
 @media (max-width: 860px) {
-  .desktop-nav {
-    display: none !important;
-  }
 
-  .mobile-nav-toggle {
-    display: inline-flex;
-  }
 
   .mgrid {
     grid-template-columns: 1fr;
