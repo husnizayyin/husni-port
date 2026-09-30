@@ -36,8 +36,8 @@ export function Work() {
           yPercent: 8, opacity: 0.3, duration: 1, ease: 'expo.out',
           scrollTrigger: { trigger: card, containerAnimation: across, start: 'left 96%', end: 'left 56%', scrub: 0.5 },
         });
-        gsap.fromTo(card.querySelector('figure svg'), { xPercent: -5, opacity: 0.75 }, {
-          xPercent: 5, opacity: 1, ease: 'none',
+        gsap.fromTo(card.querySelector('.work-pipeline'), { xPercent: -3, opacity: 0.85 }, {
+          xPercent: 3, opacity: 1, ease: 'none',
           scrollTrigger: { trigger: card, containerAnimation: across, start: 'left right', end: 'right left', scrub: 0.6 },
         });
       });
@@ -83,7 +83,7 @@ export function Work() {
                   </div>
                 )}
               </div>
-              <figure><WorkChart kind={w.chart} color={w.color} /></figure>
+              <WorkChart pipeline={w.pipeline} color={w.color} />
               <div className="stats">
                 {w.stats.map(([value, label]) => (
                   <div key={label}>

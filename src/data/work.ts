@@ -1,9 +1,12 @@
-export type ChartKind = 'down' | 'up' | 'compound' | 'spike' | 'retain';
-
 export interface WorkProduct {
   name: string;
   tech: string;
   desc?: string;
+}
+
+export interface WorkPipeline {
+  label: string;
+  steps: string[];
 }
 
 export interface WorkItem {
@@ -16,8 +19,8 @@ export interface WorkItem {
   title: string;
   desc: string;
   products: WorkProduct[];
+  pipeline: WorkPipeline;
   stats: [value: string, label: string][];
-  chart: ChartKind;
 }
 
 /** Professional experience, key products shipped, and engineering milestones of Husni Zayyin Ansori. */
@@ -37,12 +40,15 @@ export const WORK: WorkItem[] = [
       { name: 'Delish Storefront', tech: 'Shopify Liquid', desc: 'Bespoke high-conversion storefront & checkout flow' },
       { name: 'Jiang Education', tech: 'Wix Velo', desc: 'Interactive course booking & learning portal' },
     ],
+    pipeline: {
+      label: 'Production Architecture Pipeline',
+      steps: ['Next.js SSR', 'Flutter (BLOC)', 'Liquid / Velo', 'Cloud DB'],
+    },
     stats: [
       ['6+ Products', 'deployed worldwide'],
       ['Next.js / Flutter', 'cross-platform core'],
       ['Shopify / Wix', 'custom Liquid & Velo'],
     ],
-    chart: 'compound',
   },
   {
     name: 'PT Stars Global Resources',
@@ -55,12 +61,15 @@ export const WORK: WorkItem[] = [
       { name: 'Enterprise HRIS', tech: 'Laravel', desc: 'Workforce intelligence with AI facial recognition' },
       { name: 'Payroll Management', tech: 'Laravel', desc: 'Automated tax, shift differential & payroll engine' },
     ],
+    pipeline: {
+      label: 'Automated Payroll & Biometrics Flow',
+      steps: ['Biometrics AI', 'Laravel Core', 'Payroll Engine', 'Audit Logs'],
+    },
     stats: [
       ['+30% Boost', 'operational efficiency'],
       ['HRIS & Payroll', 'mining enterprise'],
       ['Biometrics AI', 'facial verification'],
     ],
-    chart: 'up',
   },
   {
     name: 'PT Anyar Retail Indonesia',
@@ -76,12 +85,15 @@ export const WORK: WorkItem[] = [
       { name: 'RKM Member Apps', tech: 'React Native', desc: 'High-traffic retail rewards & promo catalog' },
       { name: 'Daily Enterprise', tech: 'React JS', desc: 'Central retail ERP & real-time POS backoffice' },
     ],
+    pipeline: {
+      label: 'Omnichannel Enterprise Sync',
+      steps: ['Store POS', 'React ERP', 'Flutter Ops', 'SQL Cluster'],
+    },
     stats: [
       ['4 Core Apps', 'web & mobile ecosystem'],
       ['Multi-Branch', 'retail & ERP sync'],
       ['Flutter & React', 'high-concurrency apps'],
     ],
-    chart: 'retain',
   },
   {
     name: 'PT HS Budiman',
@@ -95,12 +107,15 @@ export const WORK: WorkItem[] = [
       { name: 'Warehouse Management (WMS)', tech: 'Laravel', desc: 'High-throughput courier parcel sortation & logs' },
       { name: 'Fleet Ticketing Apps', tech: 'Kotlin', desc: 'Live mobile passenger booking & dispatch sync' },
     ],
+    pipeline: {
+      label: 'Logistics & Transit Architecture',
+      steps: ['Courier Hub', 'WMS Engine', 'Ticket API', 'Fleet Sync'],
+    },
     stats: [
       ['WMS & Courier', 'logistics routing'],
       ['Live Ticketing', 'mobile API sync'],
       ['FSD & SOP', 'technical specs'],
     ],
-    chart: 'spike',
   },
   {
     name: 'PT Media Baru Digital',
@@ -112,11 +127,14 @@ export const WORK: WorkItem[] = [
     products: [
       { name: 'Bosbis Ticket Apps', tech: 'Kotlin', desc: 'Bus booking, live seat selection & e-tickets' },
     ],
+    pipeline: {
+      label: 'Mobile Engine Architecture',
+      steps: ['Kotlin UI', 'REST Gateways', 'Seat Inventory', 'Android SDK'],
+    },
     stats: [
       ['Kotlin Native', 'Android architecture'],
       ['RESTful APIs', 'live booking sync'],
       ['Seat Matrix', 'real-time inventory'],
     ],
-    chart: 'compound',
   },
 ];
