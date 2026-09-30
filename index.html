@@ -23,6 +23,11 @@
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="7WCxRQWaoo0AJFZkHLpXeXgv6sUe-IgIDU3h" />
 
+    <!-- Site Name Definitions for Google Search Results -->
+    <meta name="application-name" content="Husni Zayyin Ansori" />
+    <meta name="apple-mobile-web-app-title" content="Husni Zayyin Ansori" />
+    <meta property="og:site_name" content="Husni Zayyin Ansori" />
+
     <!-- Robots & Crawler Directives -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -34,9 +39,16 @@
     <meta name="geo.position" content="-6.2088;106.8456" />
     <meta name="ICBM" content="-6.2088, 106.8456" />
 
+    <!-- Favicon & Touch Icons for Google Search and Browsers -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0E3B2E" />
+
     <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="profile" />
-    <meta property="og:site_name" content="Husni Zayyin Ansori Portfolio" />
     <meta property="og:title" content="Husni Zayyin Ansori — Software Engineer in Jakarta" />
     <meta
       property="og:description"
@@ -66,16 +78,28 @@
     <meta name="twitter:image" content="https://husnizayn.vercel.app/og-image.svg" />
     <meta name="twitter:image:alt" content="Husni Zayyin Ansori Portfolio Card" />
 
-    <!-- Favicon & Web App Manifest -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230E3B2E%27/%3E%3Ctext x=%2716%27 y=%2722%27 fill=%27%23FF5C1A%27 font-family=%27sans-serif%27 font-size=%2715%27 font-weight=%27bold%27 text-anchor=%27middle%27%3EHZ%3C/text%3E%3C/svg%3E" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0E3B2E" />
-
-    <!-- JSON-LD Structured Data for Google Knowledge Graph & Rich Snippets -->
+    <!-- JSON-LD Structured Data for Google Knowledge Graph & Site Name -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://husnizayn.vercel.app/#website",
+            "url": "https://husnizayn.vercel.app/",
+            "name": "Husni Zayyin Ansori",
+            "alternateName": [
+              "Husni Zayn",
+              "Husni Zayyin",
+              "Husni Portfolio",
+              "Husni Zayyin Ansori Portfolio"
+            ],
+            "description": "Official website & portfolio of Husni Zayyin Ansori, Senior Software Engineer based in Jakarta, Indonesia.",
+            "publisher": {
+              "@id": "https://husnizayn.vercel.app/#person"
+            },
+            "inLanguage": ["id", "en"]
+          },
           {
             "@type": "Person",
             "@id": "https://husnizayn.vercel.app/#person",
@@ -122,20 +146,9 @@
             ]
           },
           {
-            "@type": "WebSite",
-            "@id": "https://husnizayn.vercel.app/#website",
-            "url": "https://husnizayn.vercel.app",
-            "name": "Husni Zayyin Ansori — Software Engineer Portfolio",
-            "description": "Portfolio of Husni Zayyin Ansori, Software Engineer based in Jakarta, Indonesia.",
-            "publisher": {
-              "@id": "https://husnizayn.vercel.app/#person"
-            },
-            "inLanguage": ["id", "en"]
-          },
-          {
             "@type": "ProfilePage",
             "@id": "https://husnizayn.vercel.app/#webpage",
-            "url": "https://husnizayn.vercel.app",
+            "url": "https://husnizayn.vercel.app/",
             "name": "Husni Zayyin Ansori — Software Engineer in Jakarta | Portfolio",
             "isPartOf": {
               "@id": "https://husnizayn.vercel.app/#website"
@@ -152,8 +165,7 @@
             "name": "Software Engineer",
             "occupationalCategory": "15-1252.00",
             "skills": "React, Next.js, Flutter, TypeScript, Full Stack, PostgreSQL, System Design",
-            "estimatedSalary": [],
-            "mainEntityOfPage": "https://husnizayn.vercel.app"
+            "mainEntityOfPage": "https://husnizayn.vercel.app/"
           }
         ]
       }
