@@ -60,7 +60,11 @@ export function Work() {
               <header className="wcard-head">
                 <div className="wcard-meta">
                   <span className="wcard-company">{w.name}</span>
-                  <span className="wcard-period">{w.period}</span>
+                  <div className="wcard-submeta">
+                    <span className="wcard-period">{w.period}</span>
+                    <span className="wcard-sep" aria-hidden="true">•</span>
+                    <span className="wcard-loc">{w.location}</span>
+                  </div>
                 </div>
                 <span className="pill" style={{ background: w.color, color: w.pillText ?? '#FBFBF8' }}>
                   {w.role}

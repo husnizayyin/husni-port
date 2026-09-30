@@ -205,8 +205,11 @@ section { position: relative; }
 }
 .wcard-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
 .wcard-meta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.wcard-company { font-size: 14px; font-weight: 650; color: var(--ink); letter-spacing: -0.005em; line-height: 1.25; }
+.wcard-company { font-size: 14.5px; font-weight: 650; color: var(--ink); letter-spacing: -0.005em; line-height: 1.25; }
+.wcard-submeta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .wcard-period { font-size: 12px; font-weight: 500; color: var(--soft); }
+.wcard-sep { font-size: 10px; color: var(--soft); opacity: 0.5; }
+.wcard-loc { font-size: 12px; font-weight: 600; color: var(--ink); opacity: 0.85; }
 .wcard .pill { padding: 6px 14px; border-radius: 99px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0; }
 .wcard-body { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; flex: 1 1 auto; justify-content: flex-start; }
 .wcard h3 { font-size: clamp(20px, 1.9vw, 24px); line-height: 1.22; --o: 36; --s: 24; --fw: 650; letter-spacing: -0.015em; color: var(--ink); }

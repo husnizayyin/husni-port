@@ -14,7 +14,9 @@ export interface WorkTech {
 
 export interface WorkItem {
   name: string;
+  location: string;
   color: string;
+  /** Pill text colour when white would not have enough contrast on `color`. */
   pillText?: string;
   role: string;
   period: string;
@@ -27,10 +29,11 @@ export interface WorkItem {
   stats: [value: string, label: string][];
 }
 
-/** Professional experience, key products shipped, tech stack icons, and growth trajectory. */
+/** Professional experience, work locations, key products shipped, tech stack icons, and growth trajectory. */
 export const WORK: WorkItem[] = [
   {
-    name: 'Archangel Digital Studios Singapore',
+    name: 'Archangel Digital Studios',
+    location: 'Singapore',
     color: '#FF5C1A',
     role: 'Software Engineer',
     period: 'Oct 2025 – Present',
@@ -86,6 +89,7 @@ export const WORK: WorkItem[] = [
   },
   {
     name: 'PT Stars Global Resources',
+    location: 'Jakarta, Indonesia',
     color: '#7B6CF6',
     role: 'Full Stack Developer',
     period: 'Aug 2025 – Oct 2025',
@@ -132,6 +136,7 @@ export const WORK: WorkItem[] = [
   },
   {
     name: 'PT Anyar Retail Indonesia',
+    location: 'Bandung, Indonesia',
     color: '#3FA98A',
     pillText: '#0E3B2E',
     role: 'Mobile & Full Stack Lead',
@@ -186,6 +191,7 @@ export const WORK: WorkItem[] = [
   },
   {
     name: 'PT HS Budiman',
+    location: 'Tasikmalaya, Indonesia',
     color: '#E8C547',
     pillText: '#0E3B2E',
     role: 'Full Stack Intern',
@@ -233,6 +239,7 @@ export const WORK: WorkItem[] = [
   },
   {
     name: 'PT Media Baru Digital',
+    location: 'Jakarta, Indonesia',
     color: '#FF5C1A',
     role: 'Mobile Intern',
     period: 'Jul 2019 – Dec 2019',
