@@ -6,6 +6,7 @@ import { Hero } from './components/Hero';
 import { Position } from './components/Position';
 import { Film } from './components/Film';
 import { Work } from './components/Work';
+import { TechStack } from './components/TechStack';
 import { Depth } from './components/Depth';
 import { Mix } from './components/Mix';
 import { Contact } from './components/Contact';
@@ -39,6 +40,7 @@ export default function App() {
         <Position />
         <Film />
         <Work />
+        <TechStack />
         <Depth />
         <Mix />
         <Contact />
