@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from '../lib/gsap';
 import { klTime } from '../lib/util';
 
-const LOGO = ['O', 'v', 'a', 'l'];
+const LOGO = ['H', 'u', 's', 'n', 'i'];
 
 /** Section 06. The ellipse draws itself as you arrive and the wordmark rises inside it. */
 export function Contact() {
@@ -48,14 +48,14 @@ export function Contact() {
         </div>
       </div>
       <div className="cta">
-        <a className="fr" href="mailto:new@oval.studio">new@oval.studio</a>
+        <a className="fr" href="mailto:husnizayyin@gmail.com">husnizayyin@gmail.com</a>
         <div className="who">
-          Kuala Lumpur · <span>{clock}</span> MYT<br />Two account slots open for Q1
+          Indonesia (UTC+7) · <span>{clock}</span> WIB<br />Open for Software Engineering Roles & Collaboration
         </div>
       </div>
       <div className="legal">
-        <span>Oval Studio</span>
-        <span>One page, drawn live in your browser</span>
+        <span>Husni Zayyin Ansori · Software Engineer</span>
+        <span>5 Years Experience · React, Next.js, Flutter, React Native, Laravel, Java, Kotlin, Databases</span>
       </div>
     </section>
   );

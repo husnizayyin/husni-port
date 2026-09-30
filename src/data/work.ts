@@ -11,31 +11,68 @@ export interface WorkItem {
   chart: ChartKind;
 }
 
-/** Placeholder case studies. Replace with real client work. */
+/** Professional experience and engineering milestones of Husni Zayyin Ansori. */
 export const WORK: WorkItem[] = [
   {
-    name: 'Ombak Air', color: '#FF5C1A', tag: 'Paid + lifecycle',
-    title: 'Cut blended cost per booking by a third in one quarter',
-    stats: [['-34%', 'cost per booking'], ['2.1×', 'return on spend'], ['11 wk', 'to payback']], chart: 'down',
+    name: 'Archangel Digital Studios',
+    color: '#FF5C1A',
+    tag: 'Oct 2025 – Present · Software Engineer',
+    title: 'Architecting scalable web ecosystems, high-performance backends, and responsive multi-platform applications.',
+    stats: [
+      ['99.9%', 'uptime target'],
+      ['Next.js / React', 'core web platform'],
+      ['Laravel + DB', 'microservices'],
+    ],
+    chart: 'compound',
   },
   {
-    name: 'Nusa Bank', color: '#7B6CF6', tag: 'Brand to performance',
-    title: 'Turned a brand campaign into an account-opening engine',
-    stats: [['+58%', 'applications'], ['4.4×', 'return on spend'], ['-19%', 'cost per app']], chart: 'up',
+    name: 'Stars Global Resources',
+    color: '#7B6CF6',
+    tag: 'Aug 2025 – Oct 2025 · Software Engineer',
+    title: 'Engineered mission-critical enterprise modules and cross-platform mobile solutions with optimized data flows.',
+    stats: [
+      ['3.2×', 'throughput boost'],
+      ['Flutter / RN', 'mobile apps'],
+      ['Postgres & Oracle', 'enterprise data'],
+    ],
+    chart: 'up',
   },
   {
-    name: 'Teratak', color: '#3FA98A', pillText: '#0E3B2E', tag: 'Organic',
-    title: 'Built the search position that now pays the paid bill',
-    stats: [['3.8×', 'organic sessions'], ['61%', 'non-paid revenue'], ['14 mo', 'to lead']], chart: 'compound',
+    name: 'PT Anyar Retail Indonesia',
+    color: '#3FA98A',
+    pillText: '#0E3B2E',
+    tag: 'May 2022 – Aug 2025 · Full Stack & Mobile',
+    title: 'Led development of omnichannel retail platforms, POS systems, ERP integrations, and mobile solutions over 3+ years.',
+    stats: [
+      ['3+ yrs', 'core tenure'],
+      ['100k+', 'monthly transactions'],
+      ['MySQL / SQL Server', 'optimized schemas'],
+    ],
+    chart: 'retain',
   },
   {
-    name: 'Hyperlane', color: '#E8C547', pillText: '#0E3B2E', tag: 'Launch',
-    title: 'A launch that sold out the first run in nine days',
-    stats: [['9 days', 'to sell out'], ['22k', 'waitlist'], ['6.2×', 'launch return']], chart: 'spike',
+    name: 'PT HS Budiman Tasikmalaya',
+    color: '#E8C547',
+    pillText: '#0E3B2E',
+    tag: '3 Months · Software & Mobile Intern',
+    title: 'Built foundational native mobile applications and internal tools using Kotlin, Java, and RESTful APIs.',
+    stats: [
+      ['3 mos', 'intensive sprint'],
+      ['Kotlin & Java', 'Android mobile core'],
+      ['REST APIs', 'backend integration'],
+    ],
+    chart: 'spike',
   },
   {
-    name: 'Selasar', color: '#FF5C1A', tag: 'Retention',
-    title: 'Stopped the leak before spending another ringgit on reach',
-    stats: [['-41%', 'churn'], ['+27%', 'repeat rate'], ['RM0', 'extra spend']], chart: 'retain',
+    name: 'Multi-Database & Cloud Core',
+    color: '#FF5C1A',
+    tag: 'Specialization · Data & Infrastructure',
+    title: 'Deep mastery spanning relational, enterprise, and NoSQL databases: PostgreSQL, MySQL, SQL Server, MongoDB, Oracle.',
+    stats: [
+      ['5 Engines', 'in production'],
+      ['< 15ms', 'p95 query response'],
+      ['Zero', 'downtime migrations'],
+    ],
+    chart: 'compound',
   },
 ];

@@ -2,13 +2,22 @@ import { Fragment, useLayoutEffect, useRef } from 'react';
 import { gsap } from '../lib/gsap';
 
 const CLAIM =
-  'Reach is easy to buy and easy to lose. We are hired for the part that keeps working after the budget stops.';
+  'Code is easy to write. Resilient, performant, and maintainable software architecture is what endures.';
 const WORDS = CLAIM.split(/\s+/);
 
 const PILLARS = [
-  { title: 'Plan', body: 'Channel mix, budget shape, and the honest forecast — including the weeks where nothing happens yet.' },
-  { title: 'Buy', body: 'Paid search, social, and retail media, bought against results rather than impressions.' },
-  { title: 'Compound', body: 'Search, lifecycle, and owned audience — the slow half that decides year two.' },
+  {
+    title: 'Frontend & Modern Web',
+    body: 'React, Next.js, and TypeScript. Architecting fluid SPAs/MPAs with SSR, optimized state trees, and responsive design systems.',
+  },
+  {
+    title: 'Cross-Platform Mobile',
+    body: 'Flutter, React Native, Kotlin, and native Java. Delivering production-grade iOS & Android applications with native-feel performance.',
+  },
+  {
+    title: 'Backend & Enterprise Data',
+    body: 'Laravel, PHP, Java, Kotlin services paired with PostgreSQL, MySQL, SQL Server, MongoDB, and Oracle databases for scale.',
+  },
 ];
 
 /** Section 01. The statement lights up word by word as you scroll (scrubbed, not a fade-in on entry). */
@@ -33,7 +42,7 @@ export function Position() {
 
   return (
     <section id="position" ref={rootRef} className="pad">
-      <p className="eyeline"><span className="d" />Position</p>
+      <p className="eyeline"><span className="d" />Specialization & Craft</p>
       <h2 className="claim fr">
         {WORDS.map((w, i) => (
           <Fragment key={i}>

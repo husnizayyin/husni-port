@@ -17,12 +17,12 @@ import { INK, ORANGE } from '../data/tokens';
  *  13.4  6  The ellipse redraws, wordmark returns
  */
 export const FILM_SCENES: [start: number, label: string][] = [
-  [0, '01 — The ellipse'],
-  [2.4, '02 — Reach, then results'],
-  [5.2, '03 — Where the money goes'],
-  [7.8, '04 — The funnel'],
-  [11, '05 — Attribution'],
-  [13.4, '06 — Signature'],
+  [0, '01 — Husni Zayyin Ansori'],
+  [2.4, '02 — 5+ Years of Production Code'],
+  [5.2, '03 — Multi-Platform Tech Matrix'],
+  [7.8, '04 — Architecture Pipeline'],
+  [11, '05 — Distributed Convergence'],
+  [13.4, '06 — Engineering Signature'],
 ];
 export const FILM_SECONDS = 15;
 
@@ -80,7 +80,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
     gsap.set(fewLab, { opacity: 0, y: 24 });
     tl.to(big, { scale: 1, opacity: 1, duration: 0.5, ease: 'expo.out' }, 2.4)
       .to(label, { opacity: 0.6, duration: 0.4 }, 2.55)
-      .to(n, { v: 1284306, duration: 1.5, ease: 'power2.out', onUpdate: () => { big.textContent = fmt(n.v); } }, 2.45)
+      .to(n, { v: 1520000, duration: 1.5, ease: 'power2.out', onUpdate: () => { big.textContent = fmt(n.v); } }, 2.45)
       .to(big, { '--s': 100, scale: 0.3, opacity: 0, duration: 0.55, ease: 'power3.inOut' }, 4.05)
       .to(label, { opacity: 0, duration: 0.3 }, 4.05)
       .to(few, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2.2)', stagger: { amount: 0.35, from: 'random' } }, 4.25)
@@ -194,7 +194,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
         });
       },
     }, 11.8)
-      .to(hn, { v: 4118, duration: 1.2, ease: 'power2.out', onUpdate: () => { hubN.textContent = fmt(hn.v); } }, 11.9)
+      .to(hn, { v: 5280, duration: 1.2, ease: 'power2.out', onUpdate: () => { hubN.textContent = fmt(hn.v); } }, 11.9)
       .to([...trav, ...paths, ...nodeGs, head], { opacity: 0, duration: 0.3 }, 13.1)
       .to([hub, hubN], { opacity: 0, duration: 0.25 }, 13.2);
   }

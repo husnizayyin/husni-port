@@ -60,7 +60,7 @@ export function Mix() {
       dotRef.current!.setAttribute('cx', String(x));
       dotRef.current!.setAttribute('cy', String(y));
       outRef.current!.textContent = fmt(v * 1180); // 1180 = illustrative results per unit
-      outLabRef.current!.textContent = 'results by week ' + Math.max(1, Math.round(1 + t * (WEEKS - 1)));
+      outLabRef.current!.textContent = 'engineering output by sprint ' + Math.max(1, Math.round(1 + t * (WEEKS - 1)));
     };
     drawCurve();
     drawHead();
@@ -97,13 +97,13 @@ export function Mix() {
   }, []);
 
   return (
-    <section id="mix" ref={sectionRef} aria-label="Channel mix">
+    <section id="mix" ref={sectionRef} aria-label="Tech stack architecture matrix">
       <div className="mpin pad" ref={pinRef}>
         <div className="mhead">
-          <h2 className="fr">Same budget.<br />Different twelve weeks.</h2>
+          <h2 className="fr">Ecosystem Balance.<br />Engineering Velocity.</h2>
           <p>
-            Every mix below spends the identical amount. Scroll moves the weeks forward; the buttons change where the
-            money sits. Fast channels win early, compounding ones win by week twelve.
+            Every profile models full-cycle software delivery. Scroll steps through sprints 1-12; click the buttons
+            to shift architecture focus across Frontend, Mobile, Backend, and Databases.
           </p>
         </div>
         <div className="mgrid">
@@ -124,16 +124,16 @@ export function Mix() {
               </svg>
             </div>
             <p className="pnote">
-              <b>Solid: the mix you picked</b>
-              <b>Dashed: an even split across all four</b>
-              <b>Vertical: the week you are on</b>
+              <b>Solid: active architecture model</b>
+              <b>Dashed: equal tier distribution</b>
+              <b>Vertical: active sprint cycle</b>
             </p>
           </div>
 
           <div className="mside">
             <div className="readout">
               <b className="fr num" ref={outRef}>0</b>
-              <span ref={outLabRef}>results by week 1</span>
+              <span ref={outLabRef}>engineering output by sprint 1</span>
             </div>
             <div className="mbars">
               {CHANNELS.map((c, i) => (

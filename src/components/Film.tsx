@@ -8,7 +8,7 @@ import { FEW, MIX_BAR, NODES, RAIN, STAGES, TRAVELLERS } from '../data/filmData'
 import { INK, ORANGE } from '../data/tokens';
 
 const svgText = { fontFamily: 'var(--g)' } as const;
-const LOGO = ['O', 'v', 'a', 'l'];
+const LOGO = ['H', 'u', 's', 'n', 'i'];
 
 /**
  * Section 02. A pinned 16:9 "film" whose playhead is the page scroll.
@@ -91,28 +91,28 @@ export function Film() {
   };
 
   return (
-    <section id="film" ref={sectionRef} aria-label="Studio film">
+    <section id="film" ref={sectionRef} aria-label="Software engineering journey">
       <div className="film-pin" ref={pinRef}>
         <div className="film-box">
           <div className="film" ref={frameRef}>
             <div className="stage" ref={stageRef}>
-              {/* 1 · the ellipse */}
+              {/* 1 · the introduction */}
               <div className="scene" id="s1">
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <ellipse id="e1" cx="800" cy="450" rx="470" ry="250" fill="none" stroke={INK} strokeWidth="2" />
                   <circle id="e1dot" cx="1270" cy="450" r="11" fill={ORANGE} />
                 </svg>
                 <div className="s1txt">
-                  <div className="fr s1w" id="s1w">Oval</div>
-                  <div className="s1s" id="s1s">a digital marketing studio</div>
+                  <div className="fr s1w" id="s1w">Husni</div>
+                  <div className="s1s" id="s1s">Software Engineer · 5 Years Experience</div>
                 </div>
               </div>
 
-              {/* 2 · reach, then results */}
+              {/* 2 · production volume & commits */}
               <div className="scene" id="s2">
                 <div className="s2mid">
                   <div className="fr num bignum" id="bigNum">0</div>
-                  <div className="numlab" id="numLab">impressions, last 30 days</div>
+                  <div className="numlab" id="numLab">lines of production code shipped</div>
                 </div>
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <g id="fewDots">
@@ -121,12 +121,12 @@ export function Film() {
                     ))}
                   </g>
                 </svg>
-                <div className="fr fewlab" id="fewLab">of which {fmt(4118)} mattered</div>
+                <div className="fr fewlab" id="fewLab">5,280+ commits & pull requests engineered</div>
               </div>
 
-              {/* 3 · where the money goes */}
+              {/* 3 · tech stack distribution */}
               <div className="scene" id="s3">
-                <div className="fr s3h" id="s3h">Where the money goes</div>
+                <div className="fr s3h" id="s3h">Multi-Platform Ecosystem Distribution</div>
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <g id="mixBar">
                     {CHANNELS.map((c) => (
@@ -141,7 +141,7 @@ export function Film() {
                 </svg>
               </div>
 
-              {/* 4 · the funnel */}
+              {/* 4 · the system architecture pipeline */}
               <div className="scene" id="s4">
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <g id="funnel">
@@ -159,8 +159,8 @@ export function Film() {
                       const lx = 800 + s.rx + 26;
                       return (
                         <g key={s.label} opacity="0">
-                          <text x={lx} y={244 + i * 150} fontSize="29" fontWeight="600" fill={i === 3 ? ORANGE : INK} style={svgText}>{fmt(s.value)}</text>
-                          <text x={lx} y={272 + i * 150} fontSize="18" fill={INK} opacity=".55" style={svgText}>{s.label}</text>
+                          <text x={lx} y={244 + i * 150} fontSize="25" fontWeight="600" fill={i === 3 ? ORANGE : INK} style={svgText}>{fmt(s.value)}</text>
+                          <text x={lx} y={272 + i * 150} fontSize="17" fill={INK} opacity=".7" style={svgText}>{s.label}</text>
                         </g>
                       );
                     })}
@@ -168,7 +168,7 @@ export function Film() {
                 </svg>
               </div>
 
-              {/* 5 · attribution */}
+              {/* 5 · distributed convergence */}
               <div className="scene" id="s5">
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <g id="paths">
@@ -192,7 +192,7 @@ export function Film() {
                   <circle id="hub" cx="800" cy="450" r="0" fill={INK} />
                   <text id="hubN" x="800" y="462" textAnchor="middle" fontSize="46" fontWeight="600" fill="#FBFBF8" opacity="0" style={svgText}>0</text>
                 </svg>
-                <div className="fr s5h" id="s5h">Everything lands in one number</div>
+                <div className="fr s5h" id="s5h">All tiers converge into one resilient core</div>
               </div>
 
               {/* 6 · signature */}
@@ -207,16 +207,16 @@ export function Film() {
                     ))}
                   </div>
                   <div className="endm-mask">
-                    <div className="endm" id="endM">Attention, bought carefully · Kuala Lumpur</div>
+                    <div className="endm" id="endM">Husni Zayyin Ansori · Software Engineer</div>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="film-hud" aria-hidden="true">
-              <div className="a" ref={sceneLabelRef}>01 — The ellipse</div>
+              <div className="a" ref={sceneLabelRef}>01 — Husni Zayyin Ansori</div>
               <div className="b num"><em ref={frameNumRef}>000</em> / 450</div>
-              <div className="c">Film no. 1 · 15 seconds</div>
+              <div className="c">Engineering Journey · 15 seconds</div>
             </div>
           </div>
 

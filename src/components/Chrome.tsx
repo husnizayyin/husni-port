@@ -57,10 +57,11 @@ export function Chrome() {
     <>
       <header className="top">
         <div className="brand">
-          <svg width="22" height="15" viewBox="0 0 22 15" aria-hidden="true">
-            <ellipse cx="11" cy="7.5" rx="10" ry="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="6" fill="var(--ink)" />
+            <text x="12" y="16" fill="var(--paid)" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--g)">HZ</text>
           </svg>
-          Oval
+          Husni Zayyin
         </div>
         <nav className="nav" aria-label="Sections">
           {NAV.map((n) => (

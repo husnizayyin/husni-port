@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { gsap } from '../lib/gsap';
 import { ellipsePoint, prefersReducedMotion } from '../lib/util';
 
-const LOGO = ['O', 'v', 'a', 'l'];
+const LOGO = ['H', 'u', 's', 'n', 'i'];
 
 /** Section 00. The ellipse draws itself with a dot, then the wordmark rises out of it. */
 export function Hero() {
@@ -61,7 +61,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="hero" ref={rootRef} aria-label="Oval, a digital marketing studio">
+    <section id="hero" ref={rootRef} aria-label="Husni Zayyin Ansori, Software Engineer">
       <div className="ring" aria-hidden="true">
         <svg viewBox="0 0 1000 480">
           <ellipse ref={ellRef} cx="500" cy="240" rx="480" ry="215" fill="none" stroke="var(--ink)" strokeWidth="1.6" />
@@ -74,16 +74,16 @@ export function Hero() {
             <span key={i} className="ch fr">{c}</span>
           ))}
         </h1>
-        <p className="hero-say">A digital marketing studio</p>
+        <p className="hero-say">Husni Zayyin Ansori · Software Engineer (5+ YOE)</p>
       </div>
       <div className="hero-foot">
         <p>
-          <b>We buy attention carefully and compound what we earn.</b> Paid, organic, lifecycle — planned as one
-          system, reported in one number.
+          <b>From Mobile & Frontend to Resilient Full-Stack Systems.</b> 5 years turning complex requirements into
+          clean, maintainable, high-throughput software architectures.
         </p>
         <div className="scrollcue">
           <span className="cue" />
-          <span>Scroll to run the film</span>
+          <span>Scroll to explore engineering journey</span>
         </div>
       </div>
     </section>

@@ -23,15 +23,15 @@ export function Depth() {
   }, []);
 
   return (
-    <section id="depth" ref={rootRef} aria-label="What we believe">
+    <section id="depth" ref={rootRef} aria-label="Engineering Philosophy">
       <div className="dpin">
         <div className="orb o1" aria-hidden="true" />
         <div className="orb o2" aria-hidden="true" />
         <div className="orb o3" aria-hidden="true" />
-        <h2 className="dsay fr">Attention is rented. <em>The list is yours.</em></h2>
+        <h2 className="dsay fr">Tools evolve quickly. <em>Sound architecture endures.</em></h2>
         <div className="dfoot">
-          <span>Three orbits, three speeds</span>
-          <span>Paid stops the day you stop paying</span>
+          <span>Frontend · Mobile · Full Stack · Data Architecture</span>
+          <span>5 Years of Crafting Resilient Systems</span>
         </div>
       </div>
     </section>

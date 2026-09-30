@@ -24,8 +24,9 @@ export function makeRng(seed: number) {
   return () => (s = (s * 1103515245 + 12345) >>> 0) / 4294967296;
 }
 
-/** Kuala Lumpur wall-clock time (UTC+8) as HH:MM. */
-export function klTime() {
-  const d = new Date(Date.now() + new Date().getTimezoneOffset() * 60000 + 8 * 3600000);
+/** Local wall-clock time (UTC+7, WIB) as HH:MM. */
+export function localTime() {
+  const d = new Date(Date.now() + new Date().getTimezoneOffset() * 60000 + 7 * 3600000);
   return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
 }
+export const klTime = localTime;

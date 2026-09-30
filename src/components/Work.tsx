@@ -46,13 +46,13 @@ export function Work() {
   }, []);
 
   return (
-    <section id="work" ref={sectionRef} aria-label="Selected work">
+    <section id="work" ref={sectionRef} aria-label="Professional Experience & Impact">
       <div className="hpin" ref={pinRef}>
         <div className="htrack" ref={trackRef}>
           <div className="wintro">
-            <p className="eyeline"><span className="d" />Selected work</p>
-            <h2 className="fr">Five accounts,<br />five different problems.</h2>
-            <p>Numbers are the client's, rounded. Keep scrolling — the deck moves sideways.</p>
+            <p className="eyeline"><span className="d" />Career & Milestones</p>
+            <h2 className="fr">5 years of shipping,<br />solving complex scale.</h2>
+            <p>From enterprise retail transactions to mobile platforms and distributed databases. Scroll horizontally to explore.</p>
           </div>
 
           {WORK.map((w) => (
@@ -75,7 +75,7 @@ export function Work() {
           ))}
 
           <div className="wend">
-            <p className="fr">Want the version of this with your numbers in it? new@oval.studio</p>
+            <p className="fr">Ready to elevate your engineering velocity? Let's build together.</p>
           </div>
         </div>
       </div>
