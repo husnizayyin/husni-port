@@ -27,7 +27,9 @@ export function Position() {
   useLayoutEffect(() => {
     const root = rootRef.current!;
     const q = gsap.utils.selector(root);
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(root);
+
+    mm.add('(min-width: 1025px)', () => {
       gsap.to(q('.claim .wd'), {
         opacity: 1, ease: 'none', stagger: 0.5,
         scrollTrigger: { trigger: root, start: 'top 74%', end: 'bottom 80%', scrub: 0.4 },
@@ -36,8 +38,17 @@ export function Position() {
         y: 30, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.1,
         scrollTrigger: { trigger: q('.cols')[0], start: 'top 88%' },
       });
-    }, root);
-    return () => ctx.revert();
+    });
+
+    mm.add('(max-width: 1024px)', () => {
+      gsap.set(q('.claim .wd'), { opacity: 1 });
+      gsap.from(q('.cols article'), {
+        y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.08,
+        scrollTrigger: { trigger: q('.cols')[0], start: 'top 90%' },
+      });
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (

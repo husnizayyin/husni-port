@@ -16,7 +16,9 @@ export function Work() {
   useLayoutEffect(() => {
     const section = sectionRef.current!;
     const track = trackRef.current!;
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(section);
+
+    mm.add('(min-width: 1025px)', () => {
       const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
       const across = gsap.to(track, {
         x: () => -dist(),
@@ -41,8 +43,25 @@ export function Work() {
           scrollTrigger: { trigger: card, containerAnimation: across, start: 'left right', end: 'right left', scrub: 0.6 },
         });
       });
-    }, section);
-    return () => ctx.revert();
+    });
+
+    mm.add('(max-width: 1024px)', () => {
+      // Tablet & Mobile: No pinning, natural vertical card flow with lightweight entrance
+      gsap.set(track, { clearProps: 'all' });
+      gsap.from(track.querySelectorAll('.wcard'), {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.12,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: track,
+          start: 'top 85%',
+        },
+      });
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (

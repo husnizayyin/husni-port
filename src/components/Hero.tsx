@@ -20,7 +20,9 @@ export function Hero() {
     const late = q('.hero-say, .hero-foot > p, .scrollcue');
     const len = ell.getTotalLength();
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(root);
+
+    mm.add('(min-width: 1025px)', () => {
       gsap.set(ell, { strokeDasharray: len, strokeDashoffset: len });
 
       if (reduce) {
@@ -55,9 +57,18 @@ export function Hero() {
         .to(q('.ring'), { scale: 1.42, opacity: 0, ease: 'none', duration: 1 }, 0)
         .to(chars, { yPercent: -34, opacity: 0, ease: 'none', stagger: 0.04, duration: 1 }, 0)
         .to(q('.hero-say, .hero-foot'), { y: -50, opacity: 0, ease: 'none', duration: 1 }, 0);
-    }, root);
+    });
 
-    return () => ctx.revert();
+    mm.add('(max-width: 1024px)', () => {
+      gsap.set(ell, { strokeDashoffset: 0 });
+      gsap.set(dot, { attr: { r: 0 } });
+      gsap.set(chars, { yPercent: 0, opacity: 1, '--s': 20, '--fw': 600 });
+      gsap.set(late, { opacity: 1, y: 0 });
+      gsap.from(chars, { opacity: 0, y: 15, duration: 0.8, stagger: 0.05, ease: 'power2.out' });
+      gsap.from(late, { opacity: 0, y: 10, duration: 0.6, delay: 0.2, ease: 'power2.out' });
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (

@@ -39,7 +39,9 @@ export function Film() {
     fitStage();
     window.addEventListener('resize', fitStage);
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(section);
+
+    mm.add('(min-width: 1025px)', () => {
       const film = buildFilmTimeline(stage);
 
       // HUD (scene label + frame counter) is written straight to the DOM: it changes every frame.
@@ -71,23 +73,45 @@ export function Film() {
       });
       scrub.to(film, { time: film.duration(), ease: 'none', duration: 1, onUpdate: updateHud });
       triggerRef.current = scrub.scrollTrigger ?? null;
-    }, section);
+    });
+
+    mm.add('(max-width: 1024px)', () => {
+      // Tablet & Mobile: Auto-play film seamlessly without pinning scroll
+      triggerRef.current = null;
+      const film = buildFilmTimeline(stage);
+      const scenes = FILM_SCENES.map(([t, label]) => [Math.min(1, t / film.duration()), label] as const);
+
+      film.eventCallback('onUpdate', () => {
+        const p = film.time() / film.duration();
+        const fr = Math.min(450, Math.round(p * 450));
+        if (frameNumRef.current) frameNumRef.current.textContent = String(fr).padStart(3, '0');
+        let i = 0;
+        while (i < scenes.length - 1 && p >= scenes[i + 1][0]) i++;
+        const label = sceneLabelRef.current;
+        if (label && label.textContent !== scenes[i][1]) label.textContent = scenes[i][1];
+      });
+
+      film.play();
+      film.repeat(-1);
+      film.repeatDelay(1.2);
+    });
 
     return () => {
       window.removeEventListener('resize', fitStage);
-      ctx.revert();
+      mm.revert();
     };
   }, []);
 
-  /** "Run at speed": scroll through the pinned range in real time (15s), or jump back if already at the end. */
+  /** "Run at speed": scroll through the pinned range in real time (15s) on desktop, or smooth scroll */
   const runAtSpeed = () => {
     const st = triggerRef.current;
-    if (!st) return;
-    const a = st.start;
-    const b = st.end;
-    const from = window.scrollY;
-    const target = from > a + (b - a) * 0.92 ? a : b;
-    scrollToY(target, Math.max(1100, FILM_SECONDS * 1000 * (Math.abs(target - from) / (b - a))), linear);
+    if (st) {
+      const a = st.start;
+      const b = st.end;
+      const from = window.scrollY;
+      const target = from > a + (b - a) * 0.92 ? a : b;
+      scrollToY(target, Math.max(1100, FILM_SECONDS * 1000 * (Math.abs(target - from) / (b - a))), linear);
+    }
   };
 
   return (

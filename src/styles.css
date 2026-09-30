@@ -2523,7 +2523,7 @@ section {
    RESPONSIVE MEDIA QUERIES (Desktop, Tablet, Mobile)
    ─────────────────────────────────────────────────────────────── */
 
-/* ── TABLET & MOBILE (<= 1024px) ────────────────────────────────── */
+/* ── TABLET & MOBILE UNPINNED NATIVE FLOW (<= 1024px) ────────────────────────────────── */
 @media (max-width: 1024px) {
   :root {
     --gut: clamp(16px, 3.8vw, 48px);
@@ -2536,6 +2536,75 @@ section {
 
   .mobile-nav-toggle {
     display: inline-flex;
+  }
+
+  /* Unpin Film on tablet & mobile */
+  .film-pin {
+    height: auto !important;
+    padding: clamp(40px, 8vh, 80px) var(--gut) !important;
+  }
+
+  .film-box {
+    width: 100% !important;
+    max-width: 820px !important;
+    margin: 0 auto;
+  }
+
+  /* Unpin Work on tablet & mobile -> Vertical card stream */
+  .hpin {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .htrack {
+    flex-direction: column !important;
+    padding: clamp(40px, 8vh, 80px) var(--gut) !important;
+    gap: 24px !important;
+    transform: none !important;
+  }
+
+  .wintro {
+    width: 100% !important;
+    max-width: 620px !important;
+    padding-right: 0 !important;
+  }
+
+  .wcard {
+    width: 100% !important;
+    max-width: 620px !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .wend {
+    width: 100% !important;
+    max-width: 620px !important;
+    margin-top: 8px;
+  }
+
+  /* Unpin Depth */
+  #depth {
+    height: auto !important;
+  }
+
+  .dpin {
+    height: auto !important;
+    min-height: 50vh !important;
+    padding: clamp(60px, 10vh, 100px) var(--gut) !important;
+    position: relative !important;
+  }
+
+  /* Unpin Mix Matrix */
+  .mpin {
+    height: auto !important;
+    padding: clamp(50px, 8vh, 90px) var(--gut) !important;
+  }
+
+  /* Unpin GitHub Activity */
+  .gh-section {
+    height: auto !important;
+    min-height: auto !important;
+    padding: clamp(50px, 8vh, 90px) var(--gut) !important;
   }
 
   .gh-metrics-row {

@@ -87,7 +87,9 @@ export function Mix() {
       });
     };
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(sectionRef.current!);
+
+    mm.add('(min-width: 1025px)', () => {
       gsap.to(week, {
         t: 1, ease: 'none', onUpdate: drawHead,
         scrollTrigger: {
@@ -95,11 +97,17 @@ export function Mix() {
           pin: pinRef.current, anticipatePin: 1, scrub: 0.3,
         },
       });
-    }, sectionRef.current!);
+    });
+
+    mm.add('(max-width: 1024px)', () => {
+      // Tablet & Mobile: No scroll pinning, week.t is fully rendered
+      week.t = 1;
+      drawHead();
+    });
 
     return () => {
       tween?.kill();
-      ctx.revert();
+      mm.revert();
     };
   }, []);
 

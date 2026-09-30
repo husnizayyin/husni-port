@@ -8,7 +8,9 @@ export function Depth() {
   useLayoutEffect(() => {
     const root = rootRef.current!;
     const q = gsap.utils.selector(root);
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(root);
+
+    mm.add('(min-width: 1025px)', () => {
       gsap.timeline({ scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: 0.5 } })
         .fromTo(q('.o1'), { yPercent: 16, scale: 0.94 }, { yPercent: -16, scale: 1.06, ease: 'none', duration: 1 }, 0)
         .fromTo(q('.o2'), { yPercent: 44, rotate: -5 }, { yPercent: -44, rotate: 5, ease: 'none', duration: 1 }, 0)
@@ -18,8 +20,17 @@ export function Depth() {
         opacity: 0, scale: 0.95, duration: 1.1, ease: 'expo.out',
         scrollTrigger: { trigger: root, start: 'top 56%' },
       });
-    }, root);
-    return () => ctx.revert();
+    });
+
+    mm.add('(max-width: 1024px)', () => {
+      gsap.set(q('.o1, .o2, .o3, .dsay'), { clearProps: 'all' });
+      gsap.from(q('.dsay'), {
+        opacity: 0, y: 20, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: root, start: 'top 70%' },
+      });
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (

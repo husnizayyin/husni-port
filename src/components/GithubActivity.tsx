@@ -101,12 +101,14 @@ export function GithubActivity() {
     return Object.values(data.total).reduce((acc, curr) => acc + curr, 0);
   }, [data]);
 
-  // Pinned ScrollTrigger for scrubbing years
+  // Pinned ScrollTrigger for scrubbing years on desktop
   useLayoutEffect(() => {
     const root = sectionRef.current;
     if (!root) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(root);
+
+    mm.add('(min-width: 1025px)', () => {
       const st = ScrollTrigger.create({
         trigger: root,
         start: 'top top',
@@ -124,9 +126,14 @@ export function GithubActivity() {
       });
 
       triggerRef.current = st;
-    }, root);
+    });
 
-    return () => ctx.revert();
+    mm.add('(max-width: 1024px)', () => {
+      // Tablet & Mobile: No scroll pinning, natural scroll
+      triggerRef.current = null;
+    });
+
+    return () => mm.revert();
   }, []);
 
   // Grid update micro-animation on tab switch
