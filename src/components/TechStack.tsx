@@ -55,10 +55,7 @@ export function TechStack() {
         {filtered.map((t) => (
           <div className="tech-card" key={t.name}>
             <div className="tech-icon-wrap" style={{ '--accent': t.color } as React.CSSProperties}>
-              <div
-                className="tech-icon"
-                dangerouslySetInnerHTML={{ __html: t.iconSvg }}
-              />
+              <t.Icon className="tech-svg-icon" size={24} color={t.color} />
             </div>
             <div className="tech-info">
               <span className="tech-name">{t.name}</span>

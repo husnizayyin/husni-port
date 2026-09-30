@@ -95,7 +95,9 @@ export function Work() {
                   <div className="wcard-stack-chips">
                     {w.techStack.map((t) => (
                       <div className="stack-pill" key={t.name} style={{ '--accent-c': t.color } as React.CSSProperties}>
-                        <span className="stack-pill-icon" dangerouslySetInnerHTML={{ __html: t.iconSvg }} />
+                        <span className="stack-pill-icon">
+                          <t.Icon size={14} color={t.color} />
+                        </span>
                         <span className="stack-pill-name">{t.name}</span>
                       </div>
                     ))}
