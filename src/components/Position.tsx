@@ -2,21 +2,21 @@ import { Fragment, useLayoutEffect, useRef } from 'react';
 import { gsap } from '../lib/gsap';
 
 const CLAIM =
-  'Code is easy to write. Resilient, performant, and maintainable software architecture is what endures.';
+  'Architecting end-to-end systems that bridge the gap between complex back-end logic and high-performance user interfaces.';
 const WORDS = CLAIM.split(/\s+/);
 
 const PILLARS = [
   {
-    title: 'Frontend & Modern Web',
-    body: 'React, Next.js, and TypeScript. Architecting fluid SPAs/MPAs with SSR, optimized state trees, and responsive design systems.',
+    title: 'Full-Stack & Web Systems',
+    body: 'Next.js, React, and PostgreSQL. Developing end-to-end applications with robust API structures, high performance, and seamless system integrations.',
   },
   {
-    title: 'Cross-Platform Mobile',
-    body: 'Flutter, React Native, Kotlin, and native Java. Delivering production-grade iOS & Android applications with native-feel performance.',
+    title: 'Cross-Platform Mobile Core',
+    body: 'Flutter (BLOC & GetX) and Kotlin. Delivering production-grade mobile applications with native-like fluidity across iOS and Android.',
   },
   {
-    title: 'Backend & Enterprise Data',
-    body: 'Laravel, PHP, Java, Kotlin services paired with PostgreSQL, MySQL, SQL Server, MongoDB, and Oracle databases for scale.',
+    title: 'Platform & Cloud Integrations',
+    body: 'Custom Shopify (Liquid) and Wix Studio (Velo) engineering, paired with Linux headless CLI tooling, Firebase, and relational databases.',
   },
 ];
 

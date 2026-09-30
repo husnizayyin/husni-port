@@ -74,12 +74,12 @@ export function Hero() {
             <span key={i} className="ch fr">{c}</span>
           ))}
         </h1>
-        <p className="hero-say">Husni Zayyin Ansori · Software Engineer (5+ YOE)</p>
+        <p className="hero-say">Husni Zayyin Ansori · Software Engineer</p>
       </div>
       <div className="hero-foot">
         <p>
-          <b>From Mobile & Frontend to Resilient Full-Stack Systems.</b> 5 years turning complex requirements into
-          clean, maintainable, high-throughput software architectures.
+          <b>Results-driven Software Engineer.</b> Architecting scalable web & mobile systems bridging complex back-end logic
+          with high-performance interfaces (Next.js, Flutter, React, Laravel, PostgreSQL).
         </p>
         <div className="scrollcue">
           <span className="cue" />

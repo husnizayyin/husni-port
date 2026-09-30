@@ -48,14 +48,18 @@ export function Contact() {
         </div>
       </div>
       <div className="cta">
-        <a className="fr" href="mailto:husnizayyin@gmail.com">husnizayyin@gmail.com</a>
+        <a className="fr" href="mailto:husni.zayyin98@gmail.com">husni.zayyin98@gmail.com</a>
         <div className="who">
-          Indonesia (UTC+7) · <span>{clock}</span> WIB<br />Open for Software Engineering Roles & Collaboration
+          Jakarta, Indonesia (UTC+7) · <span>{clock}</span> WIB<br />
+          <a href="tel:+6285959939270" style={{ textDecoration: 'none', color: 'inherit' }}>+62 859 5993 9270</a> · Open for Engineering Roles
         </div>
       </div>
       <div className="social-links" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '13.5px', fontWeight: 600 }}>
         <a href="https://github.com/husnizayyin" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', borderBottom: '1px solid var(--hair)', paddingBottom: '3px', color: 'var(--ink)' }}>
           GitHub (25+ Repos) ↗
+        </a>
+        <a href="https://wa.me/6285959939270" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', borderBottom: '1px solid var(--hair)', paddingBottom: '3px', color: 'var(--ink)' }}>
+          WhatsApp ↗
         </a>
         <a href="https://t.me/husnizayn" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', borderBottom: '1px solid var(--hair)', paddingBottom: '3px', color: 'var(--ink)' }}>
           Telegram (@husnizayn) ↗
@@ -65,8 +69,8 @@ export function Contact() {
         </a>
       </div>
       <div className="legal">
-        <span>Husni Zayyin Ansori · Software Engineer</span>
-        <span>5 Years Experience · React, Next.js, Flutter, React Native, Laravel, Java, Kotlin, Databases</span>
+        <span>Husni Zayyin Ansori · B.Eng Informatics (GPA 3.31)</span>
+        <span>Next.js · React · Flutter (BLOC/GetX) · Kotlin · PostgreSQL · MySQL · Shopify & Wix Velo</span>
       </div>
     </section>
   );
