@@ -57,11 +57,19 @@ export function Work() {
 
           {WORK.map((w) => (
             <article className="wcard" key={w.name}>
-              <header>
-                <span>{w.name}</span>
-                <span className="pill" style={{ background: w.color, color: w.pillText ?? '#FBFBF8' }}>{w.tag}</span>
+              <header className="wcard-head">
+                <div className="wcard-meta">
+                  <span className="wcard-company">{w.name}</span>
+                  <span className="wcard-period">{w.period}</span>
+                </div>
+                <span className="pill" style={{ background: w.color, color: w.pillText ?? '#FBFBF8' }}>
+                  {w.role}
+                </span>
               </header>
-              <h3 className="fr">{w.title}</h3>
+              <div className="wcard-body">
+                <h3 className="fr">{w.title}</h3>
+                <p className="wcard-desc">{w.desc}</p>
+              </div>
               <figure><WorkChart kind={w.chart} color={w.color} /></figure>
               <div className="stats">
                 {w.stats.map(([value, label]) => (

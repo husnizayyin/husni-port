@@ -5,8 +5,10 @@ export interface WorkItem {
   color: string;
   /** Pill text colour when white would not have enough contrast on `color`. */
   pillText?: string;
-  tag: string;
+  role: string;
+  period: string;
   title: string;
+  desc: string;
   stats: [value: string, label: string][];
   chart: ChartKind;
 }
@@ -16,24 +18,28 @@ export const WORK: WorkItem[] = [
   {
     name: 'Archangel Digital Studios Singapore',
     color: '#FF5C1A',
-    tag: 'Oct 2025 – Present · Software Engineer',
-    title: 'Architecting end-to-end applications with Next.js, React, PostgreSQL, and Flutter (BLOC/GetX), plus custom Shopify (Liquid) and Wix Studio (Velo) integrations.',
+    role: 'Software Engineer',
+    period: 'Oct 2025 – Present',
+    title: 'Scalable Full-Stack & Platform Architecture',
+    desc: 'Engineering web & mobile applications with Next.js, React, PostgreSQL, and Flutter (BLOC/GetX), plus custom Shopify (Liquid) and Wix Studio (Velo) integrations.',
     stats: [
-      ['Next.js & React', 'full-stack core'],
-      ['Flutter iOS/Android', 'BLOC & GetX'],
-      ['Shopify & Wix', 'custom Liquid/Velo'],
+      ['Next.js / React', 'full-stack core'],
+      ['Flutter (BLOC)', 'iOS & Android'],
+      ['Shopify / Wix', 'custom Liquid/Velo'],
     ],
     chart: 'compound',
   },
   {
     name: 'PT Stars Global Resources',
     color: '#7B6CF6',
-    tag: 'Aug 2025 – Oct 2025 · Full Stack Developer',
-    title: 'Developed automated mining payroll systems boosting efficiency by +30%, integrated facial recognition attendance, and built high-performance REST APIs.',
+    role: 'Full Stack Developer',
+    period: 'Aug 2025 – Oct 2025',
+    title: 'Mining Enterprise HRIS & Payroll Management',
+    desc: 'Developed an automated HRIS and Payroll Management platform for the mining industry (+30% efficiency), featuring facial recognition biometric tracking and REST APIs.',
     stats: [
-      ['+30%', 'operational efficiency'],
-      ['Facial Recognition', 'biometric tracking'],
-      ['RESTful APIs', 'mining reporting core'],
+      ['HRIS & Payroll', 'mining operations'],
+      ['+30%', 'efficiency gain'],
+      ['Biometrics AI', 'facial tracking'],
     ],
     chart: 'up',
   },
@@ -41,12 +47,14 @@ export const WORK: WorkItem[] = [
     name: 'PT Anyar Retail Indonesia',
     color: '#3FA98A',
     pillText: '#0E3B2E',
-    tag: 'May 2022 – Aug 2025 · Mobile Developer (Lead)',
-    title: 'Led mobile application development using Flutter, delivering high-performance cross-platform apps and seamless API integrations across 3+ years.',
+    role: 'Mobile & Full Stack Lead',
+    period: 'May 2022 – Aug 2025',
+    title: 'HRIS, Attendance Apps, Custom ERP & POS',
+    desc: 'Architected and engineered core enterprise platforms: corporate HRIS, mobile Attendance Apps (Flutter), Custom ERP systems, and Retail POS for multi-branch operations.',
     stats: [
-      ['3+ yrs', 'mobile development lead'],
-      ['Flutter & Dart', 'cross-platform core'],
-      ['REST & POS', 'retail backend sync'],
+      ['HRIS & Attendance', 'Flutter & Web'],
+      ['Custom ERP', 'operations engine'],
+      ['Retail POS', 'real-time sync'],
     ],
     chart: 'retain',
   },
@@ -54,24 +62,28 @@ export const WORK: WorkItem[] = [
     name: 'PT HS Budiman',
     color: '#E8C547',
     pillText: '#0E3B2E',
-    tag: 'Jul 2020 – Dec 2020 · Full Stack Developer Intern',
-    title: 'Engineered Warehouse Management System (WMS) & Courier Management System, integrated E-Ticketing mobile APIs, and authored Functional Spec Documents.',
+    role: 'Full Stack Intern',
+    period: 'Jul 2020 – Dec 2020',
+    title: 'Warehouse & Courier Management Logistics',
+    desc: 'Engineered Warehouse Management (WMS) & Courier Systems, integrated E-Ticketing mobile APIs, and created core Functional Specification Documents (FSD).',
     stats: [
       ['WMS & Courier', 'logistics systems'],
-      ['E-Ticketing', 'mobile API integration'],
-      ['FSD & SOP', 'technical documentation'],
+      ['E-Ticketing', 'mobile API sync'],
+      ['FSD & SOP', 'technical specs'],
     ],
     chart: 'spike',
   },
   {
     name: 'PT Media Baru Digital',
     color: '#FF5C1A',
-    tag: 'Jul 2019 – Dec 2019 · Mobile Developer Intern',
-    title: 'Developed native Android mobile applications with Kotlin, crafting responsive UI and integrating RESTful backend services.',
+    role: 'Mobile Intern',
+    period: 'Jul 2019 – Dec 2019',
+    title: 'Native Android Mobile Applications',
+    desc: 'Built native Android mobile applications using Kotlin, crafting fluid responsive interfaces and integrating backend RESTful web services.',
     stats: [
       ['Kotlin Native', 'Android applications'],
-      ['API Integration', 'backend services'],
-      ['Responsive UX', 'multi-device optimization'],
+      ['REST APIs', 'service integration'],
+      ['Responsive UI', 'device optimization'],
     ],
     chart: 'compound',
   },
