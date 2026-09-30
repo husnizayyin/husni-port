@@ -8,7 +8,7 @@ export interface Channel {
 /** Colour carries meaning across the whole page: orange is Frontend/Web, green Mobile, violet Backend, mustard Database. */
 export const CHANNELS: Channel[] = [
   { key: 'Frontend & Web', color: '#FF5C1A', ramp: () => 1 },
-  { key: 'Mobile Core', color: '#3FA98A', ramp: (w) => Math.pow(w / 12, 1.9) * 2.6 },
+  { key: 'Mobile Developer', color: '#3FA98A', ramp: (w) => Math.pow(w / 12, 1.9) * 2.6 },
   { key: 'Backend & APIs', color: '#7B6CF6', ramp: (w) => 0.45 + 0.75 * Math.sin(Math.min(1, w / 9) * Math.PI / 2) },
   { key: 'Databases & Cloud', color: '#E8C547', ramp: (w) => 0.35 + 0.14 * w },
 ];

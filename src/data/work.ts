@@ -58,7 +58,7 @@ export const WORK: WorkItem[] = [
     title: 'Built foundational native mobile applications and internal tools using Kotlin, Java, and RESTful APIs.',
     stats: [
       ['3 mos', 'intensive sprint'],
-      ['Kotlin & Java', 'Android mobile core'],
+      ['Kotlin & Java', 'Android Mobile Developer'],
       ['REST APIs', 'backend integration'],
     ],
     chart: 'spike',
