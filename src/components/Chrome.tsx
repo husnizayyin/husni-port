@@ -13,12 +13,13 @@ function jumpTo(id: string) {
 }
 
 /**
- * Persistent UI: brand + nav (top), dot rail (right edge), progress ring (bottom left).
+ * Persistent UI: brand + nav (top), mobile menu drawer, dot rail (right edge), progress ring (bottom left).
  * Progress is written to the ring imperatively on scroll; React state only changes when
  * the active section changes, so scrolling does not re-render.
  */
 export function Chrome() {
   const [active, setActive] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
   const ringRef = useRef<SVGCircleElement>(null);
 
   useEffect(() => {
@@ -53,33 +54,123 @@ export function Chrome() {
     };
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  const handleNavClick = (id: string) => {
+    setMenuOpen(false);
+    jumpTo(id);
+  };
+
   return (
     <>
       <header className="top">
-        <div className="brand">
+        <button
+          className="brand brand-btn"
+          type="button"
+          onClick={() => handleNavClick('hero')}
+          aria-label="Scroll to top"
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
             <rect width="24" height="24" rx="6" fill="var(--ink)" />
             <text x="12" y="16" fill="var(--paid)" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="var(--g)">HZ</text>
           </svg>
           Husni Zayyin
-        </div>
-        <nav className="nav" aria-label="Sections">
+        </button>
+
+        {/* Desktop Navigation */}
+        <nav className="nav desktop-nav" aria-label="Sections">
           {NAV.map((n) => (
-            <button key={n.id} type="button" aria-current={SECTIONS[active].id === n.id} onClick={() => jumpTo(n.id)}>
+            <button key={n.id} type="button" aria-current={SECTIONS[active].id === n.id} onClick={() => handleNavClick(n.id)}>
               {n.label}
             </button>
           ))}
         </nav>
+
+        {/* Mobile Menu Toggle Button */}
+        <button
+          className="mobile-nav-toggle"
+          type="button"
+          onClick={() => setMenuOpen((prev) => !prev)}
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+        >
+          <span className={`toggle-icon ${menuOpen ? 'open' : ''}`}>
+            <span className="toggle-line" />
+            <span className="toggle-line" />
+            <span className="toggle-line" />
+          </span>
+          <span className="toggle-label">{menuOpen ? 'Close' : 'Menu'}</span>
+        </button>
       </header>
 
+      {/* Mobile Navigation Drawer & Backdrop */}
+      <div
+        className={`mobile-menu-backdrop ${menuOpen ? 'active' : ''}`}
+        onClick={() => setMenuOpen(false)}
+        aria-hidden={!menuOpen}
+      />
+      <div
+        className={`mobile-menu-drawer ${menuOpen ? 'active' : ''}`}
+        aria-label="Mobile Navigation"
+        aria-hidden={!menuOpen}
+      >
+        <div className="mobile-menu-head">
+          <div className="mobile-menu-title">Navigation</div>
+          <span className="mobile-menu-sub">Husni Zayyin · Portfolio</span>
+        </div>
+
+        <div className="mobile-menu-items">
+          {SECTIONS.map((s, idx) => (
+            <button
+              key={s.id}
+              type="button"
+              className={`mobile-menu-btn ${SECTIONS[active].id === s.id ? 'active' : ''}`}
+              onClick={() => handleNavClick(s.id)}
+            >
+              <span className="m-idx">{String(idx).padStart(2, '0')}</span>
+              <span className="m-label">{s.label}</span>
+              {SECTIONS[active].id === s.id && <span className="m-current-dot" />}
+            </button>
+          ))}
+        </div>
+
+        <div className="mobile-menu-foot">
+          <button
+            type="button"
+            className="mobile-menu-cta"
+            onClick={() => handleNavClick('contact')}
+          >
+            Get In Touch
+          </button>
+        </div>
+      </div>
+
+      {/* Dot Rail (Desktop) */}
       <div className="rail" aria-label="Jump to section">
         {SECTIONS.map((s, i) => (
-          <button key={s.id} type="button" title={s.label} aria-label={s.label} aria-current={i === active} onClick={() => jumpTo(s.id)} />
+          <button key={s.id} type="button" title={s.label} aria-label={s.label} aria-current={i === active} onClick={() => handleNavClick(s.id)} />
         ))}
       </div>
 
-      <div className="meter" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 34 34">
+      {/* Progress Meter (Bottom Left) */}
+      <div
+        className="meter"
+        role="button"
+        tabIndex={0}
+        onClick={() => setMenuOpen(true)}
+        aria-label={`Current section: ${SECTIONS[active].label}. Click to open menu.`}
+      >
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
           <circle cx="17" cy="17" r="15" fill="none" stroke="rgba(14,59,46,.16)" strokeWidth="2.5" />
           <circle
             ref={ringRef} cx="17" cy="17" r="15" fill="none" stroke="#FF5C1A" strokeWidth="2.5" strokeLinecap="round"
@@ -94,3 +185,4 @@ export function Chrome() {
     </>
   );
 }
+
