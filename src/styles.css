@@ -512,34 +512,46 @@ section { position: relative; }
 
 /* ── Live GitHub Activity Section ─────────── */
 .gh-section {
-  padding-top: clamp(80px, 14vh, 160px);
-  padding-bottom: clamp(80px, 14vh, 160px);
+  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: clamp(24px, 3.5vw, 42px);
+  justify-content: center;
+  align-items: center;
+  padding: 0 clamp(16px, 4vw, 48px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.gh-pin-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.8vh, 20px);
 }
 .gh-head {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-width: 900px;
+  gap: 6px;
+  max-width: 800px;
 }
 .gh-live-status {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #26A641;
   text-transform: uppercase;
 }
 .live-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 99px;
   background: #39D353;
-  box-shadow: 0 0 10px #39D353;
+  box-shadow: 0 0 8px #39D353;
   animation: livePulse 2s infinite ease-in-out;
 }
 @keyframes livePulse {
@@ -547,43 +559,50 @@ section { position: relative; }
   50% { opacity: 1; transform: scale(1.2); }
 }
 .gh-title {
-  font-size: clamp(30px, 4.4vw, 62px);
-  line-height: 1.05;
+  font-size: clamp(22px, 2.8vw, 38px);
+  line-height: 1.08;
   --o: 144;
   --s: 26;
   --fw: 550;
   letter-spacing: -0.02em;
+  margin: 0;
 }
 .gh-subtitle {
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: 13.5px;
+  line-height: 1.45;
   color: var(--soft);
-  max-width: 54ch;
+  max-width: 60ch;
+  margin: 0;
 }
 .gh-metrics-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: clamp(14px, 2vw, 24px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 768px) {
+  .gh-metrics-row {
+    grid-template-columns: 1fr;
+  }
 }
 .gh-metric-card {
   background: var(--white);
   border: 1px solid var(--hair);
-  border-radius: clamp(14px, 1.6vw, 20px);
-  padding: 18px 22px;
+  border-radius: 14px;
+  padding: 10px 18px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  box-shadow: 0 6px 20px -10px rgba(14, 59, 46, 0.08);
+  gap: 14px;
+  box-shadow: 0 4px 14px -6px rgba(14, 59, 46, 0.06);
   transition: transform 0.25s, box-shadow 0.25s;
 }
 .gh-metric-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px -12px rgba(14, 59, 46, 0.15);
+  box-shadow: 0 10px 24px -10px rgba(14, 59, 46, 0.12);
 }
 .gh-metric-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: var(--veil);
   display: flex;
   align-items: center;
@@ -593,10 +612,10 @@ section { position: relative; }
 .gh-metric-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 .gh-metric-info b {
-  font-size: clamp(22px, 2.2vw, 28px);
+  font-size: 20px;
   line-height: 1.1;
   --o: 48;
   --s: 26;
@@ -604,7 +623,7 @@ section { position: relative; }
   color: var(--ink);
 }
 .gh-metric-info span {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--soft);
   font-weight: 500;
 }
@@ -613,7 +632,7 @@ section { position: relative; }
 .gh-panel-container {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 20px;
+  gap: 18px;
   align-items: flex-start;
 }
 @media (max-width: 960px) {
@@ -625,28 +644,28 @@ section { position: relative; }
 .gh-panel {
   background: #0d1117;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: clamp(16px, 1.8vw, 24px);
-  padding: clamp(20px, 2.5vw, 32px);
+  border-radius: 18px;
+  padding: clamp(14px, 1.8vw, 22px);
   color: #e6edf3;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  gap: 12px;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
 }
 .gh-panel-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 16px;
+  padding-bottom: 10px;
 }
 .gh-panel-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14.5px;
+  gap: 8px;
+  font-size: 13.5px;
   font-weight: 600;
 }
 .gh-username {
@@ -660,23 +679,37 @@ section { position: relative; }
   color: #79c0ff;
 }
 .gh-year-count {
-  font-size: 13.5px;
+  font-size: 12.5px;
   color: #8b949e;
   font-weight: 450;
+}
+.gh-scroll-meter {
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-left: auto;
+}
+.gh-scroll-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1f6feb, #39d353);
+  border-radius: 99px;
+  transition: width 0.1s linear;
 }
 
 /* Vertical Year Sidebar (Authentic GitHub Layout) */
 .gh-years-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  min-width: 90px;
+  gap: 6px;
+  min-width: 80px;
 }
 @media (max-width: 960px) {
   .gh-years-sidebar {
     flex-direction: row;
     overflow-x: auto;
-    padding-bottom: 6px;
+    padding-bottom: 4px;
     width: 100%;
   }
 }
@@ -685,8 +718,8 @@ section { position: relative; }
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
   color: #8b949e;
-  font: 600 13px/1 var(--g);
-  padding: 10px 18px;
+  font: 600 12.5px/1 var(--g);
+  padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
@@ -707,7 +740,7 @@ section { position: relative; }
 /* ── Heatmap Matrix (Auto-width scaling) ────────────────────────── */
 .gh-heatmap-wrap {
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
@@ -716,13 +749,13 @@ section { position: relative; }
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 140px;
+  min-height: 120px;
   color: #8b949e;
-  font-size: 13.5px;
+  font-size: 13px;
 }
 .gh-spinner {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-top-color: #39d353;
   border-radius: 50%;
@@ -735,19 +768,19 @@ section { position: relative; }
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-width: 780px;
+  min-width: 760px;
 }
 .gh-months-bar {
   position: relative;
-  height: 18px;
-  margin-left: 28px;
-  margin-bottom: 6px;
-  width: calc(100% - 28px);
+  height: 16px;
+  margin-left: 26px;
+  margin-bottom: 4px;
+  width: calc(100% - 26px);
 }
 .gh-month-label {
   position: absolute;
   top: 0;
-  font-size: 11px;
+  font-size: 10.5px;
   color: #8b949e;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -762,16 +795,16 @@ section { position: relative; }
 .gh-days-col {
   display: flex;
   flex-direction: column;
-  gap: 3.5px;
-  width: 22px;
+  gap: 3px;
+  width: 20px;
   text-align: right;
   padding-top: 0px;
 }
 .gh-day-label {
   font-size: 9px;
   color: #8b949e;
-  height: 12px;
-  line-height: 12px;
+  height: 11px;
+  line-height: 11px;
   display: block;
 }
 /* Show labels only on Mon, Wed, Fri for clean GitHub look */
@@ -784,22 +817,22 @@ section { position: relative; }
 .gh-heatmap-matrix {
   display: flex;
   justify-content: space-between;
-  gap: 3.5px;
+  gap: 3px;
   flex: 1;
   width: 100%;
 }
 .gh-week-col {
   display: flex;
   flex-direction: column;
-  gap: 3.5px;
+  gap: 3px;
   flex: 1;
   align-items: center;
 }
 .gh-cell {
   width: 100%;
-  max-width: 13.5px;
+  max-width: 13px;
   aspect-ratio: 1;
-  border-radius: 2.5px;
+  border-radius: 2px;
   outline: 1px solid rgba(27, 31, 35, 0.06);
   outline-offset: -1px;
   transition: transform 0.15s, box-shadow 0.15s;
@@ -821,22 +854,20 @@ section { position: relative; }
 .gh-cell.level-3 { background: #26a641; color: #26a641; }
 .gh-cell.level-4 { background: #39d353; color: #39d353; }
 
-
-
 /* ── Heatmap Footer ────────────────────────── */
 .gh-panel-foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 14px;
-  font-size: 12px;
+  padding-top: 10px;
+  font-size: 11.5px;
   color: #8b949e;
 }
 .gh-tooltip-view {
-  font-size: 12.5px;
+  font-size: 12px;
   color: #c9d1d9;
 }
 .gh-tooltip-view b {
@@ -850,6 +881,14 @@ section { position: relative; }
   font-size: 11px;
 }
 .gh-legend .gh-cell {
+  width: 10px !important;
+  height: 10px !important;
+  max-width: 10px !important;
+  min-width: 10px !important;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border-radius: 2px;
   cursor: default;
 }
+
 
