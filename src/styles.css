@@ -510,3 +510,346 @@ section { position: relative; }
   text-overflow: ellipsis;
 }
 
+/* ── Live GitHub Activity Section ─────────── */
+.gh-section {
+  padding-top: clamp(80px, 14vh, 160px);
+  padding-bottom: clamp(80px, 14vh, 160px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3.5vw, 42px);
+}
+.gh-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 900px;
+}
+.gh-live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #26A641;
+  text-transform: uppercase;
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: #39D353;
+  box-shadow: 0 0 10px #39D353;
+  animation: livePulse 2s infinite ease-in-out;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.gh-title {
+  font-size: clamp(30px, 4.4vw, 62px);
+  line-height: 1.05;
+  --o: 144;
+  --s: 26;
+  --fw: 550;
+  letter-spacing: -0.02em;
+}
+.gh-subtitle {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--soft);
+  max-width: 54ch;
+}
+.gh-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(14px, 2vw, 24px);
+}
+.gh-metric-card {
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: clamp(14px, 1.6vw, 20px);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 6px 20px -10px rgba(14, 59, 46, 0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.gh-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -12px rgba(14, 59, 46, 0.15);
+}
+.gh-metric-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--veil);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.gh-metric-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.gh-metric-info b {
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.1;
+  --o: 48;
+  --s: 26;
+  --fw: 650;
+  color: var(--ink);
+}
+.gh-metric-info span {
+  font-size: 12px;
+  color: var(--soft);
+  font-weight: 500;
+}
+
+/* ── GitHub Heatmap Panel Container & Sidebar ───────── */
+.gh-panel-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: flex-start;
+}
+@media (max-width: 960px) {
+  .gh-panel-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gh-panel {
+  background: #0d1117;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: clamp(16px, 1.8vw, 24px);
+  padding: clamp(20px, 2.5vw, 32px);
+  color: #e6edf3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+.gh-panel-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 16px;
+}
+.gh-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.gh-username {
+  color: #58a6ff;
+  text-decoration: none;
+  font-weight: 650;
+  transition: color 0.2s;
+}
+.gh-username:hover {
+  text-decoration: underline;
+  color: #79c0ff;
+}
+.gh-year-count {
+  font-size: 13.5px;
+  color: #8b949e;
+  font-weight: 450;
+}
+
+/* Vertical Year Sidebar (Authentic GitHub Layout) */
+.gh-years-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 90px;
+}
+@media (max-width: 960px) {
+  .gh-years-sidebar {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    width: 100%;
+  }
+}
+.gh-year-sidebar-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #8b949e;
+  font: 600 13px/1 var(--g);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.gh-year-sidebar-btn:hover {
+  color: #f0f6fc;
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.gh-year-sidebar-btn[aria-selected='true'] {
+  background: #1f6feb;
+  color: #ffffff;
+  border-color: #388bfd;
+  box-shadow: 0 4px 14px rgba(31, 111, 235, 0.4);
+}
+
+/* ── Heatmap Matrix (Auto-width scaling) ────────────────────────── */
+.gh-heatmap-wrap {
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+.gh-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 140px;
+  color: #8b949e;
+  font-size: 13.5px;
+}
+.gh-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #39d353;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.gh-calendar-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 780px;
+}
+.gh-months-bar {
+  position: relative;
+  height: 18px;
+  margin-left: 28px;
+  margin-bottom: 6px;
+  width: calc(100% - 28px);
+}
+.gh-month-label {
+  position: absolute;
+  top: 0;
+  font-size: 11px;
+  color: #8b949e;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.gh-grid-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+}
+.gh-days-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+  width: 22px;
+  text-align: right;
+  padding-top: 0px;
+}
+.gh-day-label {
+  font-size: 9px;
+  color: #8b949e;
+  height: 12px;
+  line-height: 12px;
+  display: block;
+}
+/* Show labels only on Mon, Wed, Fri for clean GitHub look */
+.gh-day-label:nth-child(1),
+.gh-day-label:nth-child(3),
+.gh-day-label:nth-child(5),
+.gh-day-label:nth-child(7) {
+  visibility: hidden;
+}
+.gh-heatmap-matrix {
+  display: flex;
+  justify-content: space-between;
+  gap: 3.5px;
+  flex: 1;
+  width: 100%;
+}
+.gh-week-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+  flex: 1;
+  align-items: center;
+}
+.gh-cell {
+  width: 100%;
+  max-width: 13.5px;
+  aspect-ratio: 1;
+  border-radius: 2.5px;
+  outline: 1px solid rgba(27, 31, 35, 0.06);
+  outline-offset: -1px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+.gh-cell-empty {
+  background: transparent !important;
+  outline: none !important;
+  cursor: default !important;
+}
+.gh-cell:not(.gh-cell-empty):hover {
+  transform: scale(1.45);
+  z-index: 5;
+  box-shadow: 0 0 10px currentColor;
+}
+.gh-cell.level-0 { background: #161b22; }
+.gh-cell.level-1 { background: #0e4429; color: #0e4429; }
+.gh-cell.level-2 { background: #006d32; color: #006d32; }
+.gh-cell.level-3 { background: #26a641; color: #26a641; }
+.gh-cell.level-4 { background: #39d353; color: #39d353; }
+
+
+
+/* ── Heatmap Footer ────────────────────────── */
+.gh-panel-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+  font-size: 12px;
+  color: #8b949e;
+}
+.gh-tooltip-view {
+  font-size: 12.5px;
+  color: #c9d1d9;
+}
+.gh-tooltip-view b {
+  color: #58a6ff;
+  font-weight: 650;
+}
+.gh-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+}
+.gh-legend .gh-cell {
+  cursor: default;
+}
+
