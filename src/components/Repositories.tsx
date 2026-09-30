@@ -26,7 +26,7 @@ const CURATED_REPOSITORIES: Repository[] = [
     forks: 0,
     topics: ['react', 'typescript', 'gsap', 'portfolio', 'vite'],
     html_url: 'https://github.com/husnizayyin/husni-port',
-    homepage: 'https://husnizayyin.github.io',
+    homepage: 'https://husnizayn.vercel.app',
     updated_at: '2026-09-30',
   },
   {

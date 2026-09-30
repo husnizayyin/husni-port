@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap URL
-Sitemap: https://husnizayyin.github.io/sitemap.xml
+Sitemap: https://husnizayn.vercel.app/sitemap.xml
