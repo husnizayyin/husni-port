@@ -6,15 +6,14 @@ import { PresetButtons } from './PresetButtons';
 
 const PW = 900;
 const PH = 450;
-const EVEN_SPLIT = [0.25, 0.25, 0.25, 0.25];
+const EVEN_SPLIT = [1 / 3, 1 / 3, 1 / 3];
 
 const pathFor = (series: number[]) =>
   series.map((v, i) => `${i ? 'L' : 'M'}${((i / (WEEKS - 1)) * PW).toFixed(1)} ${(PH - (v / CHART_SCALE) * PH).toFixed(1)}`).join(' ');
 
 /**
- * Section 05. Same budget, four different splits. Scroll walks through weeks 1-12;
- * the buttons change where the money sits and the curve redraws.
- * The chart is drawn imperatively (refs) because it updates every scroll frame.
+ * Section 05. Same engineering effort, 4 specialized presets. Scroll walks through sprints 1-12;
+ * the buttons shift repo balance across Mobile, Frontend, and Full Stack disciplines.
  */
 export function Mix() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -39,12 +38,14 @@ export function Mix() {
 
     const drawCurve = () => {
       const d = pathFor(series);
-      lineRef.current!.setAttribute('d', d);
-      areaRef.current!.setAttribute('d', `${d} L${PW} ${PH} L0 ${PH} Z`);
-      flatRef.current!.setAttribute('d', pathFor(cumulative(EVEN_SPLIT)));
+      if (lineRef.current) lineRef.current.setAttribute('d', d);
+      if (areaRef.current) areaRef.current.setAttribute('d', `${d} L${PW} ${PH} L0 ${PH} Z`);
+      if (flatRef.current) flatRef.current.setAttribute('d', pathFor(cumulative(EVEN_SPLIT)));
       share.forEach((v, i) => {
-        fillRefs.current[i]!.style.transform = `scaleX(${v})`;
-        pctRefs.current[i]!.textContent = Math.round(v * 100) + '%';
+        const fillEl = fillRefs.current[i];
+        if (fillEl) fillEl.style.transform = `scaleX(${v})`;
+        const pctEl = pctRefs.current[i];
+        if (pctEl) pctEl.textContent = Math.round(v * 100) + '%';
       });
     };
     const drawHead = () => {
@@ -52,15 +53,21 @@ export function Mix() {
       const idx = t * (WEEKS - 1);
       const i0 = Math.floor(idx);
       const i1 = Math.min(WEEKS - 1, i0 + 1);
-      const v = series[i0] + (series[i1] - series[i0]) * (idx - i0);
+      const v0 = series[i0] ?? 0;
+      const v1 = series[i1] ?? v0;
+      const v = v0 + (v1 - v0) * (idx - i0);
       const x = t * PW;
       const y = PH - (v / CHART_SCALE) * PH;
-      curRef.current!.setAttribute('x1', String(x));
-      curRef.current!.setAttribute('x2', String(x));
-      dotRef.current!.setAttribute('cx', String(x));
-      dotRef.current!.setAttribute('cy', String(y));
-      outRef.current!.textContent = fmt(v * 1180); // 1180 = illustrative results per unit
-      outLabRef.current!.textContent = 'engineering output by sprint ' + Math.max(1, Math.round(1 + t * (WEEKS - 1)));
+      if (curRef.current) {
+        curRef.current.setAttribute('x1', String(x));
+        curRef.current.setAttribute('x2', String(x));
+      }
+      if (dotRef.current) {
+        dotRef.current.setAttribute('cx', String(x));
+        dotRef.current.setAttribute('cy', String(y));
+      }
+      if (outRef.current) outRef.current.textContent = fmt(v * 1180);
+      if (outLabRef.current) outLabRef.current.textContent = 'engineering output by sprint ' + Math.max(1, Math.round(1 + t * (WEEKS - 1)));
     };
     drawCurve();
     drawHead();
@@ -72,7 +79,7 @@ export function Mix() {
       tween = gsap.to(k, {
         v: 1, duration: reduce ? 0 : 0.8, ease: 'power3.inOut',
         onUpdate() {
-          share = from.map((f, i) => f + (target[i] - f) * k.v);
+          share = from.map((f, i) => f + ((target[i] ?? 0) - f) * k.v);
           series = cumulative(share);
           drawCurve();
           drawHead();
@@ -102,8 +109,8 @@ export function Mix() {
         <div className="mhead">
           <h2 className="fr">Ecosystem Balance.<br />Engineering Velocity.</h2>
           <p>
-            Every profile models full-cycle software delivery. Scroll steps through sprints 1-12; click the buttons
-            to shift architecture focus across Frontend, Mobile, Backend, and Databases.
+            Synthesized from GitHub commits and repository activity. Scroll steps through sprints 1-12; click the buttons
+            to model engineering velocity across Mobile Development, Frontend, and Full Stack disciplines.
           </p>
         </div>
         <div className="mgrid">

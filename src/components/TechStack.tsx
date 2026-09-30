@@ -1,13 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { gsap } from '../lib/gsap';
 import { TECH_CATEGORIES, TECH_STACK, type TechItem } from '../data/techStack';
 
 interface InteractiveCardProps {
   item: TechItem;
-  index: number;
 }
 
-function InteractiveTechCard({ item, index }: InteractiveCardProps) {
+function InteractiveTechCard({ item }: InteractiveCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
 
@@ -20,14 +19,14 @@ function InteractiveTechCard({ item, index }: InteractiveCardProps) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = ((y - centerY) / centerY) * -12;
-    const rotateY = ((x - centerX) / centerX) * 12;
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
 
     gsap.to(card, {
       rotateX,
       rotateY,
-      scale: 1.04,
-      transformPerspective: 900,
+      scale: 1.03,
+      transformPerspective: 800,
       duration: 0.25,
       ease: 'power2.out',
     });
@@ -51,14 +50,14 @@ function InteractiveTechCard({ item, index }: InteractiveCardProps) {
       rotateX: 0,
       rotateY: 0,
       scale: 1,
-      duration: 0.6,
+      duration: 0.5,
       ease: 'elastic.out(1, 0.5)',
     });
 
     if (glowRef.current) {
       gsap.to(glowRef.current, {
         opacity: 0,
-        duration: 0.4,
+        duration: 0.3,
         ease: 'power2.out',
       });
     }
@@ -67,7 +66,7 @@ function InteractiveTechCard({ item, index }: InteractiveCardProps) {
   return (
     <div
       ref={cardRef}
-      className={`tech-card ${index % 2 === 0 ? 'card-even' : 'card-odd'}`}
+      className="tech-card"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ '--accent': item.color } as React.CSSProperties}
@@ -93,98 +92,33 @@ export function TechStack() {
     ? TECH_STACK
     : TECH_STACK.filter((t) => t.category === activeTab);
 
-  // Full ScrollTrigger setup with continuous scrub & batch reveals
+  // Initial ScrollTrigger entrance
   useLayoutEffect(() => {
     const root = rootRef.current!;
-    const grid = gridRef.current!;
     const q = gsap.utils.selector(root);
 
     const ctx = gsap.context(() => {
-      // 1. Header & Tabs ScrollTrigger entrance
-      gsap.from(q('.tech-head > *'), {
-        y: 40,
+      gsap.from(q('.tech-head, .tech-tabs'), {
+        y: 30,
         opacity: 0,
-        stagger: 0.12,
-        duration: 1,
+        duration: 0.9,
         ease: 'expo.out',
+        stagger: 0.1,
         scrollTrigger: {
           trigger: root,
-          start: 'top 85%',
+          start: 'top 82%',
         },
       });
 
-      gsap.from(q('.tech-tabs button'), {
-        scale: 0.85,
+      gsap.from(q('.tech-card'), {
+        y: 35,
         opacity: 0,
-        stagger: 0.04,
-        duration: 0.6,
-        ease: 'back.out(1.6)',
+        duration: 0.75,
+        ease: 'power3.out',
+        stagger: 0.03,
         scrollTrigger: {
-          trigger: q('.tech-tabs')[0],
-          start: 'top 88%',
-        },
-      });
-
-      // 2. Parallax floating drift tied to continuous scroll scrub
-      gsap.fromTo(
-        q('.card-even'),
-        { y: 25 },
-        {
-          y: -25,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: grid,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.2,
-          },
-        }
-      );
-
-      gsap.fromTo(
-        q('.card-odd'),
-        { y: -15 },
-        {
-          y: 20,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: grid,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          },
-        }
-      );
-
-      // 3. Batch card reveal with 3D rotation
-      ScrollTrigger.batch(q('.tech-card'), {
-        start: 'top 92%',
-        onEnter: (batch) => {
-          gsap.fromTo(
-            batch,
-            { opacity: 0, y: 35, scale: 0.92, rotateX: 10 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              rotateX: 0,
-              duration: 0.75,
-              ease: 'power3.out',
-              stagger: 0.04,
-              overwrite: 'auto',
-            }
-          );
-        },
-        onLeaveBack: (batch) => {
-          gsap.to(batch, {
-            opacity: 0.2,
-            y: 20,
-            scale: 0.94,
-            duration: 0.5,
-            ease: 'power2.in',
-            stagger: 0.02,
-            overwrite: 'auto',
-          });
+          trigger: q('.tech-grid')[0],
+          start: 'top 85%',
         },
       });
     }, root);
@@ -192,7 +126,7 @@ export function TechStack() {
     return () => ctx.revert();
   }, []);
 
-  // Snappy tab change animation
+  // Snappy tab change transition
   useEffect(() => {
     if (!gridRef.current) return;
     const cards = gridRef.current.querySelectorAll('.tech-card');
@@ -200,22 +134,18 @@ export function TechStack() {
       cards,
       {
         opacity: 0,
-        scale: 0.86,
-        y: 18,
+        scale: 0.9,
+        y: 15,
       },
       {
         opacity: 1,
         scale: 1,
         y: 0,
-        duration: 0.42,
-        ease: 'back.out(1.5)',
-        stagger: {
-          amount: 0.22,
-          from: 'start',
-        },
+        duration: 0.35,
+        ease: 'power2.out',
+        stagger: 0.02,
       }
     );
-    ScrollTrigger.refresh();
   }, [activeTab]);
 
   return (
@@ -244,8 +174,8 @@ export function TechStack() {
       </div>
 
       <div className="tech-grid" ref={gridRef} aria-live="polite">
-        {filtered.map((t, idx) => (
-          <InteractiveTechCard key={t.name} item={t} index={idx} />
+        {filtered.map((t) => (
+          <InteractiveTechCard key={t.name} item={t} />
         ))}
       </div>
     </section>

@@ -15,11 +15,11 @@ export const FEW = Array.from({ length: 90 }, () => {
   return { cx: 800 + Math.cos(a) * r, cy: 430 + Math.sin(a) * r * 0.62 };
 });
 
-/** Scene 3: three architecture distributions the bar cycles through. Order matches CHANNELS. */
+/** Scene 3: three architecture distributions the bar cycles through. Order matches CHANNELS (3 channels). */
 export const MIXES = [
-  [0.40, 0.30, 0.20, 0.10],
-  [0.25, 0.35, 0.25, 0.15],
-  [0.30, 0.20, 0.35, 0.15],
+  [0.35, 0.35, 0.30],
+  [0.60, 0.25, 0.15],
+  [0.20, 0.60, 0.20],
 ];
 export const MIX_BAR = { x: 150, w: 1300, y: 420, h: 130 };
 
@@ -38,9 +38,9 @@ export const RAIN = Array.from({ length: 170 }, () => ({
   keep: rnd(),
 }));
 
-/** Scene 5: four engineering domain nodes converging on the unified production hub. */
+/** Scene 5: engineering domain nodes converging on the unified production hub. */
 export const NODES = CHANNELS.map((c, i) => {
-  const a = -Math.PI / 2 + i * ((Math.PI * 2) / 4);
+  const a = -Math.PI / 2 + i * ((Math.PI * 2) / CHANNELS.length);
   const x = 800 + Math.cos(a) * 470;
   const y = 450 + Math.sin(a) * 250;
   return {
@@ -53,5 +53,9 @@ export const NODES = CHANNELS.map((c, i) => {
     my: (y + 450) / 2 - (x - 800) * 0.42,
   };
 });
-/** 36 travelling packets, spread across the four engineering arcs. */
-export const TRAVELLERS = Array.from({ length: 36 }, (_, i) => ({ arc: i % 4, offset: rnd() }));
+
+/** 36 travelling packets, spread across the engineering arcs. */
+export const TRAVELLERS = Array.from({ length: 36 }, (_, i) => ({
+  arc: i % CHANNELS.length,
+  offset: rnd(),
+}));

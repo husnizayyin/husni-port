@@ -99,6 +99,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
     const setBar = (m: number[]) => {
       let x = MIX_BAR.x;
       m.forEach((v, i) => {
+        if (!CHANNELS[i] || !segs[i] || !segTx[i]) return;
         const w = Math.max(4, v * MIX_BAR.w - 8);
         segs[i].setAttribute('x', String(x));
         segs[i].setAttribute('width', String(w));
@@ -115,8 +116,12 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
       .to(segs, { opacity: 1, scaleY: 1, duration: 0.55, ease: 'back.out(1.7)', stagger: 0.06 }, 5.3)
       .to(segTx, { opacity: 0.85, y: 0, duration: 0.45, ease: 'expo.out', stagger: 0.06 }, 5.5);
     [1, 2].forEach((mi, i) => {
+      const targetAnim: Record<string, number> = {};
+      MIXES[mi].forEach((val, idx) => {
+        targetAnim[idx] = val;
+      });
       tl.to(state.a, {
-        0: MIXES[mi][0], 1: MIXES[mi][1], 2: MIXES[mi][2], 3: MIXES[mi][3],
+        ...targetAnim,
         duration: 0.7, ease: 'power3.inOut', onUpdate: () => setBar(state.a),
       }, 6.1 + i * 0.8);
     });
