@@ -121,7 +121,7 @@ export function Film() {
                     ))}
                   </g>
                 </svg>
-                <div className="fr fewlab" id="fewLab">5,280+ commits & pull requests engineered</div>
+                <div className="fr fewlab" id="fewLab">3,766+ GitHub contributions across 5 years</div>
               </div>
 
               {/* 3 · tech stack distribution */}

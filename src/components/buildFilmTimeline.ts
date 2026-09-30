@@ -20,7 +20,7 @@ export const FILM_SCENES: [start: number, label: string][] = [
   [0, '01 — Husni Zayyin Ansori'],
   [2.4, '02 — 5+ Years of Production Code'],
   [5.2, '03 — Multi-Platform Tech Matrix'],
-  [7.8, '04 — Architecture Pipeline'],
+  [7.8, '04 — GitHub Contribution Velocity'],
   [11, '05 — Distributed Convergence'],
   [13.4, '06 — Engineering Signature'],
 ];
@@ -194,7 +194,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
         });
       },
     }, 11.8)
-      .to(hn, { v: 5280, duration: 1.2, ease: 'power2.out', onUpdate: () => { hubN.textContent = fmt(hn.v); } }, 11.9)
+      .to(hn, { v: 3766, duration: 1.2, ease: 'power2.out', onUpdate: () => { hubN.textContent = fmt(hn.v); } }, 11.9)
       .to([...trav, ...paths, ...nodeGs, head], { opacity: 0, duration: 0.3 }, 13.1)
       .to([hub, hubN], { opacity: 0, duration: 0.25 }, 13.2);
   }
