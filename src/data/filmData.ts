@@ -23,12 +23,11 @@ export const MIXES = [
 ];
 export const MIX_BAR = { x: 150, w: 1300, y: 420, h: 130 };
 
-/** Scene 4: GitHub contribution funnel. `rx` is the ellipse width at that stage. */
 export const STAGES = [
   { label: 'All-Time Total GitHub Contributions', value: 3766, rx: 540 },
   { label: '2026 Active Code Contributions', value: 1677, rx: 410 },
-  { label: '2025 Commits & Pull Requests', value: 1257, rx: 290 },
-  { label: '2024 Production Sprints', value: 410, rx: 170 },
+  { label: 'Production Products Delivered Worldwide', value: 15, rx: 290 },
+  { label: 'Companies & Organizations Scaled', value: 5, rx: 170 },
 ];
 /** Normalised y position where a falling dot stops for each stage (1 = reaches the bottom). */
 export const STOPS = [0.224, 0.483, 0.741, 1];

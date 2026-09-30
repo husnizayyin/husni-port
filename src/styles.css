@@ -680,6 +680,8 @@ section {
 .numlab { font-size: 26px; color: var(--ink); opacity: 0.6; }
 .fewlab { position: absolute; left: 0; right: 0; bottom: 190px; text-align: center; font-size: 30px; --o: 48; --s: 30; --fw: 550; }
 .s3h { position: absolute; left: 150px; top: 150px; font-size: 34px; --o: 48; --s: 30; --fw: 550; }
+.s3sub { position: absolute; left: 150px; top: 620px; display: flex; align-items: center; gap: 24px; font-size: 24px; font-weight: 600; color: var(--soft); }
+.s3sub span.dot { opacity: 0.35; }
 .s5h { position: absolute; left: 0; right: 0; top: 54px; text-align: center; font-size: 32px; --o: 48; --s: 30; --fw: 550; }
 .s6mid { gap: 18px; }
 .endw { display: flex; font-size: 150px; line-height: 1; --o: 144; --s: 20; --fw: 600; letter-spacing: -0.015em; }

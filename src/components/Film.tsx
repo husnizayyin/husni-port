@@ -128,7 +128,7 @@ export function Film() {
                 </svg>
                 <div className="s1txt">
                   <div className="fr s1w" id="s1w">Husni</div>
-                  <div className="s1s" id="s1s">Software Engineer · 5 Years Experience</div>
+                  <div className="s1s" id="s1s">Software Engineer · 5+ Years Experience · 5 Companies</div>
                 </div>
               </div>
 
@@ -136,7 +136,7 @@ export function Film() {
               <div className="scene" id="s2">
                 <div className="s2mid">
                   <div className="fr num bignum" id="bigNum">0</div>
-                  <div className="numlab" id="numLab">lines of production code shipped</div>
+                  <div className="numlab" id="numLab">lines of production code across 15+ shipped products</div>
                 </div>
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <g id="fewDots">
@@ -145,12 +145,12 @@ export function Film() {
                     ))}
                   </g>
                 </svg>
-                <div className="fr fewlab" id="fewLab">3,766+ GitHub contributions across 5 years</div>
+                <div className="fr fewlab" id="fewLab">3,766+ GitHub contributions across 5 global & enterprise companies</div>
               </div>
 
               {/* 3 · tech stack distribution */}
               <div className="scene" id="s3">
-                <div className="fr s3h" id="s3h">Multi-Platform Ecosystem Distribution</div>
+                <div className="fr s3h" id="s3h">Multi-Platform Ecosystem · 15+ Products Shipped</div>
                 <svg width="1600" height="900" viewBox="0 0 1600 900">
                   <g id="mixBar">
                     {CHANNELS.map((c) => (
@@ -163,6 +163,13 @@ export function Film() {
                     ))}
                   </g>
                 </svg>
+                <div className="s3sub" id="s3sub">
+                  <span>📱 7 Mobile Apps</span>
+                  <span className="dot">•</span>
+                  <span>💻 6 Web & Portals</span>
+                  <span className="dot">•</span>
+                  <span>⚡ 2 Enterprise HRIS & WMS</span>
+                </div>
               </div>
 
               {/* 4 · the system architecture pipeline */}
@@ -216,7 +223,7 @@ export function Film() {
                   <circle id="hub" cx="800" cy="450" r="0" fill={INK} />
                   <text id="hubN" x="800" y="462" textAnchor="middle" fontSize="46" fontWeight="600" fill="#FBFBF8" opacity="0" style={svgText}>0</text>
                 </svg>
-                <div className="fr s5h" id="s5h">All tiers converge into one resilient core</div>
+                <div className="fr s5h" id="s5h">15+ Products & 5 Companies Converged into One Core</div>
               </div>
 
               {/* 6 · signature */}
@@ -231,7 +238,7 @@ export function Film() {
                     ))}
                   </div>
                   <div className="endm-mask">
-                    <div className="endm" id="endM">Husni Zayyin Ansori · Software Engineer</div>
+                    <div className="endm" id="endM">Husni Zayyin Ansori · Software Engineer · 15+ Shipped Products</div>
                   </div>
                 </div>
               </div>

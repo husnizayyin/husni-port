@@ -17,11 +17,11 @@ import { INK, ORANGE } from '../data/tokens';
  *  13.4  6  The ellipse redraws, wordmark returns
  */
 export const FILM_SCENES: [start: number, label: string][] = [
-  [0, '01 — Husni Zayyin Ansori'],
-  [2.4, '02 — 5+ Years of Production Code'],
-  [5.2, '03 — Multi-Platform Tech Matrix'],
-  [7.8, '04 — GitHub Contribution Velocity'],
-  [11, '05 — Distributed Convergence'],
+  [0, '01 — Husni Zayyin Ansori · 5+ Years'],
+  [2.4, '02 — 1.5M+ Lines & 15+ Shipped Products'],
+  [5.2, '03 — Multi-Platform Tech Matrix (15+ Apps)'],
+  [7.8, '04 — Proven Delivery & Scale Funnel'],
+  [11, '05 — Distributed Convergence (5 Companies)'],
   [13.4, '06 — Engineering Signature'],
 ];
 export const FILM_SECONDS = 15;
@@ -95,6 +95,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
     const segs = many<SVGRectElement>('#mixBar rect');
     const segTx = many<SVGTextElement>('#mixLab text');
     const head = one('#s3h');
+    const sub = one('#s3sub');
     const state = { a: MIXES[0].slice() };
     const setBar = (m: number[]) => {
       let x = MIX_BAR.x;
@@ -112,9 +113,11 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
     gsap.set(segs, { opacity: 0, scaleY: 0.2, transformOrigin: '50% 50%' });
     gsap.set(segTx, { opacity: 0, y: 14 });
     gsap.set(head, { opacity: 0, y: 22 });
+    gsap.set(sub, { opacity: 0, y: 16 });
     tl.to(head, { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' }, 5.2)
       .to(segs, { opacity: 1, scaleY: 1, duration: 0.55, ease: 'back.out(1.7)', stagger: 0.06 }, 5.3)
-      .to(segTx, { opacity: 0.85, y: 0, duration: 0.45, ease: 'expo.out', stagger: 0.06 }, 5.5);
+      .to(segTx, { opacity: 0.85, y: 0, duration: 0.45, ease: 'expo.out', stagger: 0.06 }, 5.5)
+      .to(sub, { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' }, 5.6);
     [1, 2].forEach((mi, i) => {
       const targetAnim: Record<string, number> = {};
       MIXES[mi].forEach((val, idx) => {
@@ -125,7 +128,7 @@ export function buildFilmTimeline(root: HTMLElement): gsap.core.Timeline {
         duration: 0.7, ease: 'power3.inOut', onUpdate: () => setBar(state.a),
       }, 6.1 + i * 0.8);
     });
-    tl.to([...segs, ...segTx, head], { opacity: 0, duration: 0.3 }, 7.6);
+    tl.to([...segs, ...segTx, head, sub], { opacity: 0, duration: 0.3 }, 7.6);
   }
   cut('#s3', '#s4', 7.8);
 
