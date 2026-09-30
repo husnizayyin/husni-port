@@ -8,8 +8,10 @@ const RING_LEN = 2 * Math.PI * 15;
 function jumpTo(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
+  const targetEl = el.parentElement?.classList.contains('pin-spacer') ? el.parentElement : el;
+  const targetY = targetEl.getBoundingClientRect().top + window.scrollY;
   const maxY = document.documentElement.scrollHeight - window.innerHeight;
-  scrollToY(Math.min(maxY, el.offsetTop), 1100);
+  scrollToY(Math.min(maxY, Math.max(0, targetY)), 1100);
 }
 
 /**
@@ -23,34 +25,54 @@ export function Chrome() {
   const ringRef = useRef<SVGCircleElement>(null);
 
   useEffect(() => {
-    let tops: number[] = [];
     let maxY = 1;
     let current = -1;
 
-    const measure = () => {
-      tops = SECTIONS.map((s) => document.getElementById(s.id)?.offsetTop ?? 0);
-      maxY = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      update();
+    const getActiveIndex = () => {
+      const scrollY = window.scrollY;
+      if (scrollY <= 60) return 0; // At top, section 0 (hero) is always active
+
+      const focalY = window.innerHeight * 0.38;
+      let activeIdx = 0;
+
+      for (let i = 0; i < SECTIONS.length; i++) {
+        const el = document.getElementById(SECTIONS[i].id);
+        if (!el) continue;
+        const targetEl = el.parentElement?.classList.contains('pin-spacer') ? el.parentElement : el;
+        const rect = targetEl.getBoundingClientRect();
+        if (rect.top <= focalY && rect.bottom > 0) {
+          activeIdx = i;
+        }
+      }
+
+      // If at bottom of page, activate last section
+      if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 30) {
+        activeIdx = SECTIONS.length - 1;
+      }
+
+      return activeIdx;
     };
+
     const update = () => {
+      maxY = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const p = Math.min(1, Math.max(0, window.scrollY / maxY));
       if (ringRef.current) ringRef.current.style.strokeDashoffset = String(RING_LEN * (1 - p));
-      let idx = 0;
-      for (let i = 0; i < tops.length; i++) if (window.scrollY + window.innerHeight * 0.42 >= tops[i]) idx = i;
+
+      const idx = getActiveIndex();
       if (idx !== current) {
         current = idx;
         setActive(idx);
       }
     };
 
-    measure();
-    ScrollTrigger.addEventListener('refresh', measure);
+    update();
+    ScrollTrigger.addEventListener('refresh', update);
     window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', measure);
+    window.addEventListener('resize', update);
     return () => {
-      ScrollTrigger.removeEventListener('refresh', measure);
+      ScrollTrigger.removeEventListener('refresh', update);
       window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', measure);
+      window.removeEventListener('resize', update);
     };
   }, []);
 
