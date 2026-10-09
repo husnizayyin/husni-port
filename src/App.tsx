@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { ScrollTrigger } from './lib/gsap';
 import { installScrollCancel } from './lib/scroll';
 import { Chrome } from './components/Chrome';
+import { BackgroundCanvas } from './components/BackgroundCanvas';
 import { Hero } from './components/Hero';
 import { Position } from './components/Position';
 import { Film } from './components/Film';
@@ -9,7 +10,6 @@ import { Work } from './components/Work';
 import { TechStack } from './components/TechStack';
 import { GithubActivity } from './components/GithubActivity';
 import { Repositories } from './components/Repositories';
-import { Mix } from './components/Mix';
 import { Contact } from './components/Contact';
 
 export default function App() {
@@ -36,7 +36,8 @@ export default function App() {
   return (
     <>
       <Chrome />
-      <main>
+      <BackgroundCanvas />
+      <main className="content-right">
         <Hero />
         <Position />
         <Film />
@@ -44,7 +45,6 @@ export default function App() {
         <TechStack />
         <GithubActivity />
         <Repositories />
-        <Mix />
         <Contact />
       </main>
     </>

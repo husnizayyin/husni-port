@@ -1,71 +1,45 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from '../lib/gsap';
-import { ellipsePoint, prefersReducedMotion } from '../lib/util';
+import { prefersReducedMotion } from '../lib/util';
 
-const LOGO = ['H', 'u', 's', 'n', 'i'];
-
-/** Section 00. The ellipse draws itself with a dot, then the wordmark rises out of it. */
+/**
+ * Section 00 (Hero / Section 1). Editorial Details on Right.
+ */
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
-  const ellRef = useRef<SVGEllipseElement>(null);
-  const dotRef = useRef<SVGCircleElement>(null);
 
   useLayoutEffect(() => {
     const root = rootRef.current!;
-    const ell = ellRef.current!;
-    const dot = dotRef.current!;
     const q = gsap.utils.selector(root);
     const reduce = prefersReducedMotion();
-    const chars = q('.hero-word .ch');
-    const late = q('.hero-say, .hero-foot > p, .scrollcue');
-    const len = ell.getTotalLength();
+    const content = q('.hero-content-right');
+    const items = q('.hero-eyebrow, .hero-name, .hero-role, .hero-desc, .hero-pills, .scrollcue');
 
     const mm = gsap.matchMedia(root);
 
     mm.add('(min-width: 1025px)', () => {
-      gsap.set(ell, { strokeDasharray: len, strokeDashoffset: len });
-
       if (reduce) {
-        gsap.set(ell, { strokeDashoffset: 0 });
-        gsap.set([...chars, ...late], { opacity: 1, y: 0 });
+        gsap.set(items, { opacity: 1, y: 0, x: 0 });
       } else {
-        gsap.set(chars, { yPercent: 105, opacity: 0, '--s': 100, '--fw': 300 });
-        gsap.set(late, { opacity: 0, y: 16 });
-        const p = { t: 0 };
-        gsap.timeline({ delay: 0.12 })
-          .to(ell, { strokeDashoffset: 0, duration: 1.9, ease: 'power2.inOut' }, 0)
-          .to(p, {
-            t: 1, duration: 1.9, ease: 'power2.inOut',
-            onUpdate() {
-              const [x, y] = ellipsePoint(500, 240, 480, 215, p.t * Math.PI * 2);
-              dot.setAttribute('cx', String(x));
-              dot.setAttribute('cy', String(y));
-            },
-          }, 0)
-          .to(dot, { attr: { r: 0 }, duration: 0.35, ease: 'power2.in' }, 1.78)
-          .to(chars, { yPercent: 0, opacity: 1, '--s': 20, '--fw': 600, duration: 1.3, ease: 'expo.out', stagger: 0.07 }, 0.62)
-          .to(late, { opacity: 1, y: 0, duration: 0.9, ease: 'expo.out', stagger: 0.07 }, 1.05);
+        gsap.set(items, { opacity: 0, y: 22 });
 
-        // Scroll cue: the orange dot bobs, then springs back
-        gsap.timeline({ repeat: -1, repeatDelay: 0.7, delay: 2.4 })
+        gsap.timeline({ delay: 0.12 })
+          .to(items, { opacity: 1, y: 0, duration: 1.0, ease: 'expo.out', stagger: 0.08 }, 0.25);
+
+        // Scroll cue pulsing animation
+        gsap.timeline({ repeat: -1, repeatDelay: 0.7, delay: 2.2 })
           .to(q('.cue'), { y: 7, duration: 0.5, ease: 'sine.inOut' })
           .to(q('.cue'), { y: 0, duration: 0.7, ease: 'elastic.out(1,.45)' });
       }
 
-      // Scrolling away: ring swells and fades, letters lift off, copy drifts up
+      // Smooth parallax transition when scrolling away from Section 1
       gsap.timeline({ scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: 0.5 } })
-        .to(q('.ring'), { scale: 1.42, opacity: 0, ease: 'none', duration: 1 }, 0)
-        .to(chars, { yPercent: -34, opacity: 0, ease: 'none', stagger: 0.04, duration: 1 }, 0)
-        .to(q('.hero-say, .hero-foot'), { y: -50, opacity: 0, ease: 'none', duration: 1 }, 0);
+        .to(content, { y: -50, opacity: 0, ease: 'none', duration: 1 }, 0);
     });
 
     mm.add('(max-width: 1024px)', () => {
-      gsap.set(ell, { strokeDashoffset: 0 });
-      gsap.set(dot, { attr: { r: 0 } });
-      gsap.set(chars, { yPercent: 0, opacity: 1, '--s': 20, '--fw': 600 });
-      gsap.set(late, { opacity: 1, y: 0 });
-      gsap.from(chars, { opacity: 0, y: 15, duration: 0.8, stagger: 0.05, ease: 'power2.out' });
-      gsap.from(late, { opacity: 0, y: 10, duration: 0.6, delay: 0.2, ease: 'power2.out' });
+      gsap.set(items, { opacity: 1, y: 0, x: 0, scale: 1 });
+      gsap.from(items, { opacity: 0, y: 15, duration: 0.7, stagger: 0.06, delay: 0.15, ease: 'power2.out' });
     });
 
     return () => mm.revert();
@@ -73,28 +47,32 @@ export function Hero() {
 
   return (
     <section id="hero" ref={rootRef} aria-label="Husni Zayyin Ansori, Software Engineer in Jakarta">
-      <div className="ring" aria-hidden="true">
-        <svg viewBox="0 0 1000 480">
-          <ellipse ref={ellRef} cx="500" cy="240" rx="480" ry="215" fill="none" stroke="var(--ink)" strokeWidth="1.6" />
-          <circle ref={dotRef} cx="980" cy="240" r="9" fill="var(--paid)" />
-        </svg>
-      </div>
-      <div className="hero-mid">
-        <h1 className="hero-word fr">
-          {LOGO.map((c, i) => (
-            <span key={i} className="ch fr">{c}</span>
-          ))}
-        </h1>
-        <p className="hero-say">Husni Zayyin Ansori · Software Engineer in Jakarta</p>
-      </div>
-      <div className="hero-foot">
-        <p>
-          <b>Results-driven Software Engineer based in Jakarta, Indonesia.</b> Architecting scalable web & mobile systems bridging complex back-end logic
-          with high-performance interfaces (Next.js, Flutter, React, Laravel, PostgreSQL).
-        </p>
-        <div className="scrollcue">
-          <span className="cue" />
-          <span>Scroll to explore engineering journey</span>
+      <div className="hero-split-grid">
+        <div className="hero-content-right">
+          <div className="hero-eyebrow">
+            <span className="eyebrow-dot" />
+            <span>SOFTWARE ENGINEER & SYSTEM ARCHITECT</span>
+          </div>
+
+          <h1 className="hero-name fr">Husni Zayyin Ansori</h1>
+          
+          <p className="hero-role">Based in Jakarta, Indonesia · Available for Engineering Roles</p>
+
+          <p className="hero-desc">
+            <b>Results-driven Software Engineer</b> architecting scalable web & mobile systems bridging complex back-end logic
+            with high-performance interfaces (Next.js, Flutter, React, Laravel, PostgreSQL).
+          </p>
+
+          <div className="hero-pills">
+            <span className="hero-pill">5+ Years Experience</span>
+            <span className="hero-pill">Full-Stack & Mobile Core</span>
+            <span className="hero-pill">Jakarta (UTC+7)</span>
+          </div>
+
+          <div className="scrollcue">
+            <span className="cue" />
+            <span>Scroll down to explore journey</span>
+          </div>
         </div>
       </div>
     </section>

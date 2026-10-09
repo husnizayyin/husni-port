@@ -1,14 +1,14 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '../lib/gsap';
 import { linear, scrollToY } from '../lib/scroll';
-import { prefersReducedMotion, fmt } from '../lib/util';
+import { prefersReducedMotion } from '../lib/util';
 import { buildFilmTimeline, FILM_SCENES, FILM_SECONDS } from './buildFilmTimeline';
 import { CHANNELS } from '../data/channels';
-import { FEW, FUNNEL_CX, MIX_BAR, NODES, RAIN, STAGES, TRAVELLERS } from '../data/filmData';
+import { FEW, MIX_BAR } from '../data/filmData';
 import { INK, ORANGE } from '../data/tokens';
 
 const svgText = { fontFamily: 'var(--g)' } as const;
-const LOGO = ['H', 'u', 's', 'n', 'i'];
+
 
 /**
  * Section 02. A pinned 16:9 "film" whose playhead is the page scroll.
@@ -49,7 +49,7 @@ export function Film() {
       let lastFrame = -1;
       const updateHud = () => {
         const p = film.time() / film.duration();
-        const fr = Math.min(450, Math.round(p * 450));
+        const fr = Math.min(234, Math.round(p * 234));
         if (fr === lastFrame) return;
         lastFrame = fr;
         if (frameNumRef.current) frameNumRef.current.textContent = String(fr).padStart(3, '0');
@@ -62,8 +62,8 @@ export function Film() {
       const scrub = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: 'top top',
-          end: '+=680%',
+          start: 'center center',
+          end: '+=350%',
           pin: pinRef.current,
           anticipatePin: 1,
           scrub: reduce ? true : 0.45,
@@ -83,7 +83,7 @@ export function Film() {
 
       film.eventCallback('onUpdate', () => {
         const p = film.time() / film.duration();
-        const fr = Math.min(450, Math.round(p * 450));
+        const fr = Math.min(234, Math.round(p * 234));
         if (frameNumRef.current) frameNumRef.current.textContent = String(fr).padStart(3, '0');
         let i = 0;
         while (i < scenes.length - 1 && p >= scenes[i + 1][0]) i++;
@@ -172,87 +172,18 @@ export function Film() {
                 </div>
               </div>
 
-              {/* 4 · the system architecture pipeline */}
-              <div className="scene" id="s4">
-                <svg width="1600" height="900" viewBox="0 0 1600 900">
-                  <g id="funnel">
-                    {STAGES.map((s, i) => (
-                      <ellipse key={s.label} cx={FUNNEL_CX} cy={230 + i * 150} rx={s.rx} ry={44} fill="none" stroke={INK} strokeWidth="2" opacity="0" />
-                    ))}
-                  </g>
-                  <g id="rain">
-                    {RAIN.map((_, i) => (
-                      <circle key={i} cx="0" cy="0" r="4.5" fill={INK} />
-                    ))}
-                  </g>
-                  <g id="fLab">
-                    {STAGES.map((s, i) => {
-                      const lx = FUNNEL_CX + s.rx + 28;
-                      return (
-                        <g key={s.label} opacity="0">
-                          <text x={lx} y={224 + i * 150} fontSize="26" fontWeight="600" fill={i === 3 ? ORANGE : INK} style={svgText}>{fmt(s.value)}</text>
-                          <text x={lx} y={252 + i * 150} fontSize="17" fontWeight="500" fill={INK} opacity=".75" style={svgText}>{s.label}</text>
-                        </g>
-                      );
-                    })}
-                  </g>
-                </svg>
-              </div>
-
-              {/* 5 · distributed convergence */}
-              <div className="scene" id="s5">
-                <svg width="1600" height="900" viewBox="0 0 1600 900">
-                  <g id="paths">
-                    {NODES.map((n) => (
-                      <path key={n.key} d={`M${n.x} ${n.y} Q${n.mx} ${n.my} 800 450`} fill="none" stroke={n.color} strokeWidth="2.5" opacity=".35" />
-                    ))}
-                  </g>
-                  <g id="nodes">
-                    {NODES.map((n) => (
-                      <g key={n.key} opacity="0">
-                        <circle cx={n.x} cy={n.y} r="15" fill={n.color} />
-                        <text x={n.x} y={n.y + (n.y < 450 ? -30 : 44)} textAnchor="middle" fontSize="21" fontWeight="600" fill={INK} style={svgText}>{n.key}</text>
-                      </g>
-                    ))}
-                  </g>
-                  <g id="travel">
-                    {TRAVELLERS.map((t, i) => (
-                      <circle key={i} cx={NODES[t.arc].x} cy={NODES[t.arc].y} r="6" fill={NODES[t.arc].color} opacity="0" />
-                    ))}
-                  </g>
-                  <circle id="hub" cx="800" cy="450" r="0" fill={INK} />
-                  <text id="hubN" x="800" y="462" textAnchor="middle" fontSize="46" fontWeight="600" fill="#FBFBF8" opacity="0" style={svgText}>0</text>
-                </svg>
-                <div className="fr s5h" id="s5h">15+ Products & 5 Companies Converged into One Core</div>
-              </div>
-
-              {/* 6 · signature */}
-              <div className="scene" id="s6">
-                <svg width="1600" height="900" viewBox="0 0 1600 900">
-                  <ellipse id="e6" cx="800" cy="450" rx="470" ry="250" fill="none" stroke={INK} strokeWidth="2" />
-                </svg>
-                <div className="s6mid">
-                  <div className="fr endw" id="endW">
-                    {LOGO.map((c, i) => (
-                      <span key={i} className="ch fr">{c}</span>
-                    ))}
-                  </div>
-                  <div className="endm-mask">
-                    <div className="endm" id="endM">Husni Zayyin Ansori · Software Engineer · 15+ Shipped Products</div>
-                  </div>
-                </div>
-              </div>
+              {/* Scenes 4, 5, 6 removed per user request */}
             </div>
 
             <div className="film-hud" aria-hidden="true">
               <div className="a" ref={sceneLabelRef}>01 — Husni Zayyin Ansori</div>
-              <div className="b num"><em ref={frameNumRef}>000</em> / 450</div>
-              <div className="c">Engineering Journey · 15 seconds</div>
+              <div className="b num"><em ref={frameNumRef}>000</em> / 234</div>
+              <div className="c">Engineering Journey · 7.8 seconds</div>
             </div>
           </div>
 
           <div className="film-cap">
-            <span>Your scroll is the playhead — 450 frames, scrubbed</span>
+            <span>Your scroll is the playhead — 234 frames, scrubbed</span>
             <button className="runbtn" type="button" onClick={runAtSpeed}>
               <i />Run at speed
             </button>

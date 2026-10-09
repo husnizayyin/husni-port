@@ -125,17 +125,17 @@ export function Mix() {
           <div className="pcol">
             <div className="plot">
               <svg viewBox={`0 0 ${PW} ${PH}`} preserveAspectRatio="none" aria-hidden="true">
-                <g stroke="rgba(230,231,226,.16)" strokeWidth="1">
+                <g stroke="var(--hair)" strokeWidth="1">
                   {[1, 2, 3].map((i) => <line key={`h${i}`} x1="0" y1={(i * PH) / 4} x2={PW} y2={(i * PH) / 4} />)}
                   {Array.from({ length: WEEKS - 1 }, (_, i) => i + 1).map((i) => (
                     <line key={`v${i}`} x1={(i * PW) / WEEKS} y1="0" x2={(i * PW) / WEEKS} y2={PH} />
                   ))}
                 </g>
                 <path ref={areaRef} d="" fill="rgba(255,92,26,.18)" />
-                <path ref={flatRef} d="" fill="none" stroke="rgba(230,231,226,.42)" strokeWidth="2" strokeDasharray="5 8" />
+                <path ref={flatRef} d="" fill="none" stroke="var(--soft)" strokeWidth="2" strokeDasharray="5 8" />
                 <path ref={lineRef} d="" fill="none" stroke="#FF5C1A" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                <line ref={curRef} x1="0" y1="0" x2="0" y2={PH} stroke="rgba(230,231,226,.45)" strokeWidth="1.5" />
-                <circle ref={dotRef} cx="0" cy={PH} r="7" fill="#FBFBF8" />
+                <line ref={curRef} x1="0" y1="0" x2="0" y2={PH} stroke="var(--soft)" strokeWidth="1.5" />
+                <circle ref={dotRef} cx="0" cy={PH} r="7" fill="var(--ink)" />
               </svg>
             </div>
             <p className="pnote">

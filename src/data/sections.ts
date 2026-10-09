@@ -7,7 +7,6 @@ export const SECTIONS = [
   { id: 'tech', label: 'Tech & Tools' },
   { id: 'activity', label: 'GitHub Activity' },
   { id: 'repos', label: 'Repositories' },
-  { id: 'mix', label: 'Tech Matrix' },
   { id: 'contact', label: 'Contact' },
 ] as const;
 
@@ -18,7 +17,6 @@ export const NAV = [
   { id: 'tech', label: 'Stack & Tools' },
   { id: 'activity', label: 'GitHub' },
   { id: 'repos', label: 'Repositories' },
-  { id: 'mix', label: 'Tech Matrix' },
   { id: 'contact', label: 'Contact' },
 ] as const;
 

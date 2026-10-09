@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { FaGithub, FaWhatsapp, FaTelegram, FaXTwitter, FaEnvelope, FaPhone, FaLocationDot } from 'react-icons/fa6';
+import { FaGithub, FaWhatsapp, FaTelegram, FaXTwitter, FaEnvelope, FaLocationDot } from 'react-icons/fa6';
 import { TbArrowUpRight } from 'react-icons/tb';
 import { gsap } from '../lib/gsap';
 import { klTime } from '../lib/util';
@@ -82,29 +82,7 @@ export function Contact() {
             <h2 className="fr contact-title">Let's build something exceptional.</h2>
           </div>
 
-          <div className="contact-main-channels">
-            <a className="contact-email-card" href="mailto:husni.zayyin98@gmail.com">
-              <div className="contact-channel-icon email">
-                <FaEnvelope size={20} />
-              </div>
-              <div className="contact-channel-info">
-                <span className="channel-label">Primary Email</span>
-                <span className="fr channel-val">husni.zayyin98@gmail.com</span>
-              </div>
-              <TbArrowUpRight size={22} className="channel-arrow" />
-            </a>
 
-            <a className="contact-phone-card" href="https://wa.me/6285959939270" target="_blank" rel="noreferrer">
-              <div className="contact-channel-icon phone">
-                <FaPhone size={18} />
-              </div>
-              <div className="contact-channel-info">
-                <span className="channel-label">Direct Line / WhatsApp</span>
-                <span className="fr channel-val">+62 859 5993 9270</span>
-              </div>
-              <TbArrowUpRight size={22} className="channel-arrow" />
-            </a>
-          </div>
 
           <div className="contact-meta-row">
             <div className="contact-loc-time">
@@ -134,6 +112,11 @@ export function Contact() {
               <a href="https://x.com/husnizayn" target="_blank" rel="noreferrer" className="social-pill">
                 <FaXTwitter size={14} />
                 <span>@husnizayn</span>
+                <TbArrowUpRight size={13} />
+              </a>
+              <a href="mailto:husni.zayyin98@gmail.com" className="social-pill">
+                <FaEnvelope size={14} style={{ color: '#EA4335' }} />
+                <span>Email</span>
                 <TbArrowUpRight size={13} />
               </a>
             </div>
