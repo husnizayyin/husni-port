@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, Clock, Globe, Search } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
-import { ARTICLES, ARTICLE_CATEGORIES } from '@/data/articles';
+import { ARTICLE_CATEGORIES, getSortedArticles } from '@/data/articles';
 import { useAppSound } from '@/context/SoundProvider';
 import { cn } from '@/lib/utils';
 
@@ -14,8 +14,10 @@ export function ArticlesIndexClient() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [query, setQuery] = useState<string>('');
 
+  const allSorted = useMemo(() => getSortedArticles(), []);
+
   const filtered = useMemo(() => {
-    return ARTICLES.filter((a) => {
+    return allSorted.filter((a) => {
       const catMatch = selectedCategory === 'All' || a.category === selectedCategory;
       const q = query.trim().toLowerCase();
       const searchMatch =
@@ -23,11 +25,12 @@ export function ArticlesIndexClient() {
         a.title.toLowerCase().includes(q) ||
         a.subtitle.toLowerCase().includes(q) ||
         a.excerpt.toLowerCase().includes(q) ||
-        a.repoName.toLowerCase().includes(q) ||
+        (a.liveDomain?.toLowerCase().includes(q) ?? false) ||
+        (a.repoName?.toLowerCase().includes(q) ?? false) ||
         a.tags.some((t) => t.toLowerCase().includes(q));
       return catMatch && searchMatch;
     });
-  }, [selectedCategory, query]);
+  }, [allSorted, selectedCategory, query]);
 
   return (
     <main className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 sm:pt-36 lg:px-8">
@@ -50,10 +53,10 @@ export function ArticlesIndexClient() {
           <span>Engineering Journal & Case Notes</span>
         </div>
         <h1 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-zinc-950 sm:text-5xl dark:text-white">
-          Articles & Architecture Breakdowns.
+          Articles & Production Breakdowns.
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Practical engineering write-ups documenting real systems, live web deployments, video pipelines, and Flutter architectures from my GitHub repositories.
+          Comprehensive write-ups documenting real Singapore & regional web platforms, bespoke Shopify/Wix e-commerce engines, video pipelines, and mobile architectures.
         </p>
 
         {/* Filter Pills & Search */}
@@ -93,7 +96,7 @@ export function ArticlesIndexClient() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search articles or tech..."
+              placeholder="Search articles, domains, or tech..."
               className="w-full rounded-full border border-zinc-200 bg-white py-2 pl-9 pr-4 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900 dark:text-white dark:focus:border-zinc-600"
             />
           </div>
@@ -131,7 +134,7 @@ export function ArticlesIndexClient() {
                     {article.liveUrl && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
                         <Globe className="h-2.5 w-2.5" />
-                        LIVE DEMO
+                        LIVE SITE
                       </span>
                     )}
                     <span className="inline-flex items-center gap-1 font-mono text-[11px]">
@@ -169,16 +172,29 @@ export function ArticlesIndexClient() {
 
               <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100 pt-5 dark:border-zinc-800/80">
                 <div className="flex items-center gap-3">
-                  <a
-                    href={article.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onPointerDown={() => playSound('tick')}
-                    className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
-                  >
-                    <SiGithub className="h-3.5 w-3.5" />
-                    <span>{article.repoName}</span>
-                  </a>
+                  {article.liveUrl ? (
+                    <a
+                      href={article.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onPointerDown={() => playSound('tick')}
+                      className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-600 transition-colors hover:text-[#FF5C1A] dark:text-zinc-400 dark:hover:text-[#FF7844]"
+                    >
+                      <Globe className="h-3.5 w-3.5 text-emerald-500" />
+                      <span>{article.liveDomain ?? article.liveUrl}</span>
+                    </a>
+                  ) : article.repoUrl ? (
+                    <a
+                      href={article.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onPointerDown={() => playSound('tick')}
+                      className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
+                    >
+                      <SiGithub className="h-3.5 w-3.5" />
+                      <span>{article.repoName}</span>
+                    </a>
+                  ) : null}
                 </div>
 
                 <Link

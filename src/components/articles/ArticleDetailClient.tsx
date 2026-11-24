@@ -83,7 +83,7 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
           {article.subtitle}
         </p>
 
-        {/* Source Repository & Live Demo Actions */}
+        {/* Source Repository & Live Website Actions */}
         <div className="mt-7 flex flex-wrap items-center gap-3">
           {article.liveUrl && (
             <SoundButton
@@ -94,22 +94,24 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
               soundVariant="click"
             >
               <Globe className="h-4 w-4" />
-              <span>Open Live Project</span>
+              <span>Visit {article.liveDomain ?? 'Live Website'}</span>
               <ArrowUpRight className="h-4 w-4" />
             </SoundButton>
           )}
 
-          <SoundButton
-            href={article.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="secondary"
-            soundVariant="tick"
-          >
-            <SiGithub className="h-4 w-4" />
-            <span>{article.repoName}</span>
-            <ArrowUpRight className="h-4 w-4" />
-          </SoundButton>
+          {article.repoUrl && article.repoName && (
+            <SoundButton
+              href={article.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              soundVariant="tick"
+            >
+              <SiGithub className="h-4 w-4" />
+              <span>{article.repoName}</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </SoundButton>
+          )}
         </div>
 
         <div className="mt-6 flex flex-wrap gap-1.5">
