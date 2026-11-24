@@ -19,7 +19,7 @@ export function TechMatrix() {
     <section
       id="stack"
       aria-label="Technology Stack"
-      className="border-b border-zinc-200/80 py-24 sm:py-32 dark:border-zinc-900"
+      className="border-b border-zinc-200/80 py-16 sm:py-24 lg:py-32 dark:border-zinc-900"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">

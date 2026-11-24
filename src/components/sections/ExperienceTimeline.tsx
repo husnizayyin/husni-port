@@ -23,7 +23,7 @@ export function ExperienceTimeline() {
     <section
       id="experience"
       aria-label="Work Experience and Education"
-      className="relative border-b border-zinc-200/80 py-24 sm:py-28 dark:border-zinc-900"
+      className="relative border-b border-zinc-200/80 py-16 sm:py-24 lg:py-28 dark:border-zinc-900"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}

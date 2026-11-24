@@ -148,7 +148,7 @@ export function Navbar() {
               aria-label={soundEnabled ? 'Mute UI sounds' : 'Enable UI sounds'}
               title={soundEnabled ? 'UI Sound Effects: ON' : 'UI Sound Effects: MUTED'}
               className={cn(
-                'flex h-9 items-center gap-1.5 rounded-full border px-3 font-mono text-[11px] font-medium transition-colors',
+                'flex h-9 items-center gap-1.5 rounded-full border px-3 font-mono text-[11px] font-medium transition-colors max-[359px]:hidden',
                 soundEnabled
                   ? 'border-zinc-200 bg-zinc-100/90 text-zinc-900 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100'
                   : 'border-zinc-200/70 bg-transparent text-zinc-400 hover:text-zinc-700 dark:border-zinc-800/70 dark:text-zinc-500 dark:hover:text-zinc-300'
@@ -172,7 +172,7 @@ export function Navbar() {
             <Link
               href={isHome ? '#contact' : '/#contact'}
               onPointerDown={() => playSound('click')}
-              className="hidden items-center gap-1 rounded-full bg-zinc-950 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-zinc-800 md:inline-flex dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
+              className="hidden items-center gap-1 rounded-full bg-zinc-950 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-zinc-800 md:inline-flex lg:hidden xl:inline-flex dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
             >
               <span>Let&apos;s Talk</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -198,7 +198,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="mt-2 rounded-3xl border border-zinc-200 bg-white/95 p-4 shadow-editorial-light backdrop-blur-xl lg:hidden dark:border-zinc-800 dark:bg-zinc-950/95 dark:shadow-editorial-dark"
+              className="mt-2 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-3xl border border-zinc-200 bg-white/95 p-4 shadow-editorial-light backdrop-blur-xl lg:hidden dark:border-zinc-800 dark:bg-zinc-950/95 dark:shadow-editorial-dark"
             >
               <div className="grid grid-cols-2 gap-2">
                 {NAV_ITEMS.map((item) => {

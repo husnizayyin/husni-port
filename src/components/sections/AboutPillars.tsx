@@ -71,7 +71,7 @@ export function AboutPillars() {
     <section
       id="about"
       aria-label="Core Capabilities"
-      className="relative border-b border-zinc-200/80 py-24 sm:py-28 dark:border-zinc-900"
+      className="relative border-b border-zinc-200/80 py-16 sm:py-24 lg:py-28 dark:border-zinc-900"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Eyebrow */}
@@ -103,7 +103,7 @@ export function AboutPillars() {
         </p>
 
         {/* Three Clear Capability Cards */}
-        <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {PROFILE.pillars.map((pillar, idx) => (
             <motion.article
               key={pillar.index}
@@ -113,7 +113,7 @@ export function AboutPillars() {
               transition={{ duration: 0.5, delay: idx * 0.08 }}
               whileHover={{ y: -4 }}
               onPointerDown={() => playSound('tick')}
-              className="group relative flex flex-col justify-between rounded-3xl border border-zinc-200/90 bg-white p-7 shadow-editorial-light transition-colors hover:border-zinc-300 dark:border-zinc-800/90 dark:bg-zinc-900/60 dark:shadow-editorial-dark dark:hover:border-zinc-700"
+              className="group relative flex flex-col justify-between rounded-3xl border border-zinc-200/90 bg-white p-5 shadow-editorial-light transition-colors hover:border-zinc-300 sm:p-7 md:[&:nth-child(3)]:col-span-2 lg:[&:nth-child(3)]:col-span-1 dark:border-zinc-800/90 dark:bg-zinc-900/60 dark:shadow-editorial-dark dark:hover:border-zinc-700"
             >
               <div>
                 <div className="flex items-center justify-between">

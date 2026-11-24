@@ -72,7 +72,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl font-bold leading-[1.12] tracking-tight text-zinc-950 sm:text-5xl lg:text-[3.5rem] dark:text-white"
+              className="text-3xl font-bold leading-[1.12] tracking-tight text-zinc-950 min-[400px]:text-4xl sm:text-5xl lg:text-[3.5rem] dark:text-white"
             >
               Building Scalable{' '}
               <span className="text-[#FF5C1A]">Web, Mobile,</span> and Enterprise Applications.
@@ -94,7 +94,12 @@ export function HeroSection() {
               transition={{ duration: 0.55, delay: 0.25 }}
               className="mt-8 flex flex-wrap items-center gap-3"
             >
-              <SoundButton href="#work" variant="primary" soundVariant="click">
+              <SoundButton
+                href="#work"
+                variant="primary"
+                soundVariant="click"
+                className="w-full sm:w-auto"
+              >
                 <span>View Launched Products</span>
                 <ArrowDownRight className="h-4 w-4" />
               </SoundButton>
@@ -105,6 +110,7 @@ export function HeroSection() {
                 rel="noopener noreferrer"
                 variant="secondary"
                 soundVariant="open"
+                className="w-full sm:w-auto"
               >
                 <Download className="h-4 w-4 text-[#FF5C1A]" />
                 <span>Download Resume (PDF)</span>
@@ -167,7 +173,7 @@ export function HeroSection() {
                   : ''
               }
             >
-              <div className="text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl dark:text-white">
+              <div className="text-xl font-bold tracking-tight text-zinc-950 min-[400px]:text-2xl sm:text-3xl dark:text-white">
                 {m.value}
               </div>
               <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-zinc-800 dark:text-zinc-200">

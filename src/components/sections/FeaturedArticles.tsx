@@ -15,7 +15,7 @@ export function FeaturedArticles() {
     <section
       id="articles"
       aria-label="Featured Latest Articles"
-      className="border-b border-zinc-200/80 py-24 sm:py-28 dark:border-zinc-900"
+      className="border-b border-zinc-200/80 py-16 sm:py-24 lg:py-28 dark:border-zinc-900"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -54,7 +54,7 @@ export function FeaturedArticles() {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: idx * 0.07 }}
               whileHover={{ y: -4 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-zinc-200/90 bg-white p-7 shadow-editorial-light transition-colors hover:border-zinc-400 sm:p-8 dark:border-zinc-800/90 dark:bg-zinc-900/65 dark:shadow-editorial-dark dark:hover:border-zinc-600"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-zinc-200/90 bg-white p-5 shadow-editorial-light transition-colors hover:border-zinc-400 sm:p-7 lg:p-8 dark:border-zinc-800/90 dark:bg-zinc-900/65 dark:shadow-editorial-dark dark:hover:border-zinc-600"
             >
               <div
                 className="absolute inset-x-0 top-0 h-1 opacity-90 transition-opacity group-hover:opacity-100"

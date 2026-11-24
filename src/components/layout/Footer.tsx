@@ -32,9 +32,9 @@ export function Footer() {
   };
 
   return (
-    <footer id="contact" aria-label="Contact and Footer" className="py-24 sm:py-32">
+    <footer id="contact" aria-label="Contact and Footer" className="py-16 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] border border-zinc-200/90 bg-zinc-50/90 p-8 sm:p-14 dark:border-zinc-800/90 dark:bg-zinc-900/70">
+        <div className="relative overflow-hidden rounded-[2rem] border border-zinc-200/90 bg-zinc-50/90 p-6 sm:p-10 lg:p-14 dark:border-zinc-800/90 dark:bg-zinc-900/70">
           {/* Subtle Corner Glow */}
           <div
             aria-hidden="true"
@@ -61,6 +61,7 @@ export function Footer() {
                 href={`mailto:${PROFILE.email}`}
                 variant="primary"
                 soundVariant="click"
+                className="w-full sm:w-auto"
               >
                 <Mail className="h-4 w-4" />
                 <span>Email Husni Directly</span>
@@ -70,6 +71,7 @@ export function Footer() {
                 onClick={handleCopyEmail}
                 variant="secondary"
                 soundVariant="open"
+                className="w-full break-all text-xs sm:w-auto sm:text-sm"
               >
                 {copied ? (
                   <>

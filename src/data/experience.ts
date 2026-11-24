@@ -15,7 +15,7 @@ export interface CaseStudy {
   challenge: string;
   architecture: string[];
   outcomes: { value: string; label: string }[];
-  deliverables: { name: string; stack: string; detail: string }[];
+  deliverables: { name: string; stack: string; detail: string; url?: string; linkType?: 'web' | 'play' }[];
   tags: string[];
 }
 
@@ -62,12 +62,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: 'SG & Global', label: 'Multi-client delivery' },
     ],
     deliverables: [
-      { name: 'Parent Guide', stack: 'Next.js · PostgreSQL', detail: 'SEO-optimized family media & community web portal' },
-      { name: 'SGAT Temple', stack: 'Next.js · PostgreSQL', detail: 'Institutional web platform & event management portal' },
+      { name: 'Parent Guide', stack: 'Next.js · PostgreSQL', detail: 'SEO-optimized family media & community web portal', url: 'https://parentguide.sg/', linkType: 'web' },
+      { name: 'SGAT Temple', stack: 'Next.js · PostgreSQL', detail: 'Institutional web platform & event management portal', url: 'https://sgat-ten.vercel.app/homepage', linkType: 'web' },
       { name: 'SGAT Mobile App', stack: 'Flutter · BLoC & GetX', detail: 'Multilingual iOS & Android community member app' },
-      { name: 'Tora Tora Tora Resto', stack: 'Shopify Liquid', detail: 'Custom restaurant e-commerce & reservation storefront' },
-      { name: 'Delish Storefront', stack: 'Shopify Liquid', detail: 'Custom F&B online store & high-conversion checkout' },
-      { name: 'Jiang Education', stack: 'Wix Studio Velo', detail: 'Interactive course scheduling & learning portal' },
+      { name: 'Tora Tora Tora Resto', stack: 'Shopify Liquid', detail: 'Custom restaurant e-commerce & reservation storefront', url: 'https://delivery.toratoratora.sg/', linkType: 'web' },
+      { name: 'Delish Storefront', stack: 'Shopify Liquid', detail: 'Custom F&B online store & high-conversion checkout', url: 'https://delish.sg/', linkType: 'web' },
+      { name: 'Jiang Education', stack: 'Wix Studio Velo', detail: 'Interactive course scheduling & learning portal', url: 'https://enrolment.jiang.edu.sg/', linkType: 'web' },
     ],
     tags: ['Next.js', 'React', 'Flutter', 'PostgreSQL', 'Shopify Liquid', 'Wix Velo'],
   },
@@ -99,9 +99,9 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: 'Multi-Store', label: 'Retail ERP & POS sync' },
     ],
     deliverables: [
-      { name: 'Daily A Team App', stack: 'Flutter · Dart', detail: 'Employee operations, shift schedules & attendance app' },
-      { name: 'Triwarna Member App', stack: 'React Native', detail: 'Customer loyalty app with digital cards & rewards' },
-      { name: 'RKM Member App', stack: 'React Native', detail: 'Retail membership rewards & promotional catalog app' },
+      { name: 'Daily A Team App', stack: 'Flutter · Dart', detail: 'Employee operations, shift schedules & attendance app', url: 'https://play.google.com/store/apps/details?id=id.co.anyargroup.hris', linkType: 'play' },
+      { name: 'Triwarna Member App', stack: 'React Native', detail: 'Customer loyalty app with digital cards & rewards', url: 'https://play.google.com/store/apps/details?id=id.co.triwarna.member', linkType: 'play' },
+      { name: 'RKM Member App', stack: 'React Native', detail: 'Retail membership rewards & promotional catalog app', url: 'https://play.google.com/store/apps/details?id=id.co.rkm.member', linkType: 'play' },
       { name: 'Daily Enterprise ERP', stack: 'React · Laravel · MS SQL', detail: 'Central retail ERP & multi-store POS web dashboard' },
     ],
     tags: ['Flutter', 'React Native', 'React.js', 'Laravel', 'MS SQL Server', 'MySQL'],
