@@ -13,7 +13,7 @@ import { useAppSound } from '@/context/SoundProvider';
 const HeroScene = dynamic(() => import('@/components/canvas/HeroScene'), {
   ssr: false,
   loading: () => (
-    <div className="h-[420px] w-full sm:h-[490px] lg:h-[530px]" />
+    <div className="mx-auto aspect-[4/5] w-full max-w-[440px]" />
   ),
 });
 

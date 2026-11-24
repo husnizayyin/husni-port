@@ -22,11 +22,15 @@ export default function HeroScene() {
   }, []);
 
   return (
-    <div className="relative h-[420px] w-full select-none sm:h-[490px] lg:h-[530px]">
+    <div className="relative mx-auto aspect-[4/5] w-full max-w-[440px] select-none">
       <Canvas
-        dpr={[1, 2]}
-        camera={{ position: [0, 0, 5.0], fov: 42 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        dpr={[2, 3]}
+        camera={{ position: [0, 0, 5.15], fov: 42 }}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: 'high-performance',
+        }}
         className="h-full w-full"
       >
         <Suspense fallback={null}>
