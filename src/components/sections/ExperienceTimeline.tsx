@@ -30,7 +30,7 @@ export function ExperienceTimeline() {
         <div className="max-w-2xl">
           <div className="flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             <span className="h-2 w-2 rounded-full bg-[#3FA98A]" />
-            <span>03 / Work Experience</span>
+            <span>04 / Work Experience</span>
           </div>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-white">
             Professional career & experience.

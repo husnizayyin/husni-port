@@ -92,6 +92,7 @@ export const PROFILE = {
 export const NAV_ITEMS = [
   { id: 'about', label: 'Capabilities' },
   { id: 'work', label: 'Case Studies' },
+  { id: 'articles', label: 'Articles' },
   { id: 'experience', label: 'Experience' },
   { id: 'stack', label: 'Tech Stack' },
   { id: 'opensource', label: 'GitHub' },

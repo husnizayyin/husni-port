@@ -26,7 +26,7 @@ export function TechMatrix() {
           <div>
             <div className="flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               <span className="h-2 w-2 rounded-full bg-[#7B6CF6]" />
-              <span>04 / Technical Skills & Tools</span>
+              <span>05 / Technical Skills & Tools</span>
             </div>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-white">
               Technologies & tools I work with.

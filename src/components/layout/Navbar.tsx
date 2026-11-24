@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Volume2, VolumeX, Menu, X, ArrowUpRight } from 'lucide-react';
 import { NAV_ITEMS, PROFILE } from '@/data/profile';
@@ -9,6 +11,10 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/utils';
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const isArticlesRoute = pathname?.startsWith('/articles');
+
   const { soundEnabled, toggleSound, playSound } = useAppSound();
   const [activeSection, setActiveSection] = useState<string>('');
   const [scrolled, setScrolled] = useState(false);
@@ -31,6 +37,7 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
+    if (!isHome) return;
     const ids = NAV_ITEMS.map((item) => item.id);
     const elements = ids
       .map((id) => document.getElementById(id))
@@ -51,7 +58,7 @@ export function Navbar() {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
 
   return (
     <>
@@ -71,8 +78,8 @@ export function Navbar() {
           )}
         >
           {/* Brand Signature */}
-          <a
-            href="#top"
+          <Link
+            href={isHome ? '#top' : '/'}
             onPointerDown={() => playSound('tick')}
             onClick={() => setActiveSection('')}
             className="group flex items-center gap-2.5"
@@ -89,18 +96,29 @@ export function Navbar() {
                 Software Engineer
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Pills */}
           <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
             {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.id;
+              const isArticlesItem = item.id === 'articles';
+              const isActive = isArticlesRoute
+                ? isArticlesItem
+                : activeSection === item.id;
+              const href = isArticlesItem
+                ? '/articles'
+                : isHome
+                  ? `#${item.id}`
+                  : `/#${item.id}`;
+
               return (
-                <a
+                <Link
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={href}
                   onPointerDown={() => playSound('tick')}
-                  onClick={() => setActiveSection(item.id)}
+                  onClick={() => {
+                    if (!isArticlesItem && isHome) setActiveSection(item.id);
+                  }}
                   className={cn(
                     'relative rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors',
                     isActive
@@ -116,7 +134,7 @@ export function Navbar() {
                     />
                   )}
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -151,14 +169,14 @@ export function Navbar() {
 
             <ThemeToggle />
 
-            <a
-              href="#contact"
+            <Link
+              href={isHome ? '#contact' : '/#contact'}
               onPointerDown={() => playSound('click')}
               className="hidden items-center gap-1 rounded-full bg-zinc-950 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-zinc-800 md:inline-flex dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
             >
               <span>Let&apos;s Talk</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -172,7 +190,7 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Dropdown Drawer */}
+        {/* Mobile Menu Dropdown */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
@@ -183,27 +201,35 @@ export function Navbar() {
               className="mt-2 rounded-3xl border border-zinc-200 bg-white/95 p-4 shadow-editorial-light backdrop-blur-xl lg:hidden dark:border-zinc-800 dark:bg-zinc-950/95 dark:shadow-editorial-dark"
             >
               <div className="grid grid-cols-2 gap-2">
-                {NAV_ITEMS.map((item) => (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onPointerDown={() => playSound('tick')}
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-300 dark:border-zinc-800/80 dark:bg-zinc-900/70 dark:text-zinc-100"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {NAV_ITEMS.map((item) => {
+                  const href =
+                    item.id === 'articles'
+                      ? '/articles'
+                      : isHome
+                        ? `#${item.id}`
+                        : `/#${item.id}`;
+                  return (
+                    <Link
+                      key={item.id}
+                      href={href}
+                      onPointerDown={() => playSound('tick')}
+                      onClick={() => setMobileOpen(false)}
+                      className="rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-300 dark:border-zinc-800/80 dark:bg-zinc-900/70 dark:text-zinc-100"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
               </div>
-              <a
-                href="#contact"
+              <Link
+                href={isHome ? '#contact' : '/#contact'}
                 onPointerDown={() => playSound('click')}
                 onClick={() => setMobileOpen(false)}
                 className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-2xl bg-zinc-950 py-3 text-sm font-medium text-white dark:bg-white dark:text-zinc-950"
               >
                 <span>Start a Conversation</span>
                 <ArrowUpRight className="h-4 w-4" />
-              </a>
+              </Link>
             </motion.div>
           )}
         </AnimatePresence>
