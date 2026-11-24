@@ -6,7 +6,7 @@ export const PROFILE = {
   role: 'Software Engineer',
   tagline: '5+ Years Experience · Full-Stack Web & Mobile Developer',
   location: 'Jakarta, Indonesia',
-  timezone: 'UTC+7 (WIB)',
+  timezone: 'WIB',
   availability: 'Available for Remote & Full-Time Software Engineering Roles',
   email: 'husni.zayyin98@gmail.com',
   phone: '+62 859-5993-9270',

@@ -13,14 +13,7 @@ import { useAppSound } from '@/context/SoundProvider';
 const HeroScene = dynamic(() => import('@/components/canvas/HeroScene'), {
   ssr: false,
   loading: () => (
-    <div className="flex h-[460px] w-full items-center justify-center sm:h-[540px] lg:h-[580px]">
-      <div className="flex h-[360px] w-[260px] flex-col items-center justify-center rounded-3xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/60">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-zinc-300 border-t-[#FF5C1A] dark:border-zinc-700 dark:border-t-[#FF5C1A]" />
-        <span className="mt-4 font-mono text-xs text-zinc-500 dark:text-zinc-400">
-          Loading 3D Portrait...
-        </span>
-      </div>
-    </div>
+    <div className="h-[420px] w-full sm:h-[490px] lg:h-[530px]" />
   ),
 });
 
@@ -56,9 +49,7 @@ export function HeroSection() {
           </div>
           <div className="hidden items-center gap-1.5 sm:flex">
             <MapPin className="h-3.5 w-3.5 text-[#FF5C1A]" />
-            <span>
-              {PROFILE.location} · {PROFILE.timezone}
-            </span>
+            <span>{PROFILE.location}</span>
           </div>
         </motion.div>
 

@@ -118,7 +118,7 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C1A]" />
-            <span>JAKARTA, ID · {clock} WIB (UTC+7)</span>
+            <span>Jakarta, Indonesia · {clock} {PROFILE.timezone}</span>
           </div>
         </div>
       </div>

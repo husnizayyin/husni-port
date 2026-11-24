@@ -1,154 +1,309 @@
 'use client';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Float, RoundedBox } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-export type PortraitMode = 'auto360' | 'cursor360' | 'workspace';
-
 interface KineticCoreProps {
-  isDark: boolean;
-  mode: PortraitMode;
   impulseRef: React.MutableRefObject<number>;
   pointerRef: React.MutableRefObject<{ x: number; y: number }>;
   onCoreInteract: () => void;
 }
 
-const VIDEO_SOURCES: Record<PortraitMode, { src: string; portrait: boolean }> = {
-  auto360: {
-    src: '/Man_performing_360_degree_rotation_20261008190600.mp4',
-    portrait: true,
-  },
-  cursor360: {
-    src: '/Man_performing_turntable_rotation_20261008184107.mp4',
-    portrait: true,
-  },
-  workspace: {
-    src: '/Man_working_on_laptop_20261008193108.mp4',
-    portrait: false,
-  },
-};
+/**
+ * Extracts a clean, frameless, background-keyed headshot texture from the studio portrait source
+ * with anti-aliased edge feathering and a smooth bust fade.
+ */
+function buildFramelessHeadshotCanvas(video: HTMLVideoElement): HTMLCanvasElement {
+  const vw = video.videoWidth || 720;
+  const vh = video.videoHeight || 1280;
+
+  // Crop strictly to head & shoulders headshot region
+  const sx = Math.round(vw * 0.14);
+  const sy = Math.round(vh * 0.06);
+  const sw = Math.round(vw * 0.72);
+  const sh = Math.round(vh * 0.44);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = sw;
+  canvas.height = sh;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return canvas;
+
+  ctx.drawImage(video, sx, sy, sw, sh, 0, 0, sw, sh);
+  const imgData = ctx.getImageData(0, 0, sw, sh);
+  const data = imgData.data;
+
+  // Sample average studio backdrop color from top-left and top-right corners
+  let sumR = 0;
+  let sumG = 0;
+  let sumB = 0;
+  let samples = 0;
+  for (let y = 2; y < 18; y++) {
+    for (let x = 2; x < 18; x++) {
+      const i1 = (y * sw + x) * 4;
+      const i2 = (y * sw + (sw - 1 - x)) * 4;
+      sumR += data[i1] + data[i2];
+      sumG += data[i1 + 1] + data[i2 + 1];
+      sumB += data[i1 + 2] + data[i2 + 2];
+      samples += 2;
+    }
+  }
+  const bgR = sumR / samples;
+  const bgG = sumG / samples;
+  const bgB = sumB / samples;
+
+  const total = sw * sh;
+  const bgMask = new Uint8Array(total);
+  const queue = new Int32Array(total);
+  let head = 0;
+  let tail = 0;
+
+  const isBackdropPixel = (idx: number): boolean => {
+    const p = idx * 4;
+    const dr = data[p] - bgR;
+    const dg = data[p + 1] - bgG;
+    const db = data[p + 2] - bgB;
+    const dist = Math.hypot(dr, dg, db);
+    const chroma = Math.max(Math.abs(dr - dg), Math.abs(dg - db), Math.abs(dr - db));
+    return dist < 30 && chroma < 14;
+  };
+
+  // Seed flood-fill from top, left, and right borders
+  for (let x = 0; x < sw; x++) {
+    if (isBackdropPixel(x)) {
+      bgMask[x] = 1;
+      queue[tail++] = x;
+    }
+  }
+  for (let y = 1; y < sh; y++) {
+    const leftIdx = y * sw;
+    const rightIdx = y * sw + (sw - 1);
+    if (bgMask[leftIdx] === 0 && isBackdropPixel(leftIdx)) {
+      bgMask[leftIdx] = 1;
+      queue[tail++] = leftIdx;
+    }
+    if (bgMask[rightIdx] === 0 && isBackdropPixel(rightIdx)) {
+      bgMask[rightIdx] = 1;
+      queue[tail++] = rightIdx;
+    }
+  }
+
+  while (head < tail) {
+    const curr = queue[head++];
+    const cx = curr % sw;
+    const cy = (curr / sw) | 0;
+
+    if (cx > 0) {
+      const n = curr - 1;
+      if (bgMask[n] === 0 && isBackdropPixel(n)) {
+        bgMask[n] = 1;
+        queue[tail++] = n;
+      }
+    }
+    if (cx < sw - 1) {
+      const n = curr + 1;
+      if (bgMask[n] === 0 && isBackdropPixel(n)) {
+        bgMask[n] = 1;
+        queue[tail++] = n;
+      }
+    }
+    if (cy > 0) {
+      const n = curr - sw;
+      if (bgMask[n] === 0 && isBackdropPixel(n)) {
+        bgMask[n] = 1;
+        queue[tail++] = n;
+      }
+    }
+    if (cy < sh - 1) {
+      const n = curr + sw;
+      if (bgMask[n] === 0 && isBackdropPixel(n)) {
+        bgMask[n] = 1;
+        queue[tail++] = n;
+      }
+    }
+  }
+
+  // Compute soft anti-aliased alpha at silhouette boundary + smooth bottom fade
+  const alphaOut = new Float32Array(total);
+  for (let i = 0; i < total; i++) {
+    if (bgMask[i] === 1) {
+      alphaOut[i] = 0;
+    } else {
+      const x = i % sw;
+      const y = (i / sw) | 0;
+      let nearBg = false;
+      for (let dy = -2; dy <= 2 && !nearBg; dy++) {
+        const ny = y + dy;
+        if (ny < 0 || ny >= sh) continue;
+        for (let dx = -2; dx <= 2; dx++) {
+          const nx = x + dx;
+          if (nx < 0 || nx >= sw) continue;
+          if (bgMask[ny * sw + nx] === 1) {
+            nearBg = true;
+            break;
+          }
+        }
+      }
+
+      let a = 1.0;
+      if (nearBg) {
+        const p = i * 4;
+        const dr = data[p] - bgR;
+        const dg = data[p + 1] - bgG;
+        const db = data[p + 2] - bgB;
+        const dist = Math.hypot(dr, dg, db);
+        a = Math.min(1, Math.max(0, (dist - 14) / 28));
+      }
+
+      // Smooth frameless fade along bottom chest edge so there is zero hard border
+      const nyNorm = y / sh;
+      if (nyNorm > 0.8) {
+        const t = (1.0 - nyNorm) / 0.2;
+        const smooth = t * t * (3 - 2 * t);
+        a *= Math.max(0, Math.min(1, smooth));
+      }
+
+      alphaOut[i] = a;
+    }
+  }
+
+  // 1-pass 3x3 box feather on alpha channel for silky hairline transitions
+  for (let y = 0; y < sh; y++) {
+    for (let x = 0; x < sw; x++) {
+      const idx = y * sw + x;
+      let sum = 0;
+      let count = 0;
+      for (let dy = -1; dy <= 1; dy++) {
+        const ny = y + dy;
+        if (ny < 0 || ny >= sh) continue;
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = x + dx;
+          if (nx < 0 || nx >= sw) continue;
+          sum += alphaOut[ny * sw + nx];
+          count++;
+        }
+      }
+      data[idx * 4 + 3] = Math.round((sum / count) * 255);
+    }
+  }
+
+  ctx.putImageData(imgData, 0, 0);
+  return canvas;
+}
 
 export function KineticCore({
-  isDark,
-  mode,
   impulseRef,
   pointerRef,
   onCoreInteract,
 }: KineticCoreProps) {
-  const cardGroupRef = useRef<THREE.Group>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const [headshotTexture, setHeadshotTexture] = useState<THREE.CanvasTexture | null>(null);
   const [hovered, setHovered] = useState(false);
 
-  // Cleanly initialize & switch HTML5 video texture for Husni's 3D portrait
   useEffect(() => {
-    const config = VIDEO_SOURCES[mode];
+    let active = true;
+    let createdTex: THREE.CanvasTexture | null = null;
+
     const vid = document.createElement('video');
-    vid.src = config.src;
+    vid.src = '/Man_performing_turntable_rotation_20261008184107.mp4';
     vid.crossOrigin = 'anonymous';
-    vid.loop = true;
     vid.muted = true;
     vid.playsInline = true;
     vid.preload = 'auto';
 
-    const tex = new THREE.VideoTexture(vid);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.minFilter = THREE.LinearFilter;
-    tex.magFilter = THREE.LinearFilter;
+    const tryExtract = () => {
+      if (!active || createdTex) return;
+      if (!vid.videoWidth || vid.readyState < 2) return;
+      const canvas = buildFramelessHeadshotCanvas(vid);
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.minFilter = THREE.LinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.needsUpdate = true;
+      createdTex = tex;
+      vid.pause();
+      setHeadshotTexture(tex);
+    };
 
-    if (config.portrait) {
-      // Frame Husni's 720x1280 3D turntable portrait cleanly inside the 3D monolith
-      tex.repeat.set(0.92, 0.84);
-      tex.offset.set(0.04, 0.08);
-    } else {
-      // Center-crop 1280x720 workspace view nicely into the 3D card
-      tex.repeat.set(0.56, 0.92);
-      tex.offset.set(0.18, 0.04);
-    }
-
-    videoRef.current = vid;
-    setVideoTexture(tex);
-
-    if (mode !== 'cursor360') {
-      vid.play().catch(() => {});
-    } else {
+    const handleLoaded = () => {
+      if ('requestVideoFrameCallback' in vid) {
+        (vid as HTMLVideoElement & { requestVideoFrameCallback: (cb: () => void) => void }).requestVideoFrameCallback(() => {
+          tryExtract();
+        });
+      }
       vid.play()
         .then(() => {
-          vid.pause();
-          vid.currentTime = 0;
+          tryExtract();
         })
-        .catch(() => {});
-    }
+        .catch(() => {
+          vid.currentTime = 0.04;
+        });
+    };
+
+    vid.addEventListener('loadeddata', handleLoaded);
+    vid.addEventListener('seeked', tryExtract);
+    vid.load();
 
     return () => {
+      active = false;
       vid.pause();
+      vid.removeEventListener('loadeddata', handleLoaded);
+      vid.removeEventListener('seeked', tryExtract);
       vid.removeAttribute('src');
-      vid.load();
-      tex.dispose();
+      if (createdTex) createdTex.dispose();
       document.body.style.cursor = '';
     };
-  }, [mode]);
-
-  const rimGeometry = useMemo(() => new THREE.EdgesGeometry(new THREE.BoxGeometry(2.58, 3.58, 0.14)), []);
+  }, []);
 
   useFrame((state, delta) => {
     const t = state.clock.getElapsedTime();
-    impulseRef.current = THREE.MathUtils.damp(impulseRef.current, 0, 4.0, delta);
+    impulseRef.current = THREE.MathUtils.damp(impulseRef.current, 0, 4.5, delta);
 
-    // Interactive cursor-scrubbing when in "cursor360" mode
-    const vid = videoRef.current;
-    if (mode === 'cursor360' && vid && vid.readyState >= 2 && vid.duration > 0) {
-      const normalized = THREE.MathUtils.clamp((pointerRef.current.x + 1) * 0.5, 0, 0.99);
-      const targetTime = normalized * vid.duration;
-      vid.currentTime = THREE.MathUtils.damp(vid.currentTime, targetTime, 8, delta);
-    }
+    if (meshRef.current) {
+      const tiltX = -pointerRef.current.y * 0.14 + Math.sin(t * 0.7) * 0.015;
+      const tiltY = pointerRef.current.x * 0.2 + Math.cos(t * 0.6) * 0.015;
 
-    if (cardGroupRef.current) {
-      const tiltX = -pointerRef.current.y * 0.24 + Math.sin(t * 0.8) * 0.025;
-      const tiltY =
-        pointerRef.current.x * 0.34 +
-        Math.cos(t * 0.65) * 0.03 +
-        impulseRef.current * 0.35;
-
-      cardGroupRef.current.rotation.x = THREE.MathUtils.damp(
-        cardGroupRef.current.rotation.x,
+      meshRef.current.rotation.x = THREE.MathUtils.damp(
+        meshRef.current.rotation.x,
         tiltX,
         5,
         delta
       );
-      cardGroupRef.current.rotation.y = THREE.MathUtils.damp(
-        cardGroupRef.current.rotation.y,
+      meshRef.current.rotation.y = THREE.MathUtils.damp(
+        meshRef.current.rotation.y,
         tiltY,
         5,
         delta
       );
 
-      cardGroupRef.current.position.x = THREE.MathUtils.damp(
-        cardGroupRef.current.position.x,
-        pointerRef.current.x * 0.16,
+      meshRef.current.position.x = THREE.MathUtils.damp(
+        meshRef.current.position.x,
+        pointerRef.current.x * 0.12,
         4.5,
         delta
       );
-      cardGroupRef.current.position.y = THREE.MathUtils.damp(
-        cardGroupRef.current.position.y,
-        pointerRef.current.y * 0.12,
+      meshRef.current.position.y = THREE.MathUtils.damp(
+        meshRef.current.position.y,
+        pointerRef.current.y * 0.09,
         4.5,
         delta
       );
 
-      const targetScale = (hovered ? 1.03 : 1.0) + impulseRef.current * 0.05;
-      cardGroupRef.current.scale.setScalar(
-        THREE.MathUtils.damp(cardGroupRef.current.scale.x, targetScale, 7, delta)
+      const targetScale = (hovered ? 1.025 : 1.0) + impulseRef.current * 0.035;
+      meshRef.current.scale.setScalar(
+        THREE.MathUtils.damp(meshRef.current.scale.x, targetScale, 7, delta)
       );
     }
   });
 
+  if (!headshotTexture) return null;
+
   return (
-    <Float speed={1.5} rotationIntensity={0.08} floatIntensity={0.22}>
-      <group
-        ref={cardGroupRef}
+    <Float speed={1.3} rotationIntensity={0.03} floatIntensity={0.12}>
+      <mesh
+        ref={meshRef}
         onPointerOver={(e) => {
           e.stopPropagation();
           setHovered(true);
@@ -164,59 +319,14 @@ export function KineticCore({
           onCoreInteract();
         }}
       >
-        {/* 3D Architectural Portrait Pedestal Chassis */}
-        <RoundedBox args={[2.56, 3.56, 0.14]} radius={0.14} smoothness={5}>
-          <meshPhysicalMaterial
-            color={isDark ? '#18181B' : '#F4F4F5'}
-            metalness={isDark ? 0.65 : 0.15}
-            roughness={isDark ? 0.25 : 0.35}
-            clearcoat={1}
-            clearcoatRoughness={0.12}
-          />
-        </RoundedBox>
-
-        {/* Precision Accent Rim Line */}
-        <lineSegments geometry={rimGeometry} raycast={() => null}>
-          <lineBasicMaterial
-            color={hovered ? '#FF5C1A' : isDark ? '#3F3F46' : '#D4D4D8'}
-            transparent
-            opacity={0.7}
-          />
-        </lineSegments>
-
-        {/* Front 3D Video Portrait Surface (Husni 360° 3D Turntable) */}
-        <mesh position={[0, 0, 0.075]}>
-          <planeGeometry args={[2.38, 3.38]} />
-          {videoTexture ? (
-            <meshBasicMaterial map={videoTexture} toneMapped={false} />
-          ) : (
-            <meshBasicMaterial color="#EAEAE6" />
-          )}
-        </mesh>
-
-        {/* Subtle Optical Glass Sheen Layer Over Portrait */}
-        <mesh position={[0, 0, 0.08]} raycast={() => null}>
-          <planeGeometry args={[2.38, 3.38]} />
-          <meshPhysicalMaterial
-            color="#FFFFFF"
-            transparent
-            opacity={0.06}
-            roughness={0.05}
-            metalness={0.1}
-            clearcoat={1}
-          />
-        </mesh>
-
-        {/* Back Plate Signature Accent */}
-        <mesh position={[0, 0, -0.075]} rotation={[0, Math.PI, 0]} raycast={() => null}>
-          <planeGeometry args={[2.36, 3.36]} />
-          <meshStandardMaterial
-            color={isDark ? '#09090B' : '#FAFAFA'}
-            metalness={0.4}
-            roughness={0.4}
-          />
-        </mesh>
-      </group>
+        <planeGeometry args={[3.45, 3.98]} />
+        <meshBasicMaterial
+          map={headshotTexture}
+          transparent
+          toneMapped={false}
+          depthWrite={false}
+        />
+      </mesh>
     </Float>
   );
 }
