@@ -30,7 +30,7 @@ export function CaseStudies() {
             </h2>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-            Web portals, mobile apps, e-commerce stores, and internal business systems delivered for clients across Singapore and Indonesia.
+            Web , mobile apps, e-commerce stores, and internal business systems delivered for clients across Singapore and Indonesia.
           </p>
         </div>
 

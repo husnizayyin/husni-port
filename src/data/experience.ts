@@ -63,7 +63,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     deliverables: [
       { name: 'Parent Guide', stack: 'Next.js · PostgreSQL', detail: 'SEO-optimized family media & community web portal' },
-      { name: 'SGAT Temple Portal', stack: 'Next.js · PostgreSQL', detail: 'Institutional web platform & event management portal' },
+      { name: 'SGAT Temple', stack: 'Next.js · PostgreSQL', detail: 'Institutional web platform & event management portal' },
       { name: 'SGAT Mobile App', stack: 'Flutter · BLoC & GetX', detail: 'Multilingual iOS & Android community member app' },
       { name: 'Tora Tora Tora Resto', stack: 'Shopify Liquid', detail: 'Custom restaurant e-commerce & reservation storefront' },
       { name: 'Delish Storefront', stack: 'Shopify Liquid', detail: 'Custom F&B online store & high-conversion checkout' },
