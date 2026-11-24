@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import '@fontsource-variable/fraunces';
 import '@fontsource-variable/schibsted-grotesk';
 import '@fontsource-variable/jetbrains-mono';
 import './globals.css';

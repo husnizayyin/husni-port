@@ -13,11 +13,11 @@ import { useAppSound } from '@/context/SoundProvider';
 const HeroScene = dynamic(() => import('@/components/canvas/HeroScene'), {
   ssr: false,
   loading: () => (
-    <div className="flex h-[430px] w-full items-center justify-center sm:h-[520px] lg:h-[600px]">
-      <div className="relative flex h-44 w-44 items-center justify-center rounded-full border border-dashed border-zinc-300 dark:border-zinc-800">
-        <div className="h-20 w-20 animate-pulse rounded-full bg-zinc-100 dark:bg-zinc-900" />
-        <span className="absolute -bottom-8 font-mono text-[11px] uppercase tracking-widest text-zinc-400">
-          Initializing WebGL Core
+    <div className="flex h-[460px] w-full items-center justify-center sm:h-[540px] lg:h-[580px]">
+      <div className="flex h-[360px] w-[260px] flex-col items-center justify-center rounded-3xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/60">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-zinc-300 border-t-[#FF5C1A] dark:border-zinc-700 dark:border-t-[#FF5C1A]" />
+        <span className="mt-4 font-mono text-xs text-zinc-500 dark:text-zinc-400">
+          Loading 3D Portrait...
         </span>
       </div>
     </div>
@@ -33,76 +33,78 @@ export function HeroSection() {
       aria-label="Introduction"
       className="relative overflow-hidden border-b border-zinc-200/80 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 dark:border-zinc-900"
     >
-      {/* Subtle Architectural Dot Grid */}
+      {/* Subtle Dot Grid Background */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-grid-light bg-[size:26px_26px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_38%,#000_45%,transparent_100%)] dark:bg-grid-dark"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Coordinate Metadata Strip */}
+        {/* Status & Location Strip */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200/70 pb-4 font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:border-zinc-800/70 dark:text-zinc-400"
+          className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200/70 pb-4 text-xs font-medium text-zinc-600 dark:border-zinc-800/70 dark:text-zinc-400"
         >
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
             </span>
             <span>{PROFILE.availability}</span>
           </div>
-          <div className="hidden items-center gap-2 sm:flex">
+          <div className="hidden items-center gap-1.5 sm:flex">
             <MapPin className="h-3.5 w-3.5 text-[#FF5C1A]" />
-            <span>06°12&apos;S 106°50&apos;E · {PROFILE.location} ({PROFILE.timezone})</span>
+            <span>
+              {PROFILE.location} · {PROFILE.timezone}
+            </span>
           </div>
         </motion.div>
 
-        {/* Main Split Grid: Editorial Typography + Interactive R3F 3D Prism */}
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-6">
+        {/* Main Split Grid: Clear Professional Copy + Interactive 3D Portrait of Husni */}
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
           {/* Left Column (7 cols) */}
           <div className="lg:col-span-7">
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.05 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3.5 py-1 font-mono text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300"
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3.5 py-1.5 text-xs font-semibold text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200"
             >
-              <span className="font-semibold text-[#FF5C1A]">HUSNI ZAYYIN ANSORI</span>
-              <span className="text-zinc-300 dark:text-zinc-700">/</span>
-              <span>{PROFILE.role}</span>
-            </motion.p>
+              <span className="text-[#FF5C1A]">{PROFILE.name}</span>
+              <span className="text-zinc-300 dark:text-zinc-700">•</span>
+              <span>{PROFILE.tagline}</span>
+            </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 22 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-4xl font-semibold leading-[1.06] tracking-tight text-zinc-950 sm:text-5xl lg:text-[3.65rem] dark:text-white"
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl font-bold leading-[1.12] tracking-tight text-zinc-950 sm:text-5xl lg:text-[3.5rem] dark:text-white"
             >
-              Engineering systems where{' '}
-              <span className="italic text-[#FF5C1A]">precision backend</span> meets tactile interface.
+              Building Scalable{' '}
+              <span className="text-[#FF5C1A]">Web, Mobile,</span> and Enterprise Applications.
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 max-w-2xl text-base leading-relaxed text-zinc-600 sm:text-lg dark:text-zinc-400"
+              transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-600 sm:text-lg dark:text-zinc-400"
             >
               {PROFILE.heroSubheadline}
             </motion.p>
 
             {/* Primary Actions & Social Channels */}
             <motion.div
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.28 }}
+              transition={{ duration: 0.55, delay: 0.25 }}
               className="mt-8 flex flex-wrap items-center gap-3"
             >
               <SoundButton href="#work" variant="primary" soundVariant="click">
-                <span>Explore Case Studies</span>
+                <span>View Launched Products</span>
                 <ArrowDownRight className="h-4 w-4" />
               </SoundButton>
 
@@ -114,7 +116,7 @@ export function HeroSection() {
                 soundVariant="open"
               >
                 <Download className="h-4 w-4 text-[#FF5C1A]" />
-                <span>Download CV</span>
+                <span>Download Resume (PDF)</span>
               </SoundButton>
 
               <div className="ml-1 flex items-center gap-2">
@@ -146,24 +148,24 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right Column (5 cols): Interactive R3F 3D Sculpture */}
+          {/* Right Column (5 cols): Interactive 3D Portrait Stage */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.75, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-5"
           >
             <HeroScene />
           </motion.div>
         </div>
 
-        {/* Bottom Architectural Metrics Bar */}
+        {/* Bottom Key Metrics Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.65, delay: 0.2 }}
-          className="mt-12 grid grid-cols-2 gap-4 rounded-3xl border border-zinc-200/90 bg-zinc-50/75 p-5 backdrop-blur-xs sm:grid-cols-4 sm:p-7 dark:border-zinc-800/90 dark:bg-zinc-900/50"
+          transition={{ duration: 0.6, delay: 0.18 }}
+          className="mt-12 grid grid-cols-2 gap-4 rounded-3xl border border-zinc-200/90 bg-zinc-50/80 p-6 backdrop-blur-sm sm:grid-cols-4 sm:p-7 dark:border-zinc-800/90 dark:bg-zinc-900/50"
         >
           {PROFILE.metrics.map((m, idx) => (
             <div
@@ -174,10 +176,10 @@ export function HeroSection() {
                   : ''
               }
             >
-              <div className="font-display text-3xl font-semibold tracking-tight text-zinc-950 sm:text-4xl dark:text-white">
+              <div className="text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl dark:text-white">
                 {m.value}
               </div>
-              <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-zinc-800 dark:text-zinc-200">
+              <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-zinc-800 dark:text-zinc-200">
                 {m.label}
               </div>
               <div className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">{m.detail}</div>

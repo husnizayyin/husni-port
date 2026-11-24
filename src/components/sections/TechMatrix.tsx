@@ -24,12 +24,12 @@ export function TechMatrix() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+            <div className="flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               <span className="h-2 w-2 rounded-full bg-[#7B6CF6]" />
-              <span>04 / Production Technology Matrix</span>
+              <span>04 / Technical Skills & Tools</span>
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-zinc-950 sm:text-5xl dark:text-white">
-              Tools of the trade.
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-white">
+              Technologies & tools I work with.
             </h2>
           </div>
 

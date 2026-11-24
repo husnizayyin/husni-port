@@ -11,8 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Schibsted Grotesk Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Fraunces Variable"', 'ui-serif', 'Georgia', 'serif'],
+        sans: ['"Schibsted Grotesk Variable"', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Schibsted Grotesk Variable"', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['"JetBrains Mono Variable"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       colors: {
@@ -24,12 +24,12 @@ const config: Config = {
         },
       },
       boxShadow: {
-        'editorial-light': '0 24px 60px -15px rgba(9, 9, 11, 0.07), 0 4px 16px -4px rgba(9, 9, 11, 0.04)',
-        'editorial-dark': '0 24px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06)',
+        'editorial-light': '0 20px 50px -15px rgba(9, 9, 11, 0.07), 0 4px 14px -4px rgba(9, 9, 11, 0.04)',
+        'editorial-dark': '0 24px 60px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06)',
       },
       backgroundImage: {
-        'grid-light': 'radial-gradient(rgba(9, 9, 11, 0.09) 1px, transparent 1px)',
-        'grid-dark': 'radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px)',
+        'grid-light': 'radial-gradient(rgba(9, 9, 11, 0.08) 1px, transparent 1px)',
+        'grid-dark': 'radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)',
       },
     },
   },

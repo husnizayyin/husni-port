@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { Briefcase, ChevronDown, GraduationCap, MapPin } from 'lucide-react';
+import { CheckCircle2, ChevronDown, GraduationCap, MapPin } from 'lucide-react';
 import { CAREER_TIMELINE } from '@/data/experience';
 import { PROFILE } from '@/data/profile';
 import { useAppSound } from '@/context/SoundProvider';
@@ -22,25 +22,25 @@ export function ExperienceTimeline() {
   return (
     <section
       id="experience"
-      aria-label="Career Experience and Education"
-      className="relative border-b border-zinc-200/80 py-24 sm:py-32 dark:border-zinc-900"
+      aria-label="Work Experience and Education"
+      className="relative border-b border-zinc-200/80 py-24 sm:py-28 dark:border-zinc-900"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-2xl">
-          <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+          <div className="flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             <span className="h-2 w-2 rounded-full bg-[#3FA98A]" />
-            <span>03 / 5+ Years Engineering Trajectory</span>
+            <span>03 / Work Experience</span>
           </div>
-          <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-zinc-950 sm:text-5xl dark:text-white">
-            Remote velocity & enterprise leadership.
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-white">
+            Professional career & experience.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base dark:text-zinc-400">
-            From native Kotlin transit apps in 2019 to leading multi-branch retail ecosystems and shipping Singaporean global platforms today.
+            5+ years of full-time remote, hybrid, and on-site software engineering experience aligned directly with my LinkedIn profile.
           </p>
         </div>
 
-        <div ref={containerRef} className="relative mt-14 pl-6 sm:pl-10">
+        <div ref={containerRef} className="relative mt-12 pl-6 sm:pl-10">
           {/* Background Spine */}
           <div
             aria-hidden="true"
@@ -53,13 +53,13 @@ export function ExperienceTimeline() {
             className="absolute bottom-4 left-2 top-2 w-[2px] origin-top bg-gradient-to-b from-[#FF5C1A] via-[#7B6CF6] to-[#3FA98A] sm:left-3"
           />
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             {CAREER_TIMELINE.map((item, idx) => {
               const isOpen = expandedIdx === idx;
               return (
                 <motion.div
                   key={item.company}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.45, delay: idx * 0.06 }}
@@ -67,7 +67,7 @@ export function ExperienceTimeline() {
                 >
                   {/* Timeline Node Dot */}
                   <span
-                    className="absolute -left-[22px] top-7 h-3.5 w-3.5 rounded-full border-2 border-white shadow-xs sm:-left-[34px] dark:border-zinc-950"
+                    className="absolute -left-[22px] top-7 h-3.5 w-3.5 rounded-full border-2 border-white shadow-sm sm:-left-[34px] dark:border-zinc-950"
                     style={{ backgroundColor: item.accent }}
                   />
 
@@ -87,24 +87,24 @@ export function ExperienceTimeline() {
                       className="flex w-full flex-col justify-between gap-4 p-6 text-left sm:flex-row sm:items-center sm:p-7"
                     >
                       <div>
-                        <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-zinc-500 dark:text-zinc-400">
+                        <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">
                           <span className="font-semibold text-zinc-900 dark:text-zinc-100">
                             {item.period}
                           </span>
-                          <span>·</span>
+                          <span>•</span>
                           <span className="inline-flex items-center gap-1">
                             <MapPin className="h-3 w-3" />
                             {item.location}
                           </span>
-                          <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-[10px] font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                          <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
                             {item.workMode}
                           </span>
                         </div>
 
-                        <h3 className="mt-2 font-display text-xl font-semibold text-zinc-950 sm:text-2xl dark:text-white">
+                        <h3 className="mt-2 text-lg font-bold text-zinc-950 sm:text-xl dark:text-white">
                           {item.role}{' '}
-                          <span className="font-normal text-zinc-500 dark:text-zinc-400">
-                            @ {item.company}
+                          <span className="font-medium text-zinc-500 dark:text-zinc-400">
+                            · {item.company}
                           </span>
                         </h3>
                         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
@@ -119,7 +119,7 @@ export function ExperienceTimeline() {
                               key={m.label}
                               className="rounded-2xl border border-zinc-200/80 bg-zinc-50 px-3 py-1.5 text-right dark:border-zinc-800 dark:bg-zinc-950"
                             >
-                              <div className="font-mono text-xs font-bold text-zinc-900 dark:text-white">
+                              <div className="text-xs font-bold text-zinc-900 dark:text-white">
                                 {m.value}
                               </div>
                               <div className="text-[10px] text-zinc-500">{m.label}</div>
@@ -143,20 +143,20 @@ export function ExperienceTimeline() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                          transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
                           className="overflow-hidden"
                         >
                           <div className="border-t border-zinc-100 px-6 pb-6 pt-5 sm:px-7 sm:pb-7 dark:border-zinc-800/80">
                             <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                               {item.description}
                             </p>
-                            <ul className="mt-4 space-y-2">
+                            <ul className="mt-4 space-y-2.5">
                               {item.highlights.map((h) => (
                                 <li
                                   key={h}
-                                  className="flex items-start gap-2.5 text-sm text-zinc-700 dark:text-zinc-300"
+                                  className="flex items-start gap-2.5 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300"
                                 >
-                                  <Briefcase className="mt-1 h-3.5 w-3.5 shrink-0 text-[#FF5C1A]" />
+                                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#3FA98A]" />
                                   <span>{h}</span>
                                 </li>
                               ))}
@@ -165,7 +165,7 @@ export function ExperienceTimeline() {
                               {item.stack.map((tech) => (
                                 <span
                                   key={tech}
-                                  className="rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 font-mono text-[11px] text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
+                                  className="rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
                                 >
                                   {tech}
                                 </span>
@@ -181,9 +181,9 @@ export function ExperienceTimeline() {
             })}
           </div>
 
-          {/* Academic Foundation Card */}
+          {/* Education Card */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mt-8 flex flex-col justify-between gap-4 rounded-3xl border border-zinc-200/80 bg-zinc-50/80 p-6 sm:flex-row sm:items-center sm:p-7 dark:border-zinc-800/80 dark:bg-zinc-900/40"
@@ -193,10 +193,10 @@ export function ExperienceTimeline() {
                 <GraduationCap className="h-5 w-5" />
               </div>
               <div>
-                <div className="font-mono text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                  Academic Foundation
+                <div className="font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                  Education
                 </div>
-                <h3 className="mt-0.5 font-display text-lg font-semibold text-zinc-950 sm:text-xl dark:text-white">
+                <h3 className="mt-0.5 text-lg font-bold text-zinc-950 sm:text-xl dark:text-white">
                   {PROFILE.education.degree} · {PROFILE.education.university}
                 </h3>
                 <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
@@ -205,7 +205,7 @@ export function ExperienceTimeline() {
               </div>
             </div>
             <div className="shrink-0 rounded-2xl border border-zinc-200 bg-white px-4 py-2.5 text-left sm:text-right dark:border-zinc-800 dark:bg-zinc-950">
-              <div className="font-display text-xl font-semibold text-zinc-950 dark:text-white">
+              <div className="text-lg font-bold text-zinc-950 dark:text-white">
                 GPA {PROFILE.education.gpa}
               </div>
               <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">

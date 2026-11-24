@@ -3,55 +3,55 @@ export const PROFILE = {
   shortName: 'Husni Zayn',
   handle: '@husnizayn',
   githubHandle: 'husnizayyin',
-  role: 'Senior Software Engineer & System Architect',
-  tagline: '5+ Years Remote Engineering · Web, Mobile & Enterprise Systems',
+  role: 'Software Engineer',
+  tagline: '5+ Years Experience · Full-Stack Web & Mobile Developer',
   location: 'Jakarta, Indonesia',
   timezone: 'UTC+7 (WIB)',
-  availability: 'Available for Remote Senior & Lead Engineering Roles',
+  availability: 'Available for Remote & Full-Time Software Engineering Roles',
   email: 'husni.zayyin98@gmail.com',
   phone: '+62 859-5993-9270',
   cvUrl: '/cv/CV-Husni-Zayyin-Ansori.pdf',
-  heroHeadline: 'Engineering systems where precision backend meets tactile interface.',
+  heroHeadline: 'Building Scalable Web, Mobile, and Enterprise Applications.',
   heroSubheadline:
-    'With 5+ years delivering remote & enterprise software across Singapore and Indonesia, I architect high-concurrency Next.js web platforms, native-fluid Flutter mobile apps, and mission-critical ERP/HRIS infrastructure.',
+    'Results-driven Software Engineer with 5+ years of experience developing end-to-end web platforms, cross-platform mobile apps (iOS & Android), and automated business systems using Next.js, Flutter, React, Laravel, and PostgreSQL.',
   manifesto:
-    'Architecting end-to-end digital ecosystems that bridge complex distributed back-end logic with fluid, zero-friction user experiences across web and mobile.',
+    'Helping companies design, build, and launch reliable digital products—from fast customer-facing websites and mobile apps to internal ERP and payroll systems.',
   education: {
     university: 'Universitas 17 Agustus 1945 Surabaya',
-    degree: 'Bachelor of Engineering in Informatics Engineering',
+    degree: 'Bachelor of Informatics Engineering',
     gpa: '3.31 / 4.00',
-    thesis: 'Architected an integrated Warehouse Management System (WMS) & Regional Courier Dispatch Platform.',
+    thesis: 'Final Project: Developed an integrated Warehouse Management System (WMS) and Courier Management System.',
   },
   metrics: [
-    { value: '5+', label: 'Years Experience', detail: 'Remote & cross-functional delivery' },
-    { value: '15+', label: 'Products Shipped', detail: 'Across Singapore & Indonesia' },
-    { value: '3,766+', label: 'GitHub Commits', detail: '25+ open & enterprise repos' },
-    { value: '+30%', label: 'Efficiency Gain', detail: 'Automated biometric HRIS & ERP' },
+    { value: '5+ Years', label: 'Work Experience', detail: 'Remote & enterprise software teams' },
+    { value: '15 Products', label: 'Launched Live', detail: 'Across web, mobile & ERP systems' },
+    { value: '27+ Repos', label: 'GitHub Projects', detail: '3,766+ lifetime code contributions' },
+    { value: '+30% Gain', label: 'Process Efficiency', detail: 'Automated HRIS & payroll workflows' },
   ],
   pillars: [
     {
       index: '01',
-      title: 'Full-Stack Web & Headless Commerce',
+      title: 'Web Application Development',
       accent: '#FF5C1A',
       summary:
-        'End-to-end Next.js, React, TypeScript, and PostgreSQL architectures paired with custom Shopify Liquid and Wix Studio Velo storefronts engineered for SEO velocity and conversion.',
-      tags: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Shopify Liquid', 'Wix Velo'],
+        'Developing fast, responsive websites, web portals, and custom e-commerce stores using Next.js, React, TypeScript, Shopify (Liquid), and Wix Studio (Velo).',
+      tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Shopify Liquid', 'Wix Studio'],
     },
     {
       index: '02',
-      title: 'Cross-Platform & Native Mobile Core',
+      title: 'Mobile App Development',
       accent: '#3FA98A',
       summary:
-        'Production-grade iOS and Android ecosystems built with Flutter (BLoC, Riverpod, GetX), React Native, Kotlin, and SwiftUI—delivering 60fps tactile motion and offline-first reliability.',
-      tags: ['Flutter', 'Dart', 'BLoC & Riverpod', 'React Native', 'Kotlin', 'SwiftUI'],
+        'Building smooth, reliable iOS and Android mobile apps with Flutter (BLoC, Riverpod & GetX) and React Native, as well as native Android apps with Kotlin.',
+      tags: ['Flutter', 'Dart', 'BLoC & GetX', 'React Native', 'Kotlin', 'SwiftUI'],
     },
     {
       index: '03',
-      title: 'Enterprise ERP, Biometrics & Cloud Ops',
+      title: 'Backend APIs & Business Systems',
       accent: '#7B6CF6',
       summary:
-        'Multi-branch retail POS/ERP backbones, Laravel/Node REST & GraphQL APIs, OpenCV biometric attendance engines, and Linux headless CLI infrastructure tuned for zero-downtime scale.',
-      tags: ['Laravel', 'MS SQL & Postgres', 'Biometric AI', 'Docker', 'Linux CLI', 'GCP'],
+        'Creating secure REST APIs, relational databases, automated payroll & HRIS systems, multi-store retail POS/ERP platforms, and Linux server workflows.',
+      tags: ['Laravel', 'PostgreSQL', 'MySQL & MS SQL', 'REST APIs', 'Docker', 'Linux CLI'],
     },
   ],
   socials: [
@@ -89,10 +89,10 @@ export const PROFILE = {
 } as const;
 
 export const NAV_ITEMS = [
-  { id: 'about', label: 'Craft' },
+  { id: 'about', label: 'Capabilities' },
   { id: 'work', label: 'Case Studies' },
-  { id: 'experience', label: 'Journey' },
-  { id: 'stack', label: 'Stack' },
-  { id: 'opensource', label: 'Open Source' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'stack', label: 'Tech Stack' },
+  { id: 'opensource', label: 'GitHub' },
   { id: 'contact', label: 'Contact' },
 ] as const;

@@ -47,9 +47,9 @@ export function Footer() {
               <span>Open for Remote Global Teams & Consulting</span>
             </div>
 
-            <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-zinc-950 sm:text-6xl dark:text-white">
-              Let&apos;s build something{' '}
-              <span className="italic text-[#FF5C1A]">architecturally sound.</span>
+            <h2 className="mt-6 text-3xl font-bold leading-[1.12] tracking-tight text-zinc-950 sm:text-5xl dark:text-white">
+              Ready to build your next{' '}
+              <span className="text-[#FF5C1A]">web or mobile product?</span>
             </h2>
 
             <p className="mt-4 max-w-xl text-base text-zinc-600 dark:text-zinc-400">

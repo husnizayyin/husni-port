@@ -164,12 +164,12 @@ export function OpenSourceTelemetry() {
         {/* Header */}
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+            <div className="flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               <span className="h-2 w-2 rounded-full bg-[#FF5C1A]" />
-              <span>05 / Open Source & GitHub Telemetry</span>
+              <span>05 / Open Source & GitHub Activity</span>
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-zinc-950 sm:text-5xl dark:text-white">
-              3,766+ lifetime contributions.
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-white">
+              27+ public repositories & 3,766+ commits.
             </h2>
           </div>
 
