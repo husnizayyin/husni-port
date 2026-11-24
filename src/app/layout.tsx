@@ -1,33 +1,160 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import '@fontsource-variable/schibsted-grotesk';
 import '@fontsource-variable/jetbrains-mono';
 import './globals.css';
 import { ThemeProvider } from '@/context/ThemeProvider';
 import { SoundProvider } from '@/context/SoundProvider';
 import { CustomCursor } from '@/components/ui/CustomCursor';
+import { PROFILE } from '@/data/profile';
+
+const SITE_URL = 'https://www.husnizayn.com';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090B' },
+  ],
+};
 
 export const metadata: Metadata = {
-  title: 'Husni Zayyin Ansori — Senior Software Engineer & System Architect',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Husni Zayyin Ansori — Software Engineer | Web, Mobile & Enterprise Systems',
+    template: '%s | Husni Zayyin Ansori',
+  },
   description:
-    'Interactive 3D portfolio of Husni Zayyin Ansori (Husni Zayn) — Software Engineer with 5+ years of remote & enterprise experience across Next.js, Flutter, React, Laravel, and PostgreSQL.',
+    'Official portfolio & engineering articles of Husni Zayyin Ansori (Husni Zayn) — Software Engineer in Jakarta with 5+ years building Next.js web platforms, Flutter mobile apps, Shopify Liquid stores, and enterprise ERP/HRIS systems.',
   keywords: [
     'Husni Zayyin Ansori',
     'Husni Zayn',
+    'Husni Zayyin',
     'Software Engineer Jakarta',
-    'Remote Full Stack Engineer',
-    'Flutter Lead Developer',
-    'Next.js Architect',
+    'Software Engineer Indonesia',
+    'Full Stack Developer Jakarta',
+    'Flutter Developer Indonesia',
+    'Next.js Developer Singapore',
+    'React Developer',
+    'Shopify Liquid Developer',
+    'Laravel Developer',
+    'husnizayn',
   ],
+  authors: [{ name: 'Husni Zayyin Ansori', url: SITE_URL }],
+  creator: 'Husni Zayyin Ansori',
+  publisher: 'Husni Zayyin Ansori',
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: [
+      '7WCxRQWaoo0AJFZkHLpXeXgv6sUe-IgIDU3h',
+      'eTOVOz4ygN2R6mxmfWGxnUQZcXwYSZ9aeMupYFeeXxU',
+    ],
+  },
   openGraph: {
-    title: 'Husni Zayyin Ansori — Software Engineer & System Architect',
-    description:
-      '5+ years architecting high-concurrency Next.js platforms, Flutter mobile ecosystems, and enterprise ERP systems.',
     type: 'website',
+    locale: 'en_US',
+    alternateLocale: ['id_ID'],
+    url: SITE_URL,
+    siteName: 'Husni Zayyin Ansori',
+    title: 'Husni Zayyin Ansori — Software Engineer | Web, Mobile & Enterprise',
+    description:
+      '5+ years of software engineering experience launching 15+ production web portals, Flutter & React Native mobile apps, and automated business systems across Singapore and Indonesia.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1983,
+        height: 793,
+        alt: 'Husni Zayyin Ansori — Software Engineer',
+      },
+    ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@husnizayn',
+    creator: '@husnizayn',
+    title: 'Husni Zayyin Ansori — Software Engineer',
+    description:
+      'Building scalable Next.js web platforms, Flutter mobile apps, and enterprise systems across Singapore & Indonesia.',
+    images: ['/og-image.jpg'],
+  },
+  manifest: '/site.webmanifest',
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', sizes: '48x48', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
+};
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'Husni Zayyin Ansori',
+      alternateName: ['Husni Zayn', 'Husni Zayyin', 'husnizayn.com'],
+      description:
+        'Official portfolio and engineering journal of Husni Zayyin Ansori, Software Engineer based in Jakarta, Indonesia.',
+      inLanguage: ['en', 'id'],
+    },
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
+      name: PROFILE.name,
+      alternateName: ['Husni Zayn', 'Husni Zayyin', 'husnizayyin'],
+      jobTitle: 'Software Engineer',
+      url: SITE_URL,
+      image: `${SITE_URL}/husni-portrait-hd.jpg`,
+      email: `mailto:${PROFILE.email}`,
+      telephone: '+6285959939270',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Jakarta',
+        addressRegion: 'DKI Jakarta',
+        addressCountry: 'ID',
+      },
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: PROFILE.education.university,
+      },
+      knowsAbout: [
+        'Next.js',
+        'React',
+        'TypeScript',
+        'Flutter',
+        'React Native',
+        'Kotlin',
+        'Laravel',
+        'PostgreSQL',
+        'Shopify Liquid',
+        'Wix Studio Velo',
+        'System Architecture',
+      ],
+      sameAs: [
+        'https://www.linkedin.com/in/husnizayn/',
+        'https://github.com/husnizayyin',
+        'https://x.com/husnizayn',
+        'https://t.me/husnizayn',
+      ],
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -37,7 +164,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="relative" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+      </head>
       <body className="relative min-h-screen bg-white font-sans text-zinc-950 antialiased selection:bg-[#FF5C1A] selection:text-white dark:bg-[#09090B] dark:text-zinc-50">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-zinc-950 focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:text-white dark:focus:bg-white dark:focus:text-zinc-950"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider>
           <SoundProvider>
             <CustomCursor />

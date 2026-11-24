@@ -16,6 +16,7 @@ import { SiGithub } from 'react-icons/si';
 import type { Article } from '@/data/articles';
 import { useAppSound } from '@/context/SoundProvider';
 import { SoundButton } from '@/components/ui/SoundButton';
+import { ShareArticleBar } from './ShareArticleBar';
 
 interface ArticleDetailClientProps {
   article: Article;
@@ -38,7 +39,7 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
   };
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pb-24 pt-28 sm:px-6 sm:pt-36 lg:px-8">
+    <main id="main-content" className="mx-auto max-w-4xl px-4 pb-24 pt-28 sm:px-6 sm:pt-36 lg:px-8">
       {/* Top Breadcrumb Navigation */}
       <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
         <Link
@@ -123,6 +124,10 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
               {tag}
             </span>
           ))}
+        </div>
+
+        <div className="mt-7 border-t border-zinc-100 pt-5 dark:border-zinc-800/70">
+          <ShareArticleBar article={article} variant="compact" />
         </div>
       </motion.header>
 
@@ -218,6 +223,9 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
           </section>
         ))}
       </div>
+
+      {/* Social Share Card with Live OpenGraph Image & Description Preview */}
+      <ShareArticleBar article={article} variant="card" />
 
       {/* Continue Reading Section */}
       <section

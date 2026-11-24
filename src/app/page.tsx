@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen overflow-x-clip">
       <Navbar />
-      <main>
+      <main id="main-content">
         <HeroSection />
         <AboutPillars />
         <CaseStudies />

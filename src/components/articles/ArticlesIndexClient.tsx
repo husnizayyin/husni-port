@@ -33,7 +33,7 @@ export function ArticlesIndexClient() {
   }, [allSorted, selectedCategory, query]);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 sm:pt-36 lg:px-8">
+    <main id="main-content" className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 sm:pt-36 lg:px-8">
       {/* Breadcrumb Back Link */}
       <div className="mb-8">
         <Link
