@@ -14,8 +14,9 @@ export const PROFILE = {
   heroHeadline: 'Building Scalable Web, Mobile, and Enterprise Applications.',
   heroSubheadline:
     'Results-driven Software Engineer with 5+ years of experience developing end-to-end web platforms, cross-platform mobile apps (iOS & Android), and automated business systems using Next.js, Flutter, React, Laravel, and PostgreSQL.',
-  manifesto:
-    'Helping companies design, build, and launch reliable digital products—from fast customer-facing websites and mobile apps to internal ERP and payroll systems.',
+  manifesto: 'Engineering across web, mobile, and backend.',
+  manifestoSub:
+    'From customer-facing web portals and iOS/Android mobile apps to scalable APIs and internal enterprise systems.',
   education: {
     university: 'Universitas 17 Agustus 1945 Surabaya',
     degree: 'Bachelor of Informatics Engineering',

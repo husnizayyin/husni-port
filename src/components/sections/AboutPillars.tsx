@@ -55,7 +55,7 @@ function ScrubWord({
 }
 
 export function AboutPillars() {
-  const manifestoRef = useRef<HTMLParagraphElement>(null);
+  const manifestoRef = useRef<HTMLHeadingElement>(null);
   const { playSound } = useAppSound();
   const [presetIdx, setPresetIdx] = useState(0);
 
@@ -80,10 +80,10 @@ export function AboutPillars() {
           <span>01 / Core Capabilities</span>
         </div>
 
-        {/* Clear, Professional Scroll-Scrubbed Heading */}
-        <p
+        {/* Concise Scroll-Scrubbed Heading + Contextual Subheading */}
+        <h2
           ref={manifestoRef}
-          className="relative mt-5 max-w-4xl text-2xl font-bold leading-[1.25] tracking-tight text-zinc-950 sm:text-4xl lg:text-[2.65rem] dark:text-white"
+          className="relative mt-3 max-w-3xl text-3xl font-bold leading-[1.15] tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-white"
         >
           {words.map((word, i) => {
             const start = i / words.length;
@@ -97,6 +97,9 @@ export function AboutPillars() {
               />
             );
           })}
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-600 sm:text-base dark:text-zinc-400">
+          {PROFILE.manifestoSub}
         </p>
 
         {/* Three Clear Capability Cards */}

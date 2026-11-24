@@ -40,7 +40,7 @@ export function CaseStudies() {
             </h2>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-            Standardized overview of real-world products built and launched across 5 companies. Click any card to inspect full product details.
+            Web portals, mobile apps, e-commerce stores, and internal business systems delivered for clients across Singapore and Indonesia.
           </p>
         </div>
 
