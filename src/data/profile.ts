@@ -9,7 +9,6 @@ export const PROFILE = {
   timezone: 'WIB',
   availability: 'Available for Remote & Full-Time Software Engineering Roles',
   email: 'husni.zayyin98@gmail.com',
-  phone: '+62 859-5993-9270',
   cvUrl: '/cv/CV-Husni-Zayyin-Ansori.pdf',
   heroHeadline: 'Building Scalable Web, Mobile, and Enterprise Applications.',
   heroSubheadline:
@@ -65,16 +64,6 @@ export const PROFILE = {
       id: 'github',
       label: 'GitHub',
       href: 'https://github.com/husnizayyin',
-    },
-    {
-      id: 'whatsapp',
-      label: 'WhatsApp',
-      href: 'https://wa.me/6285959939270',
-    },
-    {
-      id: 'telegram',
-      label: 'Telegram',
-      href: 'https://t.me/husnizayn',
     },
     {
       id: 'x',

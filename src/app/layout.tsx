@@ -123,7 +123,6 @@ const personJsonLd = {
       url: SITE_URL,
       image: `${SITE_URL}/husni-portrait-hd.jpg`,
       email: `mailto:${PROFILE.email}`,
-      telephone: '+6285959939270',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Jakarta',
@@ -151,7 +150,6 @@ const personJsonLd = {
         'https://www.linkedin.com/in/husnizayn/',
         'https://github.com/husnizayyin',
         'https://x.com/husnizayn',
-        'https://t.me/husnizayn',
       ],
     },
   ],

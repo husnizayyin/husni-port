@@ -1,15 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Mail } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, FileText } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
-import {
-  FaLinkedinIn,
-  FaTelegram,
-  FaWhatsapp,
-  FaXTwitter,
-} from 'react-icons/fa6';
+import { FaLinkedinIn, FaXTwitter } from 'react-icons/fa6';
 import { PROFILE } from '@/data/profile';
 import { SoundButton } from '@/components/ui/SoundButton';
 import { useAppSound } from '@/context/SoundProvider';
@@ -29,22 +25,20 @@ const PLATFORM_STYLES: Record<
     hoverClass:
       'hover:border-zinc-900 hover:text-zinc-950 dark:hover:border-white dark:hover:text-white',
   },
-  whatsapp: {
-    Icon: FaWhatsapp,
-    hoverClass:
-      'hover:border-[#25D366] hover:text-[#16A34A] dark:hover:border-[#25D366] dark:hover:text-[#25D366]',
-  },
-  telegram: {
-    Icon: FaTelegram,
-    hoverClass:
-      'hover:border-[#229ED9] hover:text-[#229ED9] dark:hover:border-[#229ED9] dark:hover:text-[#38BDF8]',
-  },
   x: {
     Icon: FaXTwitter,
     hoverClass:
       'hover:border-zinc-900 hover:text-zinc-950 dark:hover:border-white dark:hover:text-white',
   },
 };
+
+const FOOTER_LINKS = [
+  { label: 'Capabilities', href: '/#about' },
+  { label: 'Case Studies', href: '/#work' },
+  { label: 'Articles', href: '/articles' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'GitHub', href: '/#opensource' },
+] as const;
 
 export function Footer() {
   const { playSound } = useAppSound();
@@ -58,29 +52,33 @@ export function Footer() {
     return () => window.clearInterval(timer);
   }, []);
 
-  return (
-    <footer id="contact" aria-label="Contact and Footer" className="py-16 sm:py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] border border-zinc-200/90 bg-zinc-50/90 p-6 sm:p-10 lg:p-14 dark:border-zinc-800/90 dark:bg-zinc-900/70">
-          {/* Subtle Corner Glow */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#FF5C1A]/10 blur-3xl dark:bg-[#FF5C1A]/15"
-          />
+  const handleBackToTop = () => {
+    playSound('tick');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-          <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3.5 py-1 font-mono text-[11px] uppercase tracking-wider text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              <span>Open for Remote Global Teams & Consulting</span>
+  return (
+    <footer
+      id="contact"
+      aria-label="Contact and Footer"
+      className="border-t border-zinc-200/80 bg-white pt-16 pb-12 sm:pt-24 sm:pb-16 dark:border-zinc-900 dark:bg-[#09090B]"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Asymmetric Editorial Contact Grid */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
+          {/* Left Column (7 cols): Direct Pitch & Primary Action */}
+          <div className="lg:col-span-7">
+            <div className="flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              <span className="h-2 w-2 rounded-full bg-[#FF5C1A]" />
+              <span>07 / Contact</span>
             </div>
 
-            <h2 className="mt-6 text-3xl font-bold leading-[1.12] tracking-tight text-zinc-950 sm:text-5xl dark:text-white">
-              Ready to build your next{' '}
-              <span className="text-[#FF5C1A]">web or mobile product?</span>
+            <h2 className="mt-4 max-w-xl text-3xl font-bold leading-[1.12] tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-white">
+              Let&apos;s discuss your next engineering build.
             </h2>
 
-            <p className="mt-4 max-w-xl text-base text-zinc-600 dark:text-zinc-400">
-              Whether you&apos;re scaling a high-traffic Next.js platform, launching a cross-platform Flutter mobile product, or modernizing enterprise ERP workflows—let&apos;s connect.
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-zinc-600 sm:text-base dark:text-zinc-400">
+              Open to full-time software engineering roles and select technical engagements across web platforms, iOS/Android mobile applications, and internal enterprise systems.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -90,50 +88,120 @@ export function Footer() {
                 soundVariant="click"
                 className="w-full sm:w-auto"
               >
-                <Mail className="h-4 w-4" />
-                <span>Email Husni Directly</span>
+                <span>Send an Email</span>
+                <ArrowUpRight className="h-4 w-4" />
+              </SoundButton>
+
+              <SoundButton
+                href={PROFILE.cvUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="secondary"
+                soundVariant="open"
+                className="w-full sm:w-auto"
+              >
+                <FileText className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+                <span>Curriculum Vitae (PDF)</span>
               </SoundButton>
             </div>
           </div>
 
-          {/* Direct Social & Messaging Platform Icons */}
-          <div className="relative z-10 mt-10 flex flex-col gap-4 border-t border-zinc-200/80 pt-8 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800">
-            <span className="font-mono text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-              Connect via Platform
-            </span>
+          {/* Right Column (5 cols): Structured Architectural Spec Table */}
+          <div className="lg:col-span-5">
+            <dl className="divide-y divide-zinc-200/80 overflow-hidden rounded-2xl border border-zinc-200/90 bg-zinc-50/50 dark:divide-zinc-800/80 dark:border-zinc-800/90 dark:bg-zinc-900/35">
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <dt className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                  Base
+                </dt>
+                <dd className="text-right text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  {PROFILE.location}
+                </dd>
+              </div>
 
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-              {PROFILE.socials.map((s) => {
-                const { Icon, hoverClass } = PLATFORM_STYLES[s.id];
-                return (
-                  <motion.a
-                    key={s.id}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    title={s.label}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    onPointerDown={() => playSound('tick')}
-                    className={`flex h-12 w-12 items-center justify-center rounded-2xl border border-zinc-200/90 bg-white text-zinc-700 shadow-sm transition-colors dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 ${hoverClass}`}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </motion.a>
-                );
-              })}
-            </div>
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <dt className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                  Local Time
+                </dt>
+                <dd className="flex items-center gap-2 font-mono text-xs font-medium text-zinc-900 dark:text-zinc-100">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <span>
+                    {clock} {PROFILE.timezone} (UTC+7)
+                  </span>
+                </dd>
+              </div>
+
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <dt className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                  Engagement
+                </dt>
+                <dd className="text-right text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  Remote Global · APAC &amp; EU Overlap
+                </dd>
+              </div>
+
+              <div className="flex items-center justify-between gap-4 px-5 py-3.5">
+                <dt className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                  Profiles
+                </dt>
+                <dd className="flex items-center gap-2">
+                  {PROFILE.socials.map((s) => {
+                    const { Icon, hoverClass } = PLATFORM_STYLES[s.id];
+                    return (
+                      <motion.a
+                        key={s.id}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={s.label}
+                        title={s.label}
+                        whileHover={{ y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        onPointerDown={() => playSound('tick')}
+                        className={`flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-700 transition-colors dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 ${hoverClass}`}
+                      >
+                        <Icon className="h-4 w-4" />
+                      </motion.a>
+                    );
+                  })}
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
 
-        {/* Bottom Colophon */}
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 px-2 font-mono text-xs text-zinc-500 sm:flex-row sm:items-center dark:text-zinc-400">
-          <div>
-            © {new Date().getFullYear()} {PROFILE.name}. Software Engineer — Web, Mobile & Enterprise Systems.
+        {/* Bottom Architectural Colophon */}
+        <div className="mt-14 flex flex-col justify-between gap-6 border-t border-zinc-200/80 pt-8 sm:mt-16 md:flex-row md:items-center dark:border-zinc-900">
+          <div className="flex items-center gap-3">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-950 font-display text-xs font-semibold text-white dark:bg-white dark:text-zinc-950">
+              HZ
+            </span>
+            <div className="text-xs text-zinc-500 dark:text-zinc-400">
+              <span className="font-semibold text-zinc-900 dark:text-zinc-200">{PROFILE.name}</span>
+              <span className="mx-2 text-zinc-300 dark:text-zinc-700">·</span>
+              <span>© {new Date().getFullYear()}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C1A]" />
-            <span>Jakarta, Indonesia · {clock} {PROFILE.timezone}</span>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+            {FOOTER_LINKS.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onPointerDown={() => playSound('tick')}
+                className="transition-colors hover:text-zinc-950 dark:hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            <button
+              type="button"
+              onClick={handleBackToTop}
+              className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-zinc-700 transition-colors hover:text-[#FF5C1A] dark:text-zinc-300 dark:hover:text-[#FF5C1A]"
+            >
+              <span>Top</span>
+              <ArrowUp className="h-3.5 w-3.5" />
+            </button>
           </div>
         </div>
       </div>
