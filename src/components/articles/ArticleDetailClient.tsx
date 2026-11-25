@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -16,6 +16,7 @@ import { SiGithub } from 'react-icons/si';
 import type { Article } from '@/data/articles';
 import { useAppSound } from '@/context/SoundProvider';
 import { SoundButton } from '@/components/ui/SoundButton';
+import { trackEvent } from '@/lib/analytics';
 import { ShareArticleBar } from './ShareArticleBar';
 
 interface ArticleDetailClientProps {
@@ -26,9 +27,45 @@ interface ArticleDetailClientProps {
 export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailClientProps) {
   const { playSound } = useAppSound();
   const [copiedFile, setCopiedFile] = useState<string | null>(null);
+  const hasTrackedRead75 = useRef(false);
+
+  useEffect(() => {
+    hasTrackedRead75.current = false;
+
+    trackEvent('article_view', {
+      article_slug: article.slug,
+      article_title: article.title,
+      article_category: article.category,
+      article_read_time: article.readTime,
+      article_published_at: article.publishedIso,
+    });
+
+    const handleScroll = () => {
+      if (hasTrackedRead75.current) return;
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const ratio = window.scrollY / scrollable;
+      if (ratio >= 0.75) {
+        hasTrackedRead75.current = true;
+        trackEvent('article_read_75', {
+          article_slug: article.slug,
+          article_title: article.title,
+          article_category: article.category,
+        });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [article.slug, article.title, article.category, article.readTime, article.publishedIso]);
 
   const handleCopySnippet = async (filename: string, code: string) => {
     playSound('tick');
+    trackEvent('article_code_copy', {
+      article_slug: article.slug,
+      code_filename: filename,
+    });
     try {
       await navigator.clipboard.writeText(code);
       setCopiedFile(filename);
@@ -93,6 +130,13 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
               rel="noopener noreferrer"
               variant="primary"
               soundVariant="click"
+              onClick={() =>
+                trackEvent('article_outbound_click', {
+                  article_slug: article.slug,
+                  destination_type: 'live_website',
+                  destination_url: article.liveUrl,
+                })
+              }
             >
               <Globe className="h-4 w-4" />
               <span>Visit {article.liveDomain ?? 'Live Website'}</span>
@@ -107,6 +151,13 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
               rel="noopener noreferrer"
               variant="secondary"
               soundVariant="tick"
+              onClick={() =>
+                trackEvent('article_outbound_click', {
+                  article_slug: article.slug,
+                  destination_type: 'github_repo',
+                  destination_url: article.repoUrl,
+                })
+              }
             >
               <SiGithub className="h-4 w-4" />
               <span>{article.repoName}</span>

@@ -5,6 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '@/context/ThemeProvider';
 import { SoundProvider } from '@/context/SoundProvider';
 import { CustomCursor } from '@/components/ui/CustomCursor';
+import { RouteAnalyticsTracker } from '@/components/analytics/RouteAnalyticsTracker';
 import { PROFILE } from '@/data/profile';
 
 const SITE_URL = 'https://www.husnizayn.com';
@@ -199,6 +200,7 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});`,
         </a>
         <ThemeProvider>
           <SoundProvider>
+            <RouteAnalyticsTracker />
             <CustomCursor />
             {children}
           </SoundProvider>

@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa6';
 import type { Article } from '@/data/articles';
 import { useAppSound } from '@/context/SoundProvider';
+import { trackEvent } from '@/lib/analytics';
 
 const SITE_URL = 'https://www.husnizayn.com';
 
@@ -74,8 +75,18 @@ export function ShareArticleBar({ article, variant = 'card' }: ShareArticleBarPr
     },
   ] as const;
 
+  const recordShare = (method: string) => {
+    trackEvent('article_share', {
+      share_method: method,
+      article_slug: article.slug,
+      article_title: article.title,
+      article_category: article.category,
+    });
+  };
+
   const handleCopyLink = async () => {
     playSound('click');
+    recordShare('copy_link');
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -87,6 +98,7 @@ export function ShareArticleBar({ article, variant = 'card' }: ShareArticleBarPr
 
   const handleNativeShare = async () => {
     playSound('click');
+    recordShare('native_share');
     try {
       await navigator.share({
         title: shareTitle,
@@ -113,6 +125,7 @@ export function ShareArticleBar({ article, variant = 'card' }: ShareArticleBarPr
             aria-label={`Share on ${name}`}
             title={`Share on ${name}`}
             onPointerDown={() => playSound('tick')}
+            onClick={() => recordShare(name.toLowerCase())}
             className={`flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-600 transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 ${hoverClass}`}
           >
             <Icon className="h-3.5 w-3.5" />
@@ -181,6 +194,7 @@ export function ShareArticleBar({ article, variant = 'card' }: ShareArticleBarPr
                 target="_blank"
                 rel="noopener noreferrer"
                 onPointerDown={() => playSound('click')}
+                onClick={() => recordShare(name.toLowerCase())}
                 className={`inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2 text-xs font-semibold text-zinc-800 transition-colors dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 ${hoverClass}`}
               >
                 <Icon className="h-3.5 w-3.5" />
