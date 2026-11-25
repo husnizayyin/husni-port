@@ -122,11 +122,8 @@ export function Footer() {
                 <dt className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                   Local Time
                 </dt>
-                <dd className="flex items-center gap-2 font-mono text-xs font-medium text-zinc-900 dark:text-zinc-100">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  <span>
-                    {clock} {PROFILE.timezone} (UTC+7)
-                  </span>
+                <dd className="font-mono text-xs font-medium text-zinc-900 dark:text-zinc-100">
+                  {clock} {PROFILE.timezone} (UTC+7)
                 </dd>
               </div>
 

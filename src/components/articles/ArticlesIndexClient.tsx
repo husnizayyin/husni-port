@@ -132,9 +132,9 @@ export function ArticlesIndexClient() {
                   </div>
                   <div className="flex items-center gap-2">
                     {article.liveUrl && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                      <span className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 font-mono text-[10px] font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
                         <Globe className="h-2.5 w-2.5" />
-                        LIVE SITE
+                        PRODUCTION
                       </span>
                     )}
                     <span className="inline-flex items-center gap-1 font-mono text-[11px]">
@@ -180,7 +180,7 @@ export function ArticlesIndexClient() {
                       onPointerDown={() => playSound('tick')}
                       className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-600 transition-colors hover:text-[#FF5C1A] dark:text-zinc-400 dark:hover:text-[#FF7844]"
                     >
-                      <Globe className="h-3.5 w-3.5 text-emerald-500" />
+                      <Globe className="h-3.5 w-3.5 text-zinc-400 dark:text-zinc-500" />
                       <span>{article.liveDomain ?? article.liveUrl}</span>
                     </a>
                   ) : article.repoUrl ? (

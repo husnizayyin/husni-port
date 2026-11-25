@@ -91,8 +91,7 @@ export function Navbar() {
               <span className="text-sm font-semibold tracking-tight text-zinc-950 dark:text-white">
                 {PROFILE.shortName}
               </span>
-              <span className="hidden items-center gap-1.5 text-[11px] text-zinc-500 sm:flex dark:text-zinc-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="hidden text-[11px] text-zinc-500 sm:block dark:text-zinc-400">
                 Software Engineer
               </span>
             </div>
