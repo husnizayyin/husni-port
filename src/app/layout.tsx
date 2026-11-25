@@ -8,6 +8,7 @@ import { CustomCursor } from '@/components/ui/CustomCursor';
 import { PROFILE } from '@/data/profile';
 
 const SITE_URL = 'https://www.husnizayn.com';
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-KP6MWCVL';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -164,11 +165,32 @@ export default function RootLayout({
     <html lang="en" className="relative" suppressHydrationWarning>
       <head>
         <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});`,
+          }}
+        />
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
       <body className="relative min-h-screen bg-white font-sans text-zinc-950 antialiased selection:bg-[#FF5C1A] selection:text-white dark:bg-[#09090B] dark:text-zinc-50">
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            title="Google Tag Manager"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-zinc-950 focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:text-white dark:focus:bg-white dark:focus:text-zinc-950"
