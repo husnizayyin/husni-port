@@ -2,15 +2,52 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Check, Copy, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { SiGithub } from 'react-icons/si';
+import {
+  FaLinkedinIn,
+  FaTelegram,
+  FaWhatsapp,
+  FaXTwitter,
+} from 'react-icons/fa6';
 import { PROFILE } from '@/data/profile';
 import { SoundButton } from '@/components/ui/SoundButton';
 import { useAppSound } from '@/context/SoundProvider';
 import { getJakartaTime } from '@/lib/utils';
 
+const PLATFORM_STYLES: Record<
+  (typeof PROFILE.socials)[number]['id'],
+  { Icon: React.ComponentType<{ className?: string }>; hoverClass: string }
+> = {
+  linkedin: {
+    Icon: FaLinkedinIn,
+    hoverClass:
+      'hover:border-[#0A66C2] hover:text-[#0A66C2] dark:hover:border-[#0A66C2] dark:hover:text-[#3897F0]',
+  },
+  github: {
+    Icon: SiGithub,
+    hoverClass:
+      'hover:border-zinc-900 hover:text-zinc-950 dark:hover:border-white dark:hover:text-white',
+  },
+  whatsapp: {
+    Icon: FaWhatsapp,
+    hoverClass:
+      'hover:border-[#25D366] hover:text-[#16A34A] dark:hover:border-[#25D366] dark:hover:text-[#25D366]',
+  },
+  telegram: {
+    Icon: FaTelegram,
+    hoverClass:
+      'hover:border-[#229ED9] hover:text-[#229ED9] dark:hover:border-[#229ED9] dark:hover:text-[#38BDF8]',
+  },
+  x: {
+    Icon: FaXTwitter,
+    hoverClass:
+      'hover:border-zinc-900 hover:text-zinc-950 dark:hover:border-white dark:hover:text-white',
+  },
+};
+
 export function Footer() {
   const { playSound } = useAppSound();
-  const [copied, setCopied] = useState(false);
   const [clock, setClock] = useState<string>('--:--:--');
 
   useEffect(() => {
@@ -20,16 +57,6 @@ export function Footer() {
     }, 1000);
     return () => window.clearInterval(timer);
   }, []);
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(PROFILE.email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2400);
-    } catch {
-      window.location.href = `mailto:${PROFILE.email}`;
-    }
-  };
 
   return (
     <footer id="contact" aria-label="Contact and Footer" className="py-16 sm:py-24 lg:py-32">
@@ -66,57 +93,43 @@ export function Footer() {
                 <Mail className="h-4 w-4" />
                 <span>Email Husni Directly</span>
               </SoundButton>
-
-              <SoundButton
-                onClick={handleCopyEmail}
-                variant="secondary"
-                soundVariant="open"
-                className="w-full break-all text-xs sm:w-auto sm:text-sm"
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-4 w-4 text-emerald-500" />
-                    <span>Copied {PROFILE.email}</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4" />
-                    <span>{PROFILE.email}</span>
-                  </>
-                )}
-              </SoundButton>
             </div>
           </div>
 
-          {/* Direct Social & Messaging Channels */}
-          <div className="relative z-10 mt-12 grid grid-cols-2 gap-3 border-t border-zinc-200/80 pt-8 sm:grid-cols-3 lg:grid-cols-6 dark:border-zinc-800">
-            {PROFILE.socials.map((s) => (
-              <motion.a
-                key={s.label}
-                href={s.href}
-                target={s.href.startsWith('mailto:') ? undefined : '_blank'}
-                rel={s.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onPointerDown={() => playSound('tick')}
-                className="group rounded-2xl border border-zinc-200/80 bg-white p-3.5 transition-colors hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600"
-              >
-                <div className="flex items-center justify-between text-xs font-semibold text-zinc-900 dark:text-white">
-                  <span>{s.label}</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 text-zinc-400 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#FF5C1A]" />
-                </div>
-                <div className="mt-1 truncate font-mono text-[10px] text-zinc-500 dark:text-zinc-400">
-                  {s.handle}
-                </div>
-              </motion.a>
-            ))}
+          {/* Direct Social & Messaging Platform Icons */}
+          <div className="relative z-10 mt-10 flex flex-col gap-4 border-t border-zinc-200/80 pt-8 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800">
+            <span className="font-mono text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              Connect via Platform
+            </span>
+
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+              {PROFILE.socials.map((s) => {
+                const { Icon, hoverClass } = PLATFORM_STYLES[s.id];
+                return (
+                  <motion.a
+                    key={s.id}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onPointerDown={() => playSound('tick')}
+                    className={`flex h-12 w-12 items-center justify-center rounded-2xl border border-zinc-200/90 bg-white text-zinc-700 shadow-sm transition-colors dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 ${hoverClass}`}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </motion.a>
+                );
+              })}
+            </div>
           </div>
         </div>
 
         {/* Bottom Colophon */}
         <div className="mt-10 flex flex-col items-start justify-between gap-4 px-2 font-mono text-xs text-zinc-500 sm:flex-row sm:items-center dark:text-zinc-400">
           <div>
-            © {new Date().getFullYear()} {PROFILE.name}. Crafted with Next.js, React Three Fiber, Framer Motion & WebAudio.
+            © {new Date().getFullYear()} {PROFILE.name}. Software Engineer — Web, Mobile & Enterprise Systems.
           </div>
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C1A]" />

@@ -57,33 +57,28 @@ export const PROFILE = {
   ],
   socials: [
     {
+      id: 'linkedin',
       label: 'LinkedIn',
-      handle: 'in/husnizayn',
       href: 'https://www.linkedin.com/in/husnizayn/',
     },
     {
+      id: 'github',
       label: 'GitHub',
-      handle: 'github.com/husnizayyin',
       href: 'https://github.com/husnizayyin',
     },
     {
-      label: 'Email',
-      handle: 'husni.zayyin98@gmail.com',
-      href: 'mailto:husni.zayyin98@gmail.com',
-    },
-    {
+      id: 'whatsapp',
       label: 'WhatsApp',
-      handle: '+62 859-5993-9270',
       href: 'https://wa.me/6285959939270',
     },
     {
+      id: 'telegram',
       label: 'Telegram',
-      handle: '@husnizayn',
       href: 'https://t.me/husnizayn',
     },
     {
-      label: 'X / Twitter',
-      handle: '@husnizayn',
+      id: 'x',
+      label: 'X (Twitter)',
       href: 'https://x.com/husnizayn',
     },
   ],
