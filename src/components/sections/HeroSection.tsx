@@ -140,7 +140,7 @@ export function HeroSection() {
             className="lg:col-span-5"
           >
             <HeroScene />
-            <div className="mx-auto mt-3 flex max-w-[440px] items-center justify-between border-t border-zinc-200/70 pt-3 font-mono text-[11px] text-zinc-500 dark:border-zinc-800/80 dark:text-zinc-400">
+            <div className="mx-auto flex max-w-[440px] items-center justify-between border-t border-zinc-200/80 pt-3 font-mono text-[11px] text-zinc-500 dark:border-zinc-800/90 dark:text-zinc-400">
               <span>Currently · Archangel Digital Studios (SG)</span>
               <span>Next.js · Flutter · Laravel</span>
             </div>

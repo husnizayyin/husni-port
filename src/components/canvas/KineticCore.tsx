@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Float, useTexture } from '@react-three/drei';
+import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface KineticCoreProps {
@@ -11,31 +11,11 @@ interface KineticCoreProps {
   onCoreInteract: () => void;
 }
 
-/**
- * Generates a crisp anti-aliased 4:5 rounded-corner alpha mask (frameless, zero border).
- */
-function createRoundedAlphaMask(): THREE.CanvasTexture {
-  const w = 800;
-  const h = 1000;
-  const r = 48;
-  const canvas = document.createElement('canvas');
-  canvas.width = w;
-  canvas.height = h;
-  const ctx = canvas.getContext('2d');
-  if (ctx) {
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.beginPath();
-    ctx.roundRect(0, 0, w, h, r);
-    ctx.fill();
-  }
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.minFilter = THREE.LinearFilter;
-  tex.magFilter = THREE.LinearFilter;
-  tex.needsUpdate = true;
-  return tex;
-}
+const PORTRAIT_SRC = '/husni-hero-cutout.png';
+// Visible frustum height at z=0 for camera z=5.0, fov=40deg: 2 * 5 * tan(20deg) = 3.6397
+const BASE_Y = -1.82;
+const PLANE_WIDTH = 2.84;
+const PLANE_HEIGHT = 3.55; // Exact 4:5 (1200x1500) aspect ratio
 
 export function KineticCore({
   impulseRef,
@@ -46,7 +26,20 @@ export function KineticCore({
   const gl = useThree((state) => state.gl);
   const [hovered, setHovered] = useState(false);
 
-  const portraitTexture = useTexture('/husni-portrait-hd.jpg');
+  const portraitTexture = useTexture(PORTRAIT_SRC);
+
+  // Anchor pivot at the bottom edge (y = 0) so the cutout rests flush on the hairline rule
+  const geometry = useMemo(() => {
+    const geo = new THREE.PlaneGeometry(PLANE_WIDTH, PLANE_HEIGHT);
+    geo.translate(0, PLANE_HEIGHT / 2, 0);
+    return geo;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      geometry.dispose();
+    };
+  }, [geometry]);
 
   useEffect(() => {
     portraitTexture.colorSpace = THREE.SRGBColorSpace;
@@ -61,21 +54,13 @@ export function KineticCore({
     };
   }, [portraitTexture, gl]);
 
-  const alphaMask = useMemo(() => createRoundedAlphaMask(), []);
-
-  useEffect(() => {
-    return () => {
-      alphaMask.dispose();
-    };
-  }, [alphaMask]);
-
   useFrame((state, delta) => {
     const t = state.clock.getElapsedTime();
     impulseRef.current = THREE.MathUtils.damp(impulseRef.current, 0, 4.5, delta);
 
     if (meshRef.current) {
-      const tiltX = -pointerRef.current.y * 0.1 + Math.sin(t * 0.7) * 0.01;
-      const tiltY = pointerRef.current.x * 0.14 + Math.cos(t * 0.6) * 0.01;
+      const tiltX = -pointerRef.current.y * 0.05 + Math.sin(t * 0.65) * 0.006;
+      const tiltY = pointerRef.current.x * 0.11 + Math.cos(t * 0.55) * 0.008;
 
       meshRef.current.rotation.x = THREE.MathUtils.damp(
         meshRef.current.rotation.x,
@@ -92,54 +77,47 @@ export function KineticCore({
 
       meshRef.current.position.x = THREE.MathUtils.damp(
         meshRef.current.position.x,
-        pointerRef.current.x * 0.08,
+        pointerRef.current.x * 0.05,
         4.5,
         delta
       );
-      meshRef.current.position.y = THREE.MathUtils.damp(
-        meshRef.current.position.y,
-        pointerRef.current.y * 0.06,
-        4.5,
-        delta
-      );
+      meshRef.current.position.y = BASE_Y;
 
-      const targetScale = (hovered ? 1.02 : 1.0) + impulseRef.current * 0.03;
+      const targetScale = (hovered ? 1.015 : 1.0) + impulseRef.current * 0.025;
       meshRef.current.scale.setScalar(
         THREE.MathUtils.damp(meshRef.current.scale.x, targetScale, 7, delta)
       );
     }
   });
 
-  // Exact 4:5 (0.80) aspect ratio matching 1440x1800 HD image — zero stretching
   return (
-    <Float speed={1.2} rotationIntensity={0.02} floatIntensity={0.08}>
-      <mesh
-        ref={meshRef}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          setHovered(true);
-          document.body.style.cursor = 'pointer';
-        }}
-        onPointerOut={() => {
-          setHovered(false);
-          document.body.style.cursor = '';
-        }}
-        onPointerDown={(e) => {
-          e.stopPropagation();
-          impulseRef.current = 1.0;
-          onCoreInteract();
-        }}
-      >
-        <planeGeometry args={[3.28, 4.1]} />
-        <meshBasicMaterial
-          map={portraitTexture}
-          alphaMap={alphaMask}
-          transparent
-          toneMapped={false}
-        />
-      </mesh>
-    </Float>
+    <mesh
+      ref={meshRef}
+      geometry={geometry}
+      position={[0, BASE_Y, 0]}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = '';
+      }}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        impulseRef.current = 1.0;
+        onCoreInteract();
+      }}
+    >
+      <meshBasicMaterial
+        map={portraitTexture}
+        transparent
+        alphaTest={0.01}
+        toneMapped={false}
+      />
+    </mesh>
   );
 }
 
-useTexture.preload('/husni-portrait-hd.jpg');
+useTexture.preload(PORTRAIT_SRC);

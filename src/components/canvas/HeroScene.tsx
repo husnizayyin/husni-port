@@ -25,7 +25,7 @@ export default function HeroScene() {
     <div className="relative mx-auto aspect-[4/5] w-full max-w-[440px] select-none">
       <Canvas
         dpr={[2, 3]}
-        camera={{ position: [0, 0, 5.15], fov: 42 }}
+        camera={{ position: [0, 0, 5.0], fov: 40 }}
         gl={{
           antialias: true,
           alpha: true,
