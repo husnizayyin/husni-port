@@ -35,6 +35,7 @@ export interface Article {
   accent: string;
   liveUrl?: string;
   liveDomain?: string;
+  liveCtaLabel?: string;
   repoName?: string;
   repoUrl?: string;
   heroImage?: ArticleImage;
@@ -69,6 +70,7 @@ export const ARTICLES: Article[] = [
     accent: '#0557FA',
     liveUrl: 'https://veyronix-landing.vercel.app/',
     liveDomain: 'veyronix-landing.vercel.app',
+    liveCtaLabel: 'Explore Veyronix Live Demo & Setup Docs',
     heroImage: {
       src: '/articles/veyronix/screen-dashboard.png',
       alt: 'Veyronix embedded dashboard inside Shopify Admin showing scheduled orders, revenue, delivery vs pickup split, and storefront widget status',
@@ -76,6 +78,7 @@ export const ARTICLES: Article[] = [
         'Veyronix running natively inside Shopify Admin — tracking 7-day scheduled order volume, Delivery vs. Store Pickup split, and live storefront/checkout extension status across multiple outlets.',
     },
     tags: [
+      'Veyronix',
       'Shopify App',
       'Shopify Functions',
       'Online Store 2.0',

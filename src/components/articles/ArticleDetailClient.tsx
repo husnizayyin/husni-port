@@ -133,13 +133,13 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
               onClick={() =>
                 trackEvent('article_outbound_click', {
                   article_slug: article.slug,
-                  destination_type: 'live_website',
+                  destination_type: 'live_website_top',
                   destination_url: article.liveUrl,
                 })
               }
             >
               <Globe className="h-4 w-4" />
-              <span>Visit {article.liveDomain ?? 'Live Website'}</span>
+              <span>{article.liveCtaLabel ?? `Visit ${article.liveDomain ?? 'Live Website'}`}</span>
               <ArrowUpRight className="h-4 w-4" />
             </SoundButton>
           )}
@@ -319,6 +319,46 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
           </section>
         ))}
       </div>
+
+      {/* End-of-Article Live Product CTA */}
+      {article.liveUrl && (
+        <section
+          aria-label="Explore Live Application"
+          className="mt-14 flex flex-col items-start justify-between gap-5 rounded-3xl border border-zinc-200/90 bg-white p-6 shadow-editorial-light sm:flex-row sm:items-center sm:p-8 dark:border-zinc-800/90 dark:bg-zinc-900/60 dark:shadow-editorial-dark"
+        >
+          <div className="max-w-xl">
+            <div className="font-mono text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              Live Product &amp; Interactive Preview
+            </div>
+            <h3 className="mt-1.5 text-lg font-bold tracking-tight text-zinc-950 sm:text-xl dark:text-white">
+              Try the live storefront demo and inspect the full documentation.
+            </h3>
+            <p className="mt-1 text-xs leading-relaxed text-zinc-600 sm:text-sm dark:text-zinc-400">
+              {article.liveDomain ?? article.liveUrl}
+            </p>
+          </div>
+
+          <SoundButton
+            href={article.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="primary"
+            soundVariant="click"
+            className="w-full shrink-0 sm:w-auto"
+            onClick={() =>
+              trackEvent('article_outbound_click', {
+                article_slug: article.slug,
+                destination_type: 'live_website_bottom',
+                destination_url: article.liveUrl,
+              })
+            }
+          >
+            <Globe className="h-4 w-4" />
+            <span>{article.liveCtaLabel ?? `Visit ${article.liveDomain ?? 'Live Website'}`}</span>
+            <ArrowUpRight className="h-4 w-4" />
+          </SoundButton>
+        </section>
+      )}
 
       {/* Social Share Card with Live OpenGraph Image & Description Preview */}
       <ShareArticleBar article={article} variant="card" />
