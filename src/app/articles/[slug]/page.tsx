@@ -76,6 +76,13 @@ export default function ArticleDetailPage({ params }: ArticlePageProps) {
 
   const canonicalUrl = `${SITE_URL}/articles/${article.slug}`;
   const ogImageUrl = `${SITE_URL}/og-image.jpg`;
+  const schemaImages = [
+    ogImageUrl,
+    ...(article.heroImage ? [`${SITE_URL}${article.heroImage.src}`] : []),
+    ...article.sections.flatMap((s) =>
+      (s.images ?? []).map((img) => `${SITE_URL}${img.src}`)
+    ),
+  ];
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -84,7 +91,7 @@ export default function ArticleDetailPage({ params }: ArticlePageProps) {
         '@type': 'BlogPosting',
         headline: article.title,
         description: article.excerpt,
-        image: ogImageUrl,
+        image: schemaImages,
         datePublished: `${article.publishedIso}T08:00:00+07:00`,
         dateModified: `${article.publishedIso}T08:00:00+07:00`,
         author: {

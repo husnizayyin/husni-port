@@ -183,6 +183,27 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
       </motion.header>
 
       {/* Key Takeaways Summary Box */}
+      {article.heroImage && (
+        <motion.figure
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.05 }}
+          className="mt-10 overflow-hidden rounded-3xl border border-zinc-200/90 bg-zinc-50/70 shadow-editorial-light dark:border-zinc-800/90 dark:bg-zinc-900/50 dark:shadow-editorial-dark"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={article.heroImage.src}
+            alt={article.heroImage.alt}
+            className="block h-auto w-full"
+          />
+          {article.heroImage.caption && (
+            <figcaption className="border-t border-zinc-200/80 px-5 py-3.5 text-xs leading-relaxed text-zinc-600 dark:border-zinc-800/80 dark:text-zinc-400">
+              {article.heroImage.caption}
+            </figcaption>
+          )}
+        </motion.figure>
+      )}
+
       <motion.section
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -238,6 +259,30 @@ export function ArticleDetailClient({ article, relatedArticles }: ArticleDetailC
                   </li>
                 ))}
               </ul>
+            )}
+
+            {sec.images && sec.images.length > 0 && (
+              <div className="mt-6 space-y-6">
+                {sec.images.map((img) => (
+                  <figure
+                    key={img.src}
+                    className="overflow-hidden rounded-2xl border border-zinc-200/90 bg-zinc-50/70 shadow-sm dark:border-zinc-800/90 dark:bg-zinc-900/50"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      className="block h-auto w-full"
+                    />
+                    {img.caption && (
+                      <figcaption className="border-t border-zinc-200/80 px-4 py-3 text-xs leading-relaxed text-zinc-600 sm:px-5 dark:border-zinc-800/80 dark:text-zinc-400">
+                        {img.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
             )}
 
             {sec.code && (

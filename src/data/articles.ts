@@ -1,7 +1,14 @@
+export interface ArticleImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface ArticleSection {
   heading: string;
   paragraphs: string[];
   bullets?: string[];
+  images?: ArticleImage[];
   code?: {
     filename: string;
     language: string;
@@ -30,6 +37,7 @@ export interface Article {
   liveDomain?: string;
   repoName?: string;
   repoUrl?: string;
+  heroImage?: ArticleImage;
   tags: string[];
   keyTakeaways: string[];
   sections: ArticleSection[];
@@ -46,6 +54,162 @@ export const ARTICLE_CATEGORIES = [
 ] as const;
 
 export const ARTICLES: Article[] = [
+  {
+    slug: 'building-veyronix-shopify-pickup-and-local-delivery-app',
+    title: 'Building Veyronix: A Local Delivery & Store Pickup Scheduling App for the Shopify App Store',
+    subtitle:
+      'Why native Shopify local delivery falls short for bakeries, florists, and multi-outlet retailers—and how I built Veyronix with Online Store 2.0 cart drawer embeds, server-side Checkout Functions, and one-click kitchen prep sheets.',
+    excerpt:
+      'Inside the product and engineering design of Veyronix, an upcoming Shopify App Store application that lets shoppers pick exact delivery dates and 15-minute pickup slots right in the cart while protecting checkout on Shopify’s servers.',
+    category: 'E-Commerce & F&B',
+    publishedAt: '28 Nov 2026',
+    publishedIso: '2026-11-28',
+    readTime: '9 min read',
+    featured: true,
+    accent: '#0557FA',
+    liveUrl: 'https://veyronix-landing.vercel.app/',
+    liveDomain: 'veyronix-landing.vercel.app',
+    heroImage: {
+      src: '/articles/veyronix/screen-dashboard.png',
+      alt: 'Veyronix embedded dashboard inside Shopify Admin showing scheduled orders, revenue, delivery vs pickup split, and storefront widget status',
+      caption:
+        'Veyronix running natively inside Shopify Admin — tracking 7-day scheduled order volume, Delivery vs. Store Pickup split, and live storefront/checkout extension status across multiple outlets.',
+    },
+    tags: [
+      'Shopify App',
+      'Shopify Functions',
+      'Online Store 2.0',
+      'PostgreSQL (Neon)',
+      'Local Delivery',
+      'Store Pickup',
+    ],
+    keyTakeaways: [
+      'Mounts directly inside both standard Cart pages and slide-out AJAX Cart Drawers via Shopify Online Store 2.0 App Embeds—requiring zero Liquid theme edits from merchants.',
+      'Uses server-side Shopify Cart & Checkout Validation Functions and Delivery Customization Functions so customers cannot bypass date/time selection or minimum order thresholds on any Shopify plan.',
+      'Connects storefront slot selection to daily store operations with 6-digit postal code prefix filtering, real-time slot capacity limits in Neon PostgreSQL, automatic order tagging, and printable Kitchen Prep Sheets.',
+    ],
+    sections: [
+      {
+        heading: 'Why I Started Building Veyronix',
+        paragraphs: [
+          'After building custom Shopify storefronts for food, catering, and retail businesses in Singapore, I kept running into the exact same operational headache. Shopify’s built-in Local Delivery and Local Pickup settings work fine if you sell t-shirts or dry goods that can arrive "sometime in the next two business days." They break down almost immediately when you sell sourdough bread, fresh flower bouquets, chilled butcher cuts, or festive hampers.',
+          'When customers buy perishable food or gifts, timing is part of the product itself. A shopper ordering pastry boxes for a noon office meeting needs to know whether the 12:00 PM – 12:15 PM window is still open before paying. Meanwhile, the merchant needs hard guardrails: someone ordering at 11:15 PM cannot expect a freshly baked cake at 8:30 AM the next morning, vans cannot deliver single $12 orders to distant postal zones at a loss, and a small counter team cannot handle twenty walk-in pickups arriving at the exact same minute.',
+          'Without a proper scheduling layer, store owners end up spending hours on WhatsApp and email chasing customers after checkout just to confirm delivery dates. Existing plugins on the market often force merchants to edit fragile Liquid theme files, break inside modern slide-out cart drawers, or rely purely on browser JavaScript that shoppers accidentally skip with express checkout buttons. I started building Veyronix—currently preparing for listing on the Shopify App Store—to solve those exact gaps cleanly in one native app.',
+        ],
+        images: [
+          {
+            src: '/articles/veyronix/screen-theme-editor.png',
+            alt: 'Shopify Theme Editor showing Veyronix Drawer Embed toggled on with live slide-out cart drawer preview',
+            caption:
+              'Merchants enable Veyronix in Shopify’s Theme Editor with a single toggle. The scheduler mounts cleanly inside slide-out Cart Drawers and standard Cart pages with postal code checks and free-delivery progress hints.',
+          },
+        ],
+      },
+      {
+        heading: 'No-Code Cart Drawer Integration & Real-Time Postal Checks',
+        paragraphs: [
+          'Most modern Shopify themes—starting with Dawn and extending across popular commercial themes—no longer send shoppers to a dedicated /cart page by default. Instead, clicking "Add to cart" opens a slide-out cart drawer. A huge source of support tickets for merchants is installing a delivery date app only to discover it requires a developer to paste custom snippets into main-cart-items.liquid or hook into theme-specific AJAX events.',
+          'Veyronix is built on Shopify Online Store 2.0 Theme App Extensions with two drop-in targets: a Cart Delivery Block for classic cart pages and a lightweight App Embed designed specifically for slide-out drawers. Once toggled on in the Theme Editor, Veyronix observes cart mutations automatically and renders a clean switch between Local Delivery and Store Pickup right above the checkout button.',
+          'Before a customer even picks a date, the widget validates whether their address is eligible. For Local Delivery, shoppers enter their postal code (such as 6-digit Singapore sectors like 238801 in Orchard or 408734 in Ubi) and get instant feedback on whether delivery is supported, along with a live banner showing how close their basket is to unlocking Free Local Delivery. Switching to Store Pickup swaps the postal input for an outlet selector showing exact store addresses and available collection windows.',
+        ],
+      },
+      {
+        heading: 'Server-Side Checkout Protection on Every Shopify Plan',
+        paragraphs: [
+          'Relying on cart-page JavaScript alone has a well-known flaw: if a customer clicks a dynamic "Buy It Now" button on a product page, uses a cached `/checkout` link, or checks out on a slow mobile connection before scripts finish loading, the order goes through without a delivery date or below the store’s minimum delivery basket.',
+          'Previously, blocking invalid checkouts on the server required Shopify Plus and deprecated Checkout Scripts. For Veyronix, I built two native Shopify Functions extensions that run directly on Shopify’s checkout infrastructure across all standard Shopify plans: a Cart & Checkout Validation Function and a Delivery Customization Function.',
+          'Whenever a shopper attempts to proceed to payment, the validation function reads Veyronix’s rules from shop metafields and verifies cart attributes on the server. If the delivery date or time slot is missing—or if a Local Delivery cart sits below the merchant’s required minimum (for example, SGD 50.00)—Shopify stops the checkout cleanly and asks the customer to pick a valid slot. At the same time, the Delivery Customization Function hides mismatched shipping rates so a customer who chose Store Pickup in the cart is never accidentally charged a Local Delivery fee at checkout.',
+        ],
+        code: {
+          filename: 'extensions/fulfill-checkout-validator/src/index.js',
+          language: 'javascript',
+          snippet: `export function run(input) {
+  const errors = [];
+  const cfg = input?.shop?.metafield?.value ? JSON.parse(input.shop.metafield.value) : null;
+
+  const enforceSchedule = cfg?.rules?.enforceCheckoutSchedule !== false;
+  const methodVal = (input?.cart?.deliveryMethod?.value || '').trim();
+  const dateVal = (input?.cart?.deliveryDate?.value || '').trim();
+  const timeVal = (input?.cart?.deliveryTime?.value || '').trim();
+
+  if (enforceSchedule && (!dateVal || !timeVal)) {
+    errors.push({
+      localizedMessage:
+        cfg?.widget?.validationErrorText ||
+        'Please return to your cart and select a preferred delivery or pickup date and time.',
+      target: '$.cart',
+    });
+  }
+
+  const isPickup = /pickup/i.test(methodVal);
+  const minRequired = Number(isPickup ? cfg?.rates?.minOrderPickup || 0 : cfg?.rates?.minOrderDelivery || 0);
+  const subtotal = parseFloat(input?.cart?.cost?.subtotalAmount?.amount || '0') || 0;
+
+  if (minRequired > 0 && subtotal < minRequired) {
+    errors.push({
+      localizedMessage: \`Minimum order of \${input.cart.cost.subtotalAmount.currencyCode} \${minRequired.toFixed(2)} is required.\`,
+      target: '$.cart',
+    });
+  }
+
+  return { errors };
+}`,
+        },
+        images: [
+          {
+            src: '/articles/veyronix/screen-rates.png',
+            alt: 'Veyronix Rates and Checkout Rules screen inside Shopify Admin',
+            caption:
+              'Rates & Checkout Rules inside Veyronix — merchants activate server-side Shopify Checkout Functions, match shipping rates to the chosen fulfillment method, and configure minimum order and free-delivery thresholds.',
+          },
+        ],
+      },
+      {
+        heading: 'Multi-Outlet Slot Rules, Cut-Off Times & Real-Time Capacity',
+        paragraphs: [
+          'Retail operations rarely follow one uniform schedule across every branch. A brand might run a central kitchen and roastery in Ubi that dispatches islandwide deliveries in 15-minute windows, an ION Orchard flagship offering same-day Click & Collect with a two-hour preparation lead time, and a Marina Bay Sands boutique that only allows in-store pickup with extended weekend hours.',
+          'Inside Veyronix’s Locations editor, merchants import their existing Shopify locations in one click and configure independent rules per outlet. Store teams can keep hours identical every day or customize slots for each day of the week, auto-generate 15, 30, or 60-minute intervals, restrict specific postal prefixes (such as allowing central sectors while excluding offshore islands), set daily cut-off times so late-night orders roll over properly, and block out public holidays like Chinese New Year.',
+          'Behind the scenes, Veyronix pairs Shopify webhooks with a Neon Serverless PostgreSQL database to track exact order caps per time slot. As soon as an order is paid, webhook handlers decrement remaining capacity for that window in real time—preventing two shoppers from overbooking the final Friday evening delivery slot during festive rushes.',
+        ],
+        images: [
+          {
+            src: '/articles/veyronix/screen-locations.png',
+            alt: 'Veyronix Location Editor showing Singapore postal prefix validation, 15-minute slot configuration, and holiday blackout dates',
+            caption:
+              'Per-location scheduling controls — supporting 6-digit postal prefix rules, quick-fill 15/30/60-minute slot generators, daily cut-off rollover, and public holiday blackouts.',
+          },
+        ],
+      },
+      {
+        heading: 'Closing the Operational Loop: Order Tags, Customer Receipts & Kitchen Prep Sheets',
+        paragraphs: [
+          'Capturing a date in the cart is only half the job; what happens right after payment determines whether the merchant’s team actually saves time. On the customer side, Veyronix includes a Checkout & Customer Account UI Extension that displays the confirmed fulfillment method, outlet or postal code, date, and time window right on Shopify’s Thank You and Order Status pages, alongside ready-to-paste email receipt blocks. Giving buyers clear visual confirmation immediately cuts down "When will my order arrive?" support messages.',
+          'On the merchant side, every scheduled order is automatically tagged in Shopify Admin with the chosen time window, date, day of week, and workflow state (for example, 12:00 - 12:15 PM and Veyronix: Scheduled) so Shopify Flow automations and staff filters work out of the box. Inside the Veyronix Orders queue, staff can filter today’s dispatches by outlet, reschedule a slot in one click if a customer calls in, and step orders through clear operational stages: Scheduled, Preparing, Ready for Pickup, Out for Delivery, and Completed.',
+          'Finally, because kitchens and packing benches think in total batch quantities rather than individual order invoices, I built a dedicated Reports & Kitchen Prep Sheet view. Instead of opening thirty-four separate orders each morning, bakers, florists, and packing teams get an instant consolidated tally—summing exact product and variant counts needed for today’s or tomorrow’s fulfillment windows, alongside peak slot utilization bars and one-click printing or CSV export.',
+        ],
+        bullets: [
+          'Post-Purchase Clarity: Dedicated Thank You & Order Status UI Extension confirms exact pickup store or delivery window immediately after payment.',
+          'Structured Dispatch Queue: Live status transitions (Scheduled → Preparing → Ready for Pickup → Out for Delivery → Completed) synced with Shopify Order Tags.',
+          'Consolidated Production Prep Sheet: Aggregates line-item quantities across all scheduled orders for the day so kitchens bake and pack exact numbers with minimal waste.',
+          'Built for Shopify App Store Standards: Engineered as an embedded Shopify Admin experience with OAuth offline/online access, GDPR/compliance webhooks, and serverless edge APIs.',
+        ],
+        images: [
+          {
+            src: '/articles/veyronix/screen-orders.png',
+            alt: 'Veyronix Scheduled Orders dispatch table showing auto-synced tags and fulfillment status workflow',
+            caption:
+              'The Scheduled Orders dispatch view — filterable by method, outlet, and date, with auto-synced Shopify tags and one-click status updates from Preparing to Ready for Pickup or Out for Delivery.',
+          },
+          {
+            src: '/articles/veyronix/screen-prepsheet.png',
+            alt: 'Veyronix Reports and Printable Kitchen Prep Sheet summing exact product quantities across scheduled orders',
+            caption:
+              'Daily Kitchen & Packing Prep Sheet — automatically sums exact item quantities across all scheduled orders for the day alongside busiest time-slot utilization metrics.',
+          },
+        ],
+      },
+    ],
+  },
   {
     slug: 'engineering-parentguide-sg-education-discovery-platform',
     title: 'Architecting ParentGuide.sg: An SEO-First Education & Family Discovery Platform in Next.js',
